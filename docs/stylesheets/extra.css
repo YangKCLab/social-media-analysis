@@ -1,0 +1,36 @@
+/* Google Colab button styling */
+.colab-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 10px 0;
+  background-color: #f9ab00;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.colab-button:hover {
+  background-color: #e09600;
+  color: white;
+}
+
+.colab-button::before {
+  content: "🚀 ";
+}
+
+/* Notebook header with Colab link */
+.notebook-header {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[data-md-color-scheme="slate"] .notebook-header {
+  background-color: #2d2d2d;
+}
