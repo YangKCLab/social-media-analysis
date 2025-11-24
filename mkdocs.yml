@@ -1,0 +1,84 @@
+site_name: Social Media Analysis
+site_description: Course materials for social media analysis
+site_author: Kaicheng Yang
+repo_url: https://github.com/yangkc/social-media-analysis
+repo_name: social-media-analysis
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+  - mkdocs-jupyter:
+      execute: false                    # Don't run notebooks (outputs pre-committed)
+      include_source: true              # Enable download links
+      show_input: true                  # Show code cells
+      theme: light                      # Notebook theme
+      ignore_h1_titles: false          # Use notebook titles
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Syllabus: syllabus.md
+  - Topics:
+    - APIs:
+      - topics/apis/index.md
+      - Twitter API: topics/apis/twitter-api.ipynb
+      - Reddit API: topics/apis/reddit-api.ipynb
+    - Data Collection:
+      - topics/data-collection/index.md
+      - Web Scraping: topics/data-collection/web-scraping.ipynb
+    - Sentiment Analysis:
+      - topics/sentiment-analysis/index.md
+      - Introduction: topics/sentiment-analysis/intro.ipynb
+      - Advanced: topics/sentiment-analysis/advanced.ipynb
+    - Visualization:
+      - topics/visualization/index.md
+      - Charts: topics/visualization/charts.ipynb
+  - Exercises:
+    - Quiz 1: exercises/quiz-01.ipynb
+    - Quiz 2: exercises/quiz-02.ipynb
