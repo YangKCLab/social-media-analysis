@@ -18,7 +18,7 @@ Get started with basic sentiment analysis techniques.
 !!! tip "Interactive Learning"
     Open this notebook in Google Colab to run the code interactively:
 
-    [Open in Colab](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/sentiment-analysis/intro.ipynb){ .colab-button }
+    [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/sentiment-analysis/intro.ipynb){ .colab-button }
 
 ### Advanced Sentiment Analysis
 
@@ -27,4 +27,4 @@ Explore advanced techniques including transformer models.
 !!! tip "Interactive Learning"
     Open this notebook in Google Colab to run the code interactively:
 
-    [Open in Colab](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/sentiment-analysis/advanced.ipynb){ .colab-button }
+    [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/sentiment-analysis/advanced.ipynb){ .colab-button }

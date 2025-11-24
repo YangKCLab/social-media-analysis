@@ -18,4 +18,4 @@ Learn to scrape social media data using Python libraries.
 !!! tip "Interactive Learning"
     Open this notebook in Google Colab to run the code interactively:
 
-    [Open in Colab](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/data-collection/web-scraping.ipynb){ .colab-button }
+    [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/web-scraping.ipynb){ .colab-button }

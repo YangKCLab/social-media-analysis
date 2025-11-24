@@ -2,7 +2,7 @@
 
 Course materials for "social media analysis" class.
 
-🌐 **Live Site**: https://yangkc.github.io/social-media-analysis/
+🌐 **Live Site**: https://yangkclab.github.io/social-media-analysis/
 
 ## Development
 
@@ -15,7 +15,7 @@ Course materials for "social media analysis" class.
 
 ```bash
 # Clone repository
-git clone https://github.com/yangkc/social-media-analysis.git
+git clone https://github.com/YangKCLab/social-media-analysis.git
 cd social-media-analysis
 
 # Install dependencies
@@ -32,7 +32,7 @@ Visit http://127.0.0.1:8000 to view the site.
 1. Create notebooks in appropriate `docs/topics/` subdirectory
 2. Add Colab badge at top of notebook:
    ```markdown
-   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/TOPIC/NOTEBOOK.ipynb)
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/TOPIC/NOTEBOOK.ipynb)
    ```
 3. For tutorial notebooks: Execute and commit with outputs
 4. For exercise notebooks: Leave cells empty and commit without outputs

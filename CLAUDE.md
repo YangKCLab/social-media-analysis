@@ -104,7 +104,7 @@ social-media-analysis/
 1. Create notebook in appropriate `docs/topics/` subdirectory
 2. Add Colab badge at the top (markdown cell):
    ```markdown
-   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/TOPIC/NOTEBOOK.ipynb)
+   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/TOPIC/NOTEBOOK.ipynb)
    ```
 3. Write content with explanations and code
 4. Execute all cells to generate outputs
@@ -132,7 +132,7 @@ https://colab.research.google.com/github/{user}/{repo}/blob/{branch}/{path}
 
 **Example**:
 ```
-https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb
+https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb
 ```
 
 ### Adding Colab Links
@@ -140,7 +140,7 @@ https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/
 **Method 1: Colab Badge in Notebook** (Recommended for notebooks)
 Add as first cell in notebook (markdown):
 ```markdown
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb)
 ```
 
 **Method 2: Styled Button in Topic Overview** (Recommended for index.md pages)
@@ -149,7 +149,7 @@ Add to topic overview markdown:
 !!! tip "Interactive Learning"
     Open this notebook in Google Colab to run the code interactively:
 
-    [Open in Colab](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb){ .colab-button }
+    [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb){ .colab-button }
 ```
 
 ### Custom Colab Styling

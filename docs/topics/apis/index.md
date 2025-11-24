@@ -18,7 +18,7 @@ Learn to collect tweets, user profiles, and engagement metrics using the Twitter
 !!! tip "Interactive Learning"
     Open this notebook in Google Colab to run the code interactively:
 
-    [Open in Colab](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb){ .colab-button }
+    [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/apis/twitter-api.ipynb){ .colab-button }
 
 ### Reddit API
 
@@ -27,4 +27,4 @@ Collect posts, comments, and subreddit data using the Reddit API.
 !!! tip "Interactive Learning"
     Open this notebook in Google Colab to run the code interactively:
 
-    [Open in Colab](https://colab.research.google.com/github/yangkc/social-media-analysis/blob/main/docs/topics/apis/reddit-api.ipynb){ .colab-button }
+    [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/apis/reddit-api.ipynb){ .colab-button }

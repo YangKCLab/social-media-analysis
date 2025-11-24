@@ -12,7 +12,7 @@ If you prefer to run notebooks locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yangkc/social-media-analysis.git
+git clone https://github.com/YangKCLab/social-media-analysis.git
 cd social-media-analysis
 
 # Install dependencies with uv
