@@ -2,37 +2,48 @@
 
 ## Prerequisites
 
+To effectively complete this course, you should be familiar with the following:
+
 - Basic Python knowledge
-- Familiarity with Jupyter notebooks
-- Google account (for Colab)
+- Jupyter notebooks
 
-## Local Setup (Optional)
+This course contains some notebooks that are designed to help you understand the concepts and techniques used in the course.
+You can run them locally or in Google Colab.
 
-If you prefer to run notebooks locally:
+## Local Setup
+
+If you prefer to run the notebooks locally, you can clone the repository and install the dependencies locally.
 
 ```bash
 # Clone the repository
 git clone https://github.com/YangKCLab/social-media-analysis.git
 cd social-media-analysis
+```
 
-# Install dependencies with uv
+We use the package manager [uv](https://docs.astral.sh/uv/) to manage the dependencies.
+Once you have `uv` installed, you can install the dependencies by running:
+
+```bash
 uv sync
+```
+
+To run the notebooks locally, you can use the following command:
+```bash
 uv run jupyter lab
 ```
 
+This will start the JupyterLab server and you can open the notebooks in your browser.
+
 ## Using Google Colab
 
-The easiest way to work with course materials:
+It might be easier to run the notebooks in Google Colab.
+You can do so following the instructions below:
 
 1. Click "Open in Colab" on any notebook page
 2. Sign in with your Google account
 3. Run cells directly in your browser
 4. Your changes are saved to your Google Drive
 
-## Course Navigation
+## Feedback and Questions
 
-Use the navigation menu to explore topics. Each topic includes:
-
-- Overview and learning objectives
-- Interactive notebooks with examples
-- Exercise notebooks for practice
+If you have any feedback or questions (e.g., typos, errors, etc.), please feel free to open an [issue on the GitHub repository](https://github.com/YangKCLab/social-media-analysis/issues).

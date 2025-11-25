@@ -77,16 +77,20 @@ extra:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - Syllabus: syllabus.md
   - Topics:
-    - APIs:
-      - topics/apis/index.md
-      - Twitter API: topics/apis/twitter-api.ipynb
     - Data Collection:
       - topics/data-collection/index.md
-    - Sentiment Analysis:
-      - topics/sentiment-analysis/index.md
+    - Data Format and Management:
+      - topics/data-format-management/index.md
+    - Measurements and Metrics:
+      - topics/measurements/index.md
+    - Hypothesis Testing and Statistical Analysis:
+      - topics/stats/index.md
     - Visualization:
       - topics/visualization/index.md
-  - Exercises:
-    - Quiz 1: exercises/quiz-01.ipynb
+    - Network Analysis:
+      - topics/network/index.md
+  - Materials:
+    - Research Papers: papers.md
+    - Project Assignment: project.md
+    - Resources: resources.md
