@@ -26,7 +26,6 @@ theme:
     - navigation.sections
     - navigation.path
     - navigation.top
-    - navigation.footer
     - navigation.indexes
     - toc.follow
     - toc.integrate
@@ -83,3 +82,10 @@ extra:
   analytics:
     provider: google
     property: G-VE0KJD22CN
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/YangKCLab
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/yang3kc
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/kaicheng-yang-43477213b/
