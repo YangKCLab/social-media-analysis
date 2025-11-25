@@ -10,8 +10,8 @@ theme:
   language: en
   palette:
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: blue grey
+      accent: blue grey
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -22,12 +22,13 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.tabs
+    - navigation.tracking
     - navigation.sections
+    - navigation.path
     - navigation.top
-    - navigation.footer
     - navigation.indexes
     - toc.follow
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -60,6 +61,19 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
 
+extra:
+  analytics:
+    provider: google
+    property: G-VE0KJD22CN
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/YangKCLab
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/yang3kc
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/kaicheng-yang-43477213b/
+
+# ToC
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
