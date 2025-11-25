@@ -1,26 +1,46 @@
-# Social Media Analysis
+# Course overview
 
 Welcome to the course materials for **Social Media Analysis**!
 
-## Course Overview
+## Course description
 
-This course provides comprehensive coverage of social media data analysis, from data collection to advanced analytics and visualization.
+This introductory course provides a comprehensive introduction to social media data analysis.
+Throughout the course, you'll learn:
 
-## Topics Covered
+- **Social media data collection**: Work with APIs and other techniques to collect data from various social media platforms.
+- **Data format and management**: Manage and process social media data in different formats.
+- **Measurements and metrics**: Apply various metrics to measure and analyze social media phenomena.
+- **Hypothesis testing and statistical analysis**: Test hypotheses and conduct statistical analyses on social media data.
+- **Data visualization**: Create compelling visualizations to communicate insights from social media data.
+- **Network analysis**: Analyze social networks and relationships using network analysis methods.
 
-- **APIs**: Learn to work with Twitter, Reddit, and other social media APIs
-- **Data Collection**: Web scraping, API authentication, data storage
-- **Sentiment Analysis**: Natural language processing and sentiment detection
-- **Visualization**: Creating compelling visualizations of social media data
+## Basic information
 
-## Getting Started
+- Homepage: [https://yangkclab.github.io/social-media-analysis](https://yangkclab.github.io/social-media-analysis)
+- GitHub repository: [https://github.com/YangKCLab/social-media-analysis](https://github.com/YangKCLab/social-media-analysis)
+- Instructor: [Kaicheng Yang](https://www.kaichengyang.me)
+- Prerequisites: This course can be offered to both undergraduate and graduate students. No prior knowledge of social media analysis is required. However, students are expected to have basic knowledge of programming and statistics.
 
-New to the course? Start with our [Getting Started](getting-started.md) guide to set up your environment.
+## Course materials
 
-## Interactive Learning
+The course combines lectures, research paper reading, and project work to ensure the learning outcomes.
 
+This website contains the learning materials for the course.
 All notebooks in this course can be opened in Google Colab for interactive execution. Look for the "Open in Colab" buttons throughout the materials.
 
-## Course Structure
+Please refer to xx for the list of research papers.
+Please refer to xx for the instructions on the project assignments.
 
-This course is organized by topics rather than weeks, allowing you to explore areas of interest at your own pace. Check the [Syllabus](syllabus.md) for suggested learning paths.
+## Course offering
+
+Variants of the course may be offered with slightly different names and contents based on the needs.
+Here is a list of the variants that have been offered:
+
+- [CS 415/515 Social Media Data Science Pipelines](https://yangkclab.github.io/social-media-ds-course) (Fall 2025 @ Binghamton University)
+
+## Special thanks
+
+We would like to thank the following people for their help in developing this course:
+
+- [Jeremy Blackburn](https://mrjimmyblack.com/) provides materials that are instrumental in the development of this course.
+- [Yong-Yeol Ahn](https://yyahn.com/about/)'s courses, such as [Data Visualization](https://yyahn.com/dviz-course/) provide valuable insights and inspiration for the design of this website.
