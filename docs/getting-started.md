@@ -43,3 +43,7 @@ You can do so following the instructions below:
 2. Sign in with your Google account
 3. Run cells directly in your browser
 4. Your changes are saved to your Google Drive
+
+## Feedback and Questions
+
+If you have any feedback or questions (e.g., typos, errors, etc.), please feel free to open an [issue on the GitHub repository](https://github.com/YangKCLab/social-media-analysis/issues).
