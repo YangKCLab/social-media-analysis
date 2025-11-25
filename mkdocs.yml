@@ -77,16 +77,8 @@ extra:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - Syllabus: syllabus.md
   - Topics:
-    - APIs:
-      - topics/apis/index.md
-      - Twitter API: topics/apis/twitter-api.ipynb
     - Data Collection:
       - topics/data-collection/index.md
-    - Sentiment Analysis:
-      - topics/sentiment-analysis/index.md
     - Visualization:
       - topics/visualization/index.md
-  - Exercises:
-    - Quiz 1: exercises/quiz-01.ipynb
