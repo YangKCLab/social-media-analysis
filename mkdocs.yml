@@ -90,4 +90,7 @@ nav:
       - topics/visualization/index.md
     - Network Analysis:
       - topics/network/index.md
-  - Research Papers: papers.md
+  - Materials:
+    - Research Papers: papers.md
+    - Project Assignment: project.md
+    - Resources: resources.md
