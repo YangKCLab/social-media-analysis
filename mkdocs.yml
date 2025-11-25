@@ -10,8 +10,8 @@ theme:
   language: en
   palette:
     - scheme: default
-      primary: indigo
-      accent: indigo
+      primary: blue grey
+      accent: blue grey
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -22,12 +22,14 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.tabs
+    - navigation.tracking
     - navigation.sections
+    - navigation.path
     - navigation.top
     - navigation.footer
     - navigation.indexes
     - toc.follow
+    - toc.integrate
     - search.suggest
     - search.highlight
     - content.code.copy
@@ -76,3 +78,8 @@ nav:
       - topics/visualization/index.md
   - Exercises:
     - Quiz 1: exercises/quiz-01.ipynb
+
+extra:
+  analytics:
+    provider: google
+    property: G-VE0KJD22CN
