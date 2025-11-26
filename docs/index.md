@@ -4,7 +4,7 @@ Welcome to the course materials for **Social Media Analysis**!
 
 ## Course description
 
-This introductory course provides a comprehensive introduction to social media data analysis.
+This introductory course provides an introduction to social media data analysis.
 Throughout the course, you'll learn:
 
 - **Social media data collection**: Work with APIs and other techniques to collect data from various social media platforms.
@@ -28,8 +28,11 @@ The course combines lectures, research paper reading, and project work to ensure
 This website contains the learning materials for the course.
 All notebooks in this course can be opened in Google Colab for interactive execution. Look for the "Open in Colab" buttons throughout the materials.
 
-Please refer to xx for the list of research papers.
-Please refer to xx for the instructions on the project assignments.
+Here is a list of the relevant materials for the course:
+
+- Please refer to [Research Papers](papers.md) for the list of research papers.
+- Please refer to [Project Assignment](project.md) for the instructions on the project assignments.
+- Please refer to [Resources](resources.md) for the list of useful resources.
 
 ## Course offering
 
