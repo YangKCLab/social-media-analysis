@@ -42,6 +42,8 @@ plugins:
       show_input: true                  # Show code cells
       theme: light                      # Notebook theme
       ignore_h1_titles: false          # Use notebook titles
+  - open-in-new-tab:
+      add_icon: true
 
 markdown_extensions:
   - pymdownx.highlight:
