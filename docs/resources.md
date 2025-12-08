@@ -76,6 +76,13 @@ Color palettes and accessibility:
 - [Scicolor](https://yang3kc.github.io/scicolor/) - A collection of color palettes for scientific data visualization
 - [Scicolor on PyPI](https://pypi.org/project/scicolor/) - A Python library for selecting color palettes for scientific data visualization
 
+## Interactive Dashboards
+
+- [Streamlit](https://streamlit.io/) - A library for creating interactive web applications
+- [Bokeh](https://bokeh.org/) - A library for creating interactive web applications
+- [Plotly Express](https://plotly.com/python/plotly-express/) - A library for creating interactive web applications
+- [Altair](https://altair-viz.github.io/) - A library for creating interactive web applications
+
 ## Statistics
 
 Statistical computing libraries:

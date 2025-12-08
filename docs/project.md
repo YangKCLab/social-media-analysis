@@ -61,6 +61,8 @@ Here are a few examples of interactive dashboards based on social media data:
 - [CoVaxxy](https://osome.iu.edu/tools/covaxxy): A dashboard that visualizes the relationships between the COVID-19 vaccines and the social media data.
 - [DomainDemo](https://domaindemoexplorer.streamlit.app): A dashboard that visualizes the audience demographics of different web domains based on social media data.
 
+You can refer to the [Resources](resources.md#interactive-dashboards) page for pointers on frameworks and libraries for creating interactive dashboards.
+
 ## Example Project Ideas
 
 With the knowledge and skills learned in this course, students can develop their own project ideas.
