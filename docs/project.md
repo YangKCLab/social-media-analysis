@@ -74,4 +74,4 @@ Here are some sample topics as inspiration:
 - What types of content (text, images, videos) generate the most engagement on different platforms?
 - What are the differences in user interaction patterns (replies, shares, likes) between platforms?
 - How does the timing of posts affect their reach and engagement across different platforms?
-- How do influencers' communication stratGgies differ across platforms?
+- How do influencers' communication strategies differ across platforms?
