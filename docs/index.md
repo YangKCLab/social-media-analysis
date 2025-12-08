@@ -7,18 +7,18 @@ Welcome to the course materials for **Social Media Analysis**!
 This introductory course provides an introduction to social media data analysis.
 Throughout the course, you'll learn:
 
-- **Social media data collection**: Work with APIs and other techniques to collect data from various social media platforms.
-- **Data format and management**: Manage and process social media data in different formats.
-- **Measurements and metrics**: Apply various metrics to measure and analyze social media phenomena.
-- **Hypothesis testing and statistical analysis**: Test hypotheses and conduct statistical analyses on social media data.
-- **Data visualization**: Create compelling visualizations to communicate insights from social media data.
-- **Network analysis**: Analyze social networks and relationships using network analysis methods.
+- **[Social media data collection](topics/data-collection/index.md)**: Work with APIs and other techniques to collect data from various social media platforms.
+- **[Data format and management](topics/data-format-management/index.md)**: Manage and process social media data in different formats.
+- **[Measurements and metrics](topics/measurements/index.md)**: Apply various metrics to measure and analyze social media phenomena.
+- **[Hypothesis testing and statistical analysis](topics/stats/index.md)**: Test hypotheses and conduct statistical analyses on social media data.
+- **[Data visualization](topics/visualization/index.md)**: Create compelling visualizations to communicate insights from social media data.
+- **[Network analysis](topics/network/index.md)**: Analyze social networks and relationships using network analysis methods.
 
 ## Basic information
 
 - Homepage: [https://yangkclab.github.io/social-media-analysis](https://yangkclab.github.io/social-media-analysis)
 - GitHub repository: [https://github.com/YangKCLab/social-media-analysis](https://github.com/YangKCLab/social-media-analysis)
-- Instructor: [Kaicheng Yang](https://www.kaichengyang.me)
+- Instructor: [Kai-Cheng Yang](https://www.kaichengyang.me)
 - Prerequisites: This course can be offered to both undergraduate and graduate students. No prior knowledge of social media analysis is required. However, students are expected to have basic knowledge of programming and statistics.
 
 ## Course materials
@@ -39,7 +39,7 @@ Here is a list of the relevant materials for the course:
 Variants of the course may be offered with slightly different names and contents based on the needs.
 Here is a list of the variants that have been offered:
 
-- [CS 415/515 Social Media Data Science Pipelines](https://yangkclab.github.io/social-media-ds-course) (Fall 2025 @ Binghamton University)
+- [CS 415/515 Social Media Data Science Pipelines](https://yangkclab.github.io/social-media-ds-course/fall2025) (Fall 2025 @ Binghamton University)
 
 ## Special thanks
 
