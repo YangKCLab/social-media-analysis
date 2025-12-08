@@ -75,3 +75,9 @@ Here are some sample topics as inspiration:
 - What are the differences in user interaction patterns (replies, shares, likes) between platforms?
 - How does the timing of posts affect their reach and engagement across different platforms?
 - How do influencers' communication strategies differ across platforms?
+
+## Showcase Projects
+
+Here are some showcase projects from previous students:
+
+- [IRL (In Real Life) Streaming Ecosystem Dashboard](https://alexmicael-irl-ecosystem-dashboard-app-wgmceg.streamlit.app)
