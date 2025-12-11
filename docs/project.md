@@ -81,3 +81,4 @@ Here are some sample topics as inspiration:
 Here are some showcase projects from previous students:
 
 - [IRL (In Real Life) Streaming Ecosystem Dashboard](https://alexmicael-irl-ecosystem-dashboard-app-wgmceg.streamlit.app)
+- [How does the social media popularity of NBA players correlate with their season leader rankings?](https://nba-social-sentiment.streamlit.app)
