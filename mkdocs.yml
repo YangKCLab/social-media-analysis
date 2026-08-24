@@ -92,8 +92,9 @@ nav:
       - topics/visualization/index.md
     - Network Analysis:
       - topics/network/index.md
-  - Demos: demos/index.md
   - Materials:
+    - Demos:
+      - demos/index.md
     - Research Papers: papers.md
     - Project Assignment: project.md
     - Resources: resources.md
