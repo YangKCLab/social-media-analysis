@@ -104,6 +104,10 @@ button, input { font: inherit; }
 .seed-form input:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
 .hint { font-size: 12px; color: var(--ink-3); margin-top: 6px; min-height: 1.4em; }
 .hint.warn { color: #b3421f; }
+.presets { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; margin-top: 6px; font-size: 12px; color: var(--ink-3); }
+.preset { border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 12px; padding: 2px 8px; font-size: 12px; cursor: pointer; }
+.preset:hover { background: var(--line-soft); }
+.preset.active { border-color: var(--primary); color: var(--primary-dark); background: var(--line-soft); }
 
 /* ---------- buttons & controls ---------- */
 .btn {

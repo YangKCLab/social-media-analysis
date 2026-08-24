@@ -1,13 +1,17 @@
 // Keyword co-occurrence network for the snowball sampling demo.
 // Illustrative data: the keywords and their links were made up for teaching,
 // not measured from real posts. Each key lists the terms that co-occur with it.
+// Four links were removed on purpose so that the default seeds do not reach
+// everything: carbon emissions -> carbon tax, climate action -> climate policy,
+// climate targets -> climate policy, carbon offset -> reforestation. Without them
+// the carbon-tax and deforestation vocabularies are only reachable from their own seeds.
 // Loaded as a plain script (not fetch) so the page also works from file://.
 window.SNOWBALL_DATA = {
   defaultSeeds: ["climate change", "global warming"],
   related: {
     "climate change": ["global warming", "carbon emissions", "greenhouse gases", "climate crisis", "carbon footprint", "sustainability"],
     "global warming": ["climate change", "temperature rise", "ice caps melting", "sea level rise", "extreme weather", "carbon dioxide"],
-    "carbon emissions": ["fossil fuels", "renewable energy", "carbon tax", "green technology", "electric vehicles", "net zero"],
+    "carbon emissions": ["fossil fuels", "renewable energy", "green technology", "electric vehicles", "net zero"],
     "greenhouse gases": ["methane", "carbon dioxide", "nitrous oxide", "ozone depletion", "atmospheric warming", "gas emissions"],
     "climate crisis": ["environmental emergency", "climate action", "climate activism", "extinction rebellion", "climate protests", "climate justice"],
     "carbon footprint": ["personal emissions", "lifestyle choices", "carbon offset", "eco-friendly", "sustainable living", "carbon calculator"],
@@ -60,12 +64,12 @@ window.SNOWBALL_DATA = {
     "automotive industry": ["electric vehicles"],
     "clean mobility": ["electric vehicles", "green transportation"],
     "environmental emergency": ["climate crisis", "climate action"],
-    "climate action": ["climate crisis", "climate policy", "climate activism"],
+    "climate action": ["climate crisis", "climate activism"],
     "extinction rebellion": ["climate activism", "climate action"],
     "climate protests": ["climate activism", "climate action"],
     "personal emissions": ["carbon footprint", "lifestyle choices", "carbon calculator"],
     "lifestyle choices": ["carbon footprint", "personal emissions", "sustainable living", "eco-friendly"],
-    "carbon offset": ["carbon footprint", "carbon neutral", "climate action", "reforestation"],
+    "carbon offset": ["carbon footprint", "carbon neutral", "climate action"],
     "eco-friendly": ["sustainable living", "sustainability", "carbon footprint", "lifestyle choices"],
     "sustainable living": ["sustainability", "eco-friendly", "lifestyle choices", "carbon footprint"],
     "carbon calculator": ["carbon footprint", "personal emissions"],
@@ -83,7 +87,7 @@ window.SNOWBALL_DATA = {
     "climate tech": ["green technology", "cleantech", "sustainable tech"],
     "carbon neutral": ["net zero", "carbon offset", "climate action"],
     "zero emissions": ["net zero", "carbon neutral", "clean energy", "decarbonization"],
-    "climate targets": ["net zero", "climate policy"],
+    "climate targets": ["net zero"],
     "carbon reduction": ["net zero", "climate action", "decarbonization", "climate targets"],
     "net zero goals": ["net zero", "climate targets", "carbon neutral"],
     "decarbonization": ["net zero", "carbon reduction", "energy transition", "clean energy"],

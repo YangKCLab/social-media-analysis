@@ -457,12 +457,15 @@
     el.statLeft.textContent = N - total;
 
     const nSeeds = state.seeds.length;
+    const reachable = N - L.unreachable.length;
+    const reachNote = reachable === N
+      ? `All ${N} keywords are reachable from these seeds.`
+      : `${reachable} of ${N} keywords are reachable from these seeds; <b>${N - reachable} are not</b>.`;
     let status;
     if (nSeeds === 0) status = 'Add at least one seed keyword to start.';
-    else if (round === 0) status = `Ready. Press <b>Next round</b> to search with the ${nSeeds} seed${nSeeds === 1 ? '' : 's'}.`;
+    else if (round === 0) status = `Ready. Press <b>Next round</b> to search with the ${nSeeds} seed${nSeeds === 1 ? '' : 's'}. ${reachNote}`;
     else if (state.saturated) {
-      status = `Round ${round} found nothing new: <b>saturated</b> after ${round - 1} round${round - 1 === 1 ? '' : 's'} with ${total} of ${N} keywords.`;
-      if (L.unreachable.length) status += ` ${L.unreachable.length} keyword${L.unreachable.length === 1 ? ' is' : 's are'} not reachable from these seeds.`;
+      status = `Round ${round} found nothing new: <b>saturated</b> after ${round - 1} round${round - 1 === 1 ? '' : 's'} with ${total} of ${N} keywords. ${reachNote}`;
     } else {
       const searched = state.history[round - 1].added;
       status = `Round ${round}: searched ${searched} keyword${searched === 1 ? '' : 's'}, found <b>${last.added} new</b>. ${total} of ${N} found.`;
@@ -545,6 +548,10 @@
 
   // ---------------------------------------------------------------- seeds UI
   function renderChips() {
+    document.querySelectorAll('.preset').forEach(b => {
+      const set = b.dataset.seeds.split('|');
+      b.classList.toggle('active', set.length === state.seeds.length && set.every(k => state.seeds.includes(k)));
+    });
     el.chips.innerHTML = '';
     for (const s of state.seeds) {
       const chip = document.createElement('span');
@@ -596,6 +603,12 @@
   function init() {
     for (const k of ALL) { const o = document.createElement('option'); o.value = k; el.list.appendChild(o); }
     el.form.addEventListener('submit', ev => { ev.preventDefault(); addSeed(el.input.value); });
+    document.querySelectorAll('.preset').forEach(b => b.addEventListener('click', () => {
+      state.seeds = b.dataset.seeds.split('|');
+      hint('');
+      renderChips();
+      reset();
+    }));
     el.next.addEventListener('click', () => { runRound(); if (state.playing) schedule(); });
     el.play.addEventListener('click', () => (state.playing ? stopPlay() : startPlay()));
     el.reset.addEventListener('click', reset);
