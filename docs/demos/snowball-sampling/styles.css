@@ -1,0 +1,205 @@
+/* Snowball sampling demo — palette follows the materials site (MkDocs Material, blue grey). */
+:root {
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --line: #cfd8dc;
+  --line-soft: #eceff1;
+  --ink: #263238;
+  --ink-2: #546e7a;
+  --ink-3: #90a4ae;
+  --primary: #546e7a;
+  --primary-dark: #37474f;
+  --focus: #2a78d6;
+  /* node states — validated categorical slots (blue, orange, aqua) + a recessive grey */
+  --seed: #2a78d6;
+  --new: #eb6834;
+  --found: #1baf7a;
+  --hidden-fill: #eceff1;
+  --hidden-stroke: #b0bec5;
+  --edge: #90a4ae;
+  --font: "Roboto", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+h1, h2, p, dl, ul, figure { margin: 0; }
+button, input { font: inherit; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 10px 20px 8px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.topbar h1 { font-size: 20px; font-weight: 500; letter-spacing: 0.1px; }
+.crumb { font-size: 12px; color: var(--ink-3); text-decoration: none; }
+.crumb:hover { color: var(--primary); text-decoration: underline; }
+.topbar-sub { font-size: 13px; color: var(--ink-2); max-width: 62ch; text-align: right; }
+
+/* ---------- layout ---------- */
+.app {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 20px;
+}
+.panel {
+  min-height: 0;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 16px 12px;
+}
+.panel section { padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+.panel section:last-child { border-bottom: 0; }
+.panel h2 {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 8px;
+}
+.stage {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 16px 8px;
+}
+
+/* ---------- seeds ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; min-height: 28px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 6px 3px 10px; border-radius: 14px;
+  background: #e3effc; color: #1c4f8a; font-size: 13px;
+}
+.chip button {
+  border: 0; background: transparent; color: inherit; cursor: pointer;
+  width: 18px; height: 18px; border-radius: 50%; line-height: 1; padding: 0; font-size: 15px;
+}
+.chip button:hover { background: rgba(28, 79, 138, 0.15); }
+.seed-form { display: flex; gap: 6px; }
+.seed-form input {
+  flex: 1; min-width: 0; padding: 6px 8px;
+  border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--ink);
+}
+.seed-form input:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+.hint { font-size: 12px; color: var(--ink-3); margin-top: 6px; min-height: 1.4em; }
+.hint.warn { color: #b3421f; }
+
+/* ---------- buttons & controls ---------- */
+.btn {
+  padding: 6px 12px; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+}
+.btn:hover:not(:disabled) { background: var(--line-soft); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-dark); border-color: var(--primary-dark); }
+.btn-block { width: 100%; }
+.btn-row { display: flex; gap: 6px; margin-bottom: 10px; }
+.btn-row .btn { flex: 1; }
+.btn.playing { background: #fbe9e0; border-color: #eb6834; color: #8a3410; }
+.slider-label { display: block; font-size: 12px; color: var(--ink-2); }
+input[type="range"] { width: 100%; margin: 4px 0 8px; accent-color: var(--primary); }
+.check { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2); }
+.check input { accent-color: var(--primary); margin: 0; }
+
+/* ---------- counts ---------- */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.stats div { background: var(--bg); border-radius: 4px; padding: 6px 8px; }
+.stats dt { font-size: 11px; color: var(--ink-3); }
+.stats dd { margin: 0; font-size: 20px; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 1.2; }
+
+/* ---------- plots ---------- */
+.plots { display: grid; gap: 6px; }
+.plot figcaption { font-size: 12px; color: var(--ink-2); margin-bottom: 2px; }
+.plot svg { display: block; width: 100%; height: auto; }
+.plot .axis { stroke: var(--line); stroke-width: 1; }
+.plot .grid { stroke: var(--line-soft); stroke-width: 1; }
+.plot .tick { font-size: 10px; fill: var(--ink-3); }
+.plot .cap { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.plot .cap-label { font-size: 10px; fill: var(--ink-3); }
+.plot .line { fill: none; stroke: var(--seed); stroke-width: 2; stroke-linejoin: round; }
+.plot .dot { fill: var(--seed); stroke: var(--surface); stroke-width: 2; }
+.plot .bar { fill: var(--new); }
+.plot .bar.past { fill: var(--found); }
+.plot .bar.seed { fill: var(--seed); }
+
+/* ---------- note ---------- */
+.note p { font-size: 12px; color: var(--ink-2); }
+
+/* ---------- stage ---------- */
+.stage-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.status { font-size: 15px; }
+.status b { font-weight: 500; }
+.status.done { color: #8a3410; }
+.legend { list-style: none; padding: 0; display: flex; gap: 14px; font-size: 12px; color: var(--ink-2); }
+.legend li { display: flex; align-items: center; gap: 5px; }
+.swatch { width: 11px; height: 11px; border-radius: 50%; display: inline-block; border: 1px solid transparent; }
+.swatch.seed { background: var(--seed); }
+.swatch.new { background: var(--new); }
+.swatch.found { background: var(--found); }
+.swatch.hidden { background: var(--hidden-fill); border-color: var(--hidden-stroke); }
+
+.network { flex: 1 1 auto; min-height: 0; margin-top: 6px; }
+.network svg { display: block; width: 100%; height: 100%; }
+.detail { font-size: 13px; color: var(--ink-2); min-height: 1.5em; margin-top: 4px; }
+.detail b { color: var(--ink); font-weight: 500; }
+
+/* ---------- network marks ---------- */
+.col-head { font-size: 13px; font-weight: 500; fill: var(--ink-3); }
+.col-head.active { fill: var(--ink); }
+.col-sub { font-size: 11px; fill: var(--ink-3); }
+.edge { fill: none; stroke: var(--edge); stroke-width: 1.2; stroke-opacity: 0.3; transition: stroke-opacity 0.3s, stroke 0.3s; }
+.edge.fresh { stroke: var(--new); stroke-opacity: 0.55; }
+.node { cursor: pointer; }
+.node circle {
+  stroke: var(--surface); stroke-width: 1.5;
+  transition: fill 0.4s, stroke 0.4s, r 0.3s;
+}
+.node text { font-size: 13px; fill: var(--ink); pointer-events: none; }
+.node.seed circle { fill: var(--seed); r: 8; }
+.node.seed text { font-weight: 500; }
+.node.new circle { fill: var(--new); }
+.node.found circle { fill: var(--found); }
+.node.hidden circle { fill: var(--hidden-fill); stroke: var(--hidden-stroke); }
+.node.hidden text { fill: var(--ink-3); }
+.node.unreachable circle { fill: var(--hidden-fill); stroke: var(--hidden-stroke); stroke-dasharray: 2 2; }
+.node.unreachable text { fill: var(--ink-3); font-style: italic; }
+svg.hide-hidden .node.hidden, svg.hide-hidden .node.unreachable, svg.hide-hidden .col-unreachable { display: none; }
+
+/* highlight state: dim everything, then lift the focus set */
+svg.focused .node { opacity: 0.25; }
+svg.focused .edge { stroke-opacity: 0.06; }
+svg.focused .node.lit { opacity: 1; }
+svg.focused .node.lit circle { stroke: var(--ink); }
+svg.focused .edge.lit { stroke: var(--ink); stroke-opacity: 0.9; stroke-width: 1.8; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 900px) {
+  body { height: auto; }
+  .app { grid-template-columns: 1fr; }
+  .panel { overflow: visible; }
+  .network { height: 70vh; }
+  .topbar { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .topbar-sub { text-align: left; }
+}

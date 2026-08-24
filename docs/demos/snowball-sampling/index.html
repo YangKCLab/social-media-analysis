@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snowball sampling — Social Media Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <a class="crumb" href="../">Social Media Analysis · Demos</a>
+      <h1>Snowball sampling for keyword discovery</h1>
+    </div>
+    <p class="topbar-sub">Start with a few seed keywords. Find the terms that co-occur with them, add those to the list, and repeat until nothing new appears.</p>
+  </header>
+
+  <main class="app">
+    <aside class="panel">
+      <section>
+        <h2>Seeds</h2>
+        <div class="chips" id="seedChips"></div>
+        <form id="seedForm" class="seed-form" autocomplete="off">
+          <input id="seedInput" list="keywordList" placeholder="Add a keyword…" aria-label="Add a seed keyword">
+          <datalist id="keywordList"></datalist>
+          <button type="submit" class="btn">Add</button>
+        </form>
+        <p class="hint" id="seedHint">Changing the seeds restarts the run.</p>
+      </section>
+
+      <section>
+        <h2>Run</h2>
+        <div class="btn-row">
+          <button id="nextBtn" class="btn btn-primary">Next round</button>
+          <button id="playBtn" class="btn">Auto play</button>
+          <button id="resetBtn" class="btn">Reset</button>
+        </div>
+        <label class="slider-label" for="speed">Seconds per round: <span id="speedValue">1.5</span></label>
+        <input type="range" id="speed" min="0.5" max="4" step="0.5" value="1.5">
+        <label class="check"><input type="checkbox" id="showHidden" checked> Show keywords not found yet</label>
+      </section>
+
+      <section>
+        <h2>Counts</h2>
+        <dl class="stats">
+          <div><dt>Round</dt><dd id="statRound">0</dd></div>
+          <div><dt>Keywords found</dt><dd id="statTotal">0</dd></div>
+          <div><dt>New this round</dt><dd id="statNew">–</dd></div>
+          <div><dt>Not yet found</dt><dd id="statLeft">0</dd></div>
+        </dl>
+      </section>
+
+      <section class="plots">
+        <figure class="plot">
+          <figcaption>Keywords found, cumulative</figcaption>
+          <svg id="plotTotal" role="img" aria-label="Cumulative number of keywords found per round"></svg>
+        </figure>
+        <figure class="plot">
+          <figcaption>New keywords per round</figcaption>
+          <svg id="plotNew" role="img" aria-label="Number of new keywords found in each round"></svg>
+        </figure>
+      </section>
+
+      <section>
+        <button id="exportBtn" class="btn btn-block">Download keyword list (CSV)</button>
+      </section>
+
+      <section class="note">
+        <p>The 112 keywords and their links are made up for teaching; they were not measured from real posts. The search is deterministic: each round looks up the keywords found in the previous round and adds every term that co-occurs with them.</p>
+      </section>
+    </aside>
+
+    <section class="stage">
+      <div class="stage-head">
+        <p class="status" id="status"></p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="swatch seed"></span>Seed</li>
+          <li><span class="swatch new"></span>New this round</li>
+          <li><span class="swatch found"></span>Found earlier</li>
+          <li><span class="swatch hidden"></span>Not found yet</li>
+        </ul>
+      </div>
+      <div class="network" id="networkWrap">
+        <svg id="network" role="img" aria-label="Keyword network arranged by the round in which each keyword is found"></svg>
+      </div>
+      <p class="detail" id="detail"></p>
+    </section>
+  </main>
+
+  <script src="data/keywords.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
