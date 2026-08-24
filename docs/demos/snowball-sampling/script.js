@@ -1,6 +1,7 @@
 // Snowball sampling demo.
 // Deterministic frontier search over a keyword co-occurrence network: each round searches the
 // keywords found in the previous round and adds every keyword that co-occurs with them.
+// Two views draw the same run: "network" (rings by round, seeds in the centre) and "columns".
 (function () {
   'use strict';
 
@@ -15,7 +16,7 @@
   const el = {
     chips: $('seedChips'), form: $('seedForm'), input: $('seedInput'), list: $('keywordList'), hint: $('seedHint'),
     next: $('nextBtn'), play: $('playBtn'), reset: $('resetBtn'), speed: $('speed'), speedValue: $('speedValue'),
-    showHidden: $('showHidden'),
+    showHidden: $('showHidden'), viewNetwork: $('viewNetwork'), viewColumns: $('viewColumns'),
     statRound: $('statRound'), statTotal: $('statTotal'), statNew: $('statNew'), statLeft: $('statLeft'),
     plotTotal: $('plotTotal'), plotNew: $('plotNew'), export: $('exportBtn'),
     status: $('status'), svg: $('network'), detail: $('detail'),
@@ -25,6 +26,7 @@
 
   const state = {
     seeds: DATA.defaultSeeds.slice(),
+    view: location.hash === '#columns' ? 'columns' : 'network',
     round: 0,
     foundRound: new Map(),   // keyword -> round in which it was found (0 = seed)
     foundVia: new Map(),     // keyword -> keywords whose search found it
@@ -35,7 +37,9 @@
     timer: null,
     layout: null,
     nodes: new Map(),        // keyword -> <g class="node">
-    edges: [],               // [{from, to, path}]
+    labelBox: new Map(),     // keyword -> label bounding box in drawing units
+    captionBox: [],          // ring caption boxes, obstacles for the label collision pass
+    edges: [],               // [{from, to, tree, path}]
     pinned: null,
   };
 
@@ -50,7 +54,7 @@
     state.saturated = false;
     state.pinned = null;
     state.layout = computeLayout(state.seeds);
-    buildNetwork();
+    build();
     render();
   }
 
@@ -98,9 +102,9 @@
   }
 
   // ---------------------------------------------------------------- layout
-  // Columns by distance from the seed set, which for this search equals the round of discovery.
-  // Keywords with no path from the seeds go in extra "not reachable" columns on the right.
-  const PITCH = 22, COLW = 236, PAD_X = 24, HEAD = 46, PAD_Y = 16, NODE_R = 6;
+  // Distance from the seed set equals the round of discovery for this search. Keywords with no
+  // path from the seeds are "unreachable" and drawn apart from the rest.
+  const NODE_R = 6;
 
   function computeLayout(seeds) {
     const dist = new Map(seeds.map(s => [s, 0]));
@@ -118,20 +122,49 @@
       if (next.length) columns.push(next);
       frontier = next;
     }
-    // Order each column by the mean row of its parents, so edges stay short and cross less.
-    const rowOf = new Map();
-    columns[0].forEach((k, i) => rowOf.set(k, i));
-    for (let c = 1; c < columns.length; c++) {
-      const bary = k => parents.get(k).reduce((s, p) => s + rowOf.get(p), 0) / parents.get(k).length;
-      columns[c].sort((a, b) => bary(a) - bary(b) || a.localeCompare(b));
-      columns[c].forEach((k, i) => rowOf.set(k, i));
-    }
     const unreachable = ALL.filter(k => !dist.has(k)).sort((a, b) => a.localeCompare(b));
-    const maxReach = Math.max(...columns.map(c => c.length), 30);
-    const extra = [];
-    for (let i = 0; i < unreachable.length; i += maxReach) extra.push(unreachable.slice(i, i + maxReach));
-    const allCols = columns.concat(extra);
+    const colOf = new Map();
+    columns.forEach((col, c) => col.forEach(k => colOf.set(k, c)));
+    unreachable.forEach(k => colOf.set(k, -1));
+    // Discovery edges: the searched keyword -> the keyword it found.
+    const tree = [];
+    for (let c = 1; c < columns.length; c++) {
+      for (const k of columns[c]) for (const p of parents.get(k)) tree.push({ from: p, to: k });
+    }
+    // Every other co-occurrence pair, undirected and de-duplicated, for the faint background network.
+    const treeKey = new Set(tree.map(e => e.from + ' ' + e.to));
+    const seen = new Set();
+    const co = [];
+    for (const a of ALL) {
+      for (const b of GRAPH[a]) {
+        const key = a < b ? a + ' ' + b : b + ' ' + a;
+        if (seen.has(key) || treeKey.has(a + ' ' + b) || treeKey.has(b + ' ' + a)) continue;
+        seen.add(key);
+        co.push({ from: a, to: b });
+      }
+    }
+    return {
+      columns, parents, unreachable, colOf, tree, co,
+      col: columnGeometry(columns, parents, unreachable),
+      net: networkGeometry(columns, parents, unreachable, colOf),
+    };
+  }
 
+  // Columns view: one column per round, rows ordered by the mean row of the node's parents.
+  function columnGeometry(columns, parents, unreachable) {
+    const PITCH = 22, COLW = 236, PAD_X = 24, HEAD = 46, PAD_Y = 16;
+    const ordered = columns.map(c => c.slice());
+    const rowOf = new Map();
+    ordered[0].forEach((k, i) => rowOf.set(k, i));
+    for (let c = 1; c < ordered.length; c++) {
+      const bary = k => parents.get(k).reduce((s, p) => s + rowOf.get(p), 0) / parents.get(k).length;
+      ordered[c].sort((a, b) => bary(a) - bary(b) || a.localeCompare(b));
+      ordered[c].forEach((k, i) => rowOf.set(k, i));
+    }
+    const chunk = Math.max(...ordered.map(c => c.length), 30);
+    const extra = [];
+    for (let i = 0; i < unreachable.length; i += chunk) extra.push(unreachable.slice(i, i + chunk));
+    const allCols = ordered.concat(extra);
     const maxRows = Math.max(...allCols.map(c => c.length), 12);
     const H = HEAD + maxRows * PITCH + PAD_Y;
     const W = PAD_X * 2 + allCols.length * COLW;
@@ -140,70 +173,208 @@
       const x = PAD_X + c * COLW + NODE_R + 4;
       const pitch = Math.min(PITCH * 3, (maxRows * PITCH) / Math.max(col.length, 1));
       const top = HEAD + (maxRows * PITCH - (col.length - 1) * pitch) / 2;
-      col.forEach((k, i) => pos.set(k, { x, y: top + i * pitch, col: c }));
+      col.forEach((k, i) => pos.set(k, { x, y: top + i * pitch }));
     });
-    const edges = [];
-    for (let c = 1; c < columns.length; c++) {
-      for (const k of columns[c]) for (const p of parents.get(k)) edges.push({ from: p, to: k });
-    }
-    return { columns, unreachable, allCols, pos, edges, W, H };
+    return { pos, W, H, allCols, nReach: ordered.length, COLW, PAD_X };
   }
 
-  // ---------------------------------------------------------------- network drawing
+  // Network view: seeds in the centre, one elliptical ring per round. A node's angle starts at
+  // the mean angle of its parents; nodes on a ring are then pushed apart until none overlap.
+  function networkGeometry(columns, parents, unreachable, colOf) {
+    const ASPECT = 1.45, GAP = 82, ARC = 26, PAD = 130;
+    const angle = new Map();
+    const ringIndex = new Map();
+    const rings = [];
+    const nSeeds = columns[0].length;
+    rings.push(nSeeds > 1 ? Math.min(28 + 10 * nSeeds, 60) : 0);
+    columns[0].forEach((k, i) => angle.set(k, Math.PI + (i * 2 * Math.PI) / nSeeds));
+    for (let c = 1; c < columns.length; c++) {
+      const n = columns[c].length;
+      const r = Math.max(rings[c - 1] + GAP, ((n * ARC) / (2 * Math.PI)) * 1.15);
+      rings.push(r);
+      const target = new Map(columns[c].map(k => [k, circularMean(parents.get(k).map(p => angle.get(p)))]));
+      const order = columns[c].slice().sort((a, b) => target.get(a) - target.get(b));
+      const a = order.map(k => target.get(k));
+      const minSep = Math.min(ARC / r, (2 * Math.PI) / n);
+      for (let it = 0; it < 400; it++) {
+        for (let i = 0; i < n; i++) {
+          const j = (i + 1) % n;
+          let gap = a[j] - a[i];
+          if (j === 0) gap += 2 * Math.PI;
+          if (gap < minSep) { const d = (minSep - gap) / 2; a[i] -= d; a[j] += d; }
+        }
+        for (let i = 0; i < n; i++) a[i] += 0.03 * angleDiff(target.get(order[i]), a[i]);
+      }
+      order.forEach((k, i) => { angle.set(k, a[i]); ringIndex.set(k, i); });
+    }
+    const R = rings[rings.length - 1];
+    const cx = PAD + R * ASPECT, cy = PAD * 0.4 + R;
+    const pos = new Map();
+    for (const [k, t] of angle) {
+      const r = rings[colOf.get(k)];
+      pos.set(k, { x: cx + Math.cos(t) * r * ASPECT, y: cy + Math.sin(t) * r });
+    }
+    let W = cx + R * ASPECT + PAD, H = cy + R + PAD * 0.4;
+    // Unreachable keywords: a block of short columns to the right of the rings.
+    let block = null;
+    if (unreachable.length) {
+      const PITCH = 20, COLW = 200, per = 30;
+      const x0 = W - PAD + 60;
+      const cols = Math.ceil(unreachable.length / per);
+      const rows = Math.min(per, unreachable.length);
+      const top = Math.max(60, cy - (rows * PITCH) / 2);
+      unreachable.forEach((k, i) => pos.set(k, { x: x0 + Math.floor(i / per) * COLW + NODE_R, y: top + (i % per) * PITCH }));
+      block = { x: x0, y: top - 26 };
+      W = x0 + cols * COLW + 20;
+      H = Math.max(H, top + rows * PITCH + 20);
+    }
+    return { pos, W, H, cx, cy, rings, ASPECT, block, ringIndex };
+  }
+  function circularMean(angles) {
+    const x = angles.reduce((s, t) => s + Math.cos(t), 0);
+    const y = angles.reduce((s, t) => s + Math.sin(t), 0);
+    return Math.atan2(y, x);
+  }
+  function angleDiff(target, current) {
+    let d = target - current;
+    while (d > Math.PI) d -= 2 * Math.PI;
+    while (d < -Math.PI) d += 2 * Math.PI;
+    return d;
+  }
+
+  // ---------------------------------------------------------------- drawing
   function svgEl(tag, attrs, parent) {
     const n = document.createElementNS(SVG_NS, tag);
     for (const [k, v] of Object.entries(attrs || {})) n.setAttribute(k, v);
     if (parent) parent.appendChild(n);
     return n;
   }
+  function text(parent, attrs, content) {
+    const t = svgEl('text', attrs, parent);
+    t.textContent = content;
+    return t;
+  }
+  function title(parent, content) {
+    const t = svgEl('title', {}, parent);
+    t.textContent = content;
+  }
 
-  function buildNetwork() {
+  function build() {
     const L = state.layout;
+    const net = state.view === 'network';
+    const G = net ? L.net : L.col;
     const svg = el.svg;
     svg.innerHTML = '';
-    svg.setAttribute('viewBox', `0 0 ${L.W} ${L.H}`);
+    svg.setAttribute('viewBox', `0 0 ${G.W} ${G.H}`);
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     svg.classList.remove('focused');
+    svg.dataset.view = state.view;
 
-    const heads = svgEl('g', { class: 'heads' }, svg);
-    L.allCols.forEach((col, c) => {
-      const x = PAD_X + c * COLW;
-      const isReach = c < L.columns.length;
-      const first = c === L.columns.length;
-      if (!isReach && !first) return;
-      const g = svgEl('g', { class: isReach ? 'col' : 'col col-unreachable' }, heads);
-      const label = c === 0 ? 'Seeds' : isReach ? `Round ${c}` : 'Not reachable';
-      const t = svgEl('text', { class: 'col-head', x, y: 20, 'data-col': c }, g);
-      t.textContent = label;
-      const s = svgEl('text', { class: 'col-sub', x, y: 35, 'data-col': c }, g);
-      s.textContent = isReach ? '' : 'no path from the seeds';
-    });
+    const guides = svgEl('g', { class: 'guides' }, svg);
+    if (net) {
+      G.rings.forEach((r, c) => {
+        if (r > 0) svgEl('ellipse', { class: 'ring', cx: G.cx, cy: G.cy, rx: r * G.ASPECT, ry: r, 'data-col': c }, guides);
+      });
+      state.captionBox = [];
+      G.rings.forEach((r, c) => {
+        const y = r > 0 ? G.cy - r - 6 : G.cy - 16;
+        const t = text(guides, { class: 'col-head', x: G.cx, y, 'text-anchor': 'middle', 'data-col': c }, c === 0 ? 'Seeds' : `Round ${c}`);
+        const w = t.getComputedTextLength();
+        state.captionBox.push({ x: G.cx - w / 2, y: y - 12, w, h: 14 });
+      });
+      if (G.block) {
+        const g = svgEl('g', { class: 'col col-unreachable' }, guides);
+        text(g, { class: 'col-head', x: G.block.x, y: G.block.y, 'data-col': -1 }, 'Not reachable');
+        text(g, { class: 'col-sub', x: G.block.x, y: G.block.y + 15 }, 'no path from the seeds');
+      }
+    } else {
+      G.allCols.forEach((col, c) => {
+        const x = G.PAD_X + c * G.COLW;
+        const isReach = c < G.nReach;
+        if (!isReach && c !== G.nReach) return;
+        const g = svgEl('g', { class: isReach ? 'col' : 'col col-unreachable' }, guides);
+        text(g, { class: 'col-head', x, y: 20, 'data-col': isReach ? c : -1 }, c === 0 ? 'Seeds' : isReach ? `Round ${c}` : 'Not reachable');
+        text(g, { class: 'col-sub', x, y: 35, 'data-col': isReach ? c : -1 }, isReach ? '' : 'no path from the seeds');
+      });
+    }
 
+    const coG = svgEl('g', { class: 'co-edges' }, svg);
     const edgeG = svgEl('g', { class: 'edges' }, svg);
     const nodeG = svgEl('g', { class: 'nodes' }, svg);
     state.nodes = new Map();
-    for (const [k, p] of L.pos) {
+    for (const [k, p] of G.pos) {
       const g = svgEl('g', { class: 'node', transform: `translate(${p.x},${p.y})`, 'data-k': k }, nodeG);
       svgEl('circle', { r: NODE_R }, g);
-      const t = svgEl('text', { x: NODE_R + 6, dy: '0.35em' }, g);
-      t.textContent = k;
+      const t = text(g, { x: NODE_R + 6, dy: '0.35em' }, k);
+      if (net) placeLabel(t, k, G);
       g.addEventListener('mouseenter', () => { if (!state.pinned) focus(k); });
       g.addEventListener('mouseleave', () => { if (!state.pinned) unfocus(); });
       g.addEventListener('click', ev => { ev.stopPropagation(); state.pinned = state.pinned === k ? null : k; state.pinned ? focus(k) : unfocus(); });
       state.nodes.set(k, g);
     }
-    // Edges start after the label text, so measure the labels first.
-    const labelEnd = new Map();
+    // Label boxes, measured once: the collision pass and the column edge anchors need them.
+    state.labelBox = new Map();
     for (const [k, g] of state.nodes) {
       const t = g.querySelector('text');
-      labelEnd.set(k, L.pos.get(k).x + NODE_R + 6 + t.getComputedTextLength());
+      const w = t.getComputedTextLength(), p = G.pos.get(k);
+      const anchor = t.getAttribute('text-anchor') || 'start';
+      const x = Number(t.getAttribute('x'));
+      const dy = t.getAttribute('dy');
+      const yOff = { '-0.9em': -12, '-2.1em': -27, '1.35em': 17, '2.55em': 33 }[dy] || 0;
+      const left = anchor === 'start' ? p.x + x : anchor === 'end' ? p.x + x - w : p.x + x - w / 2;
+      state.labelBox.set(k, { x: left, y: p.y + yOff - 7, w, h: 14, end: p.x + x + w });
     }
-    state.edges = L.edges.map(e => {
-      const a = L.pos.get(e.from), b = L.pos.get(e.to);
-      const x0 = labelEnd.get(e.from) + 5, x1 = b.x - NODE_R - 3, mid = (x0 + x1) / 2;
-      const path = svgEl('path', { class: 'edge', d: `M${x0},${a.y} C${mid},${a.y} ${mid},${b.y} ${x1},${b.y}` }, edgeG);
-      return { from: e.from, to: e.to, path };
-    });
+
+    const at = k => ({ k, ...G.pos.get(k) });
+    const mkPath = (a, b, cls) => {
+      let d;
+      if (net) {
+        const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy) || 1;
+        const ux = dx / len, uy = dy / len;
+        d = `M${a.x + ux * NODE_R},${a.y + uy * NODE_R} L${b.x - ux * NODE_R},${b.y - uy * NODE_R}`;
+      } else {
+        const x0 = state.labelBox.get(a.k).end + 5, x1 = b.x - NODE_R - 3, mid = (x0 + x1) / 2;
+        d = `M${x0},${a.y} C${mid},${a.y} ${mid},${b.y} ${x1},${b.y}`;
+      }
+      return svgEl('path', { class: cls, d }, cls === 'edge' ? edgeG : coG);
+    };
+    state.edges = L.tree.map(e => ({ from: e.from, to: e.to, tree: true, path: mkPath(at(e.from), at(e.to), 'edge') }));
+    if (net) {
+      for (const e of L.co) state.edges.push({ from: e.from, to: e.to, tree: false, path: mkPath(at(e.from), at(e.to), 'co') });
+    }
+  }
+
+  // Network labels sit on the side of the node that faces away from the centre.
+  function placeLabel(t, k, G) {
+    if (state.layout.colOf.get(k) < 0) return;
+    const p = G.pos.get(k);
+    const dx = (p.x - G.cx) / G.ASPECT, dy = p.y - G.cy;
+    if (Math.hypot(dx, dy) < 1) return;
+    const a = Math.atan2(dy, dx), c = Math.cos(a), s = Math.sin(a);
+    if (Math.abs(c) < 0.35) {
+      const second = (G.ringIndex.get(k) || 0) % 2 === 1;
+      t.setAttribute('x', 0);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('dy', s < 0 ? (second ? '-2.1em' : '-0.9em') : (second ? '2.55em' : '1.35em'));
+    } else if (c < 0) {
+      t.setAttribute('x', -(NODE_R + 6));
+      t.setAttribute('text-anchor', 'end');
+    }
+  }
+
+  // Hide labels that would overlap another visible label. Seeds win, then the newest keywords.
+  function collideLabels() {
+    const kept = (state.captionBox || []).slice();
+    const rank = k => { const r = state.foundRound.get(k); return r === 0 ? -1 : r === state.round ? 0 : r; };
+    const order = Array.from(state.nodes.keys())
+      .filter(k => state.foundRound.has(k))
+      .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+    for (const k of order) {
+      const b = state.labelBox.get(k);
+      const hit = kept.some(o => b.x < o.x + o.w + 4 && o.x < b.x + b.w + 4 && b.y < o.y + o.h + 1 && o.y < b.y + b.h + 1);
+      state.nodes.get(k).classList.toggle('nolabel', hit);
+      if (!hit) kept.push(b);
+    }
   }
 
   function focus(k) {
@@ -235,7 +406,7 @@
     let head;
     if (r === 0) head = `<b>${esc(k)}</b> is a seed.`;
     else if (r !== undefined) head = `<b>${esc(k)}</b> was found in round ${r} by searching ${listOf(state.foundVia.get(k), 4)}.`;
-    else if (state.layout.pos.get(k).col >= state.layout.columns.length) head = `<b>${esc(k)}</b> is not reachable: no keyword that can be found from these seeds co-occurs with it.`;
+    else if (state.layout.colOf.get(k) < 0) head = `<b>${esc(k)}</b> is not reachable: no keyword that can be found from these seeds co-occurs with it.`;
     else head = `<b>${esc(k)}</b> has not been found yet.`;
     const tail = co.length ? ` Co-occurs with ${listOf(co, 6)}.` : ' Nothing co-occurs with it.';
     return head + tail;
@@ -245,37 +416,39 @@
   function render() {
     const L = state.layout;
     const round = state.round;
-    // nodes
     for (const [k, g] of state.nodes) {
       const r = state.foundRound.get(k);
       let cls;
       if (r === 0) cls = 'seed';
       else if (r === round && round > 0) cls = 'new';
       else if (r !== undefined) cls = 'found';
-      else if (L.pos.get(k).col >= L.columns.length) cls = 'unreachable';
+      else if (L.colOf.get(k) < 0) cls = 'unreachable';
       else cls = 'hidden';
       g.setAttribute('class', `node ${cls}${g.classList.contains('lit') ? ' lit' : ''}`);
     }
-    // edges: shown once the child is found; the ones found this round are stressed
     for (const e of state.edges) {
-      const r = state.foundRound.get(e.to);
-      e.path.style.display = r === undefined ? 'none' : '';
-      e.path.classList.toggle('fresh', r === round && round > 0);
+      if (e.tree) {
+        const r = state.foundRound.get(e.to);
+        e.path.style.display = r === undefined ? 'none' : '';
+        e.path.classList.toggle('fresh', r === round && round > 0);
+      } else {
+        e.path.classList.toggle('on', state.foundRound.has(e.from) && state.foundRound.has(e.to));
+      }
     }
-    // column headers
     el.svg.querySelectorAll('.col-head').forEach(t => {
       const c = Number(t.dataset.col);
-      t.classList.toggle('active', c < L.columns.length && c <= round);
+      t.classList.toggle('active', c >= 0 && c <= round);
     });
-    el.svg.querySelectorAll('.col-sub').forEach(t => {
+    el.svg.querySelectorAll('.ring').forEach(r => r.classList.toggle('active', Number(r.dataset.col) <= round));
+    el.svg.querySelectorAll('.col-sub[data-col]').forEach(t => {
       const c = Number(t.dataset.col);
-      if (c >= L.columns.length) return;
+      if (c < 0) return;
       const h = state.history[c];
       t.textContent = c <= round && h ? (c === 0 ? `${h.added} keyword${h.added === 1 ? '' : 's'}` : `${h.added} new`) : '';
     });
     el.svg.classList.toggle('hide-hidden', !el.showHidden.checked);
+    if (state.view === 'network') collideLabels();
 
-    // counts
     const total = state.foundRound.size;
     const last = state.history[state.history.length - 1];
     el.statRound.textContent = round;
@@ -283,7 +456,6 @@
     el.statNew.textContent = round === 0 ? '–' : last.added;
     el.statLeft.textContent = N - total;
 
-    // status
     const nSeeds = state.seeds.length;
     let status;
     if (nSeeds === 0) status = 'Add at least one seed keyword to start.';
@@ -298,17 +470,27 @@
     el.status.innerHTML = status;
     el.status.classList.toggle('done', state.saturated);
 
-    // controls
     const stop = state.saturated || nSeeds === 0;
     el.next.disabled = stop;
     el.play.disabled = stop && !state.playing;
     el.export.disabled = total === 0;
+    el.viewNetwork.classList.toggle('active', state.view === 'network');
+    el.viewColumns.classList.toggle('active', state.view === 'columns');
 
     if (state.pinned && state.nodes.has(state.pinned)) focus(state.pinned);
     else if (!el.svg.classList.contains('focused')) el.detail.textContent = DETAIL_DEFAULT;
 
     drawTotalPlot();
     drawNewPlot();
+  }
+
+  function setView(view) {
+    if (state.view === view) return;
+    state.view = view;
+    state.pinned = null;
+    history.replaceState(null, '', view === 'columns' ? '#columns' : location.pathname + location.search);
+    build();
+    render();
   }
 
   // ---------------------------------------------------------------- plots
@@ -322,16 +504,11 @@
     const y = v => h - (v / yMax) * h;
     for (const v of yTicks) {
       svgEl('line', { class: 'grid', x1: 0, x2: w, y1: y(v), y2: y(v) }, g);
-      const t = svgEl('text', { class: 'tick', x: -6, y: y(v), dy: '0.35em', 'text-anchor': 'end' }, g);
-      t.textContent = v;
+      text(g, { class: 'tick', x: -6, y: y(v), dy: '0.35em', 'text-anchor': 'end' }, v);
     }
     svgEl('line', { class: 'axis', x1: 0, x2: w, y1: h, y2: h }, g);
-    for (let r = 0; r <= xMax; r++) {
-      const t = svgEl('text', { class: 'tick', x: x(r), y: h + 12, 'text-anchor': 'middle' }, g);
-      t.textContent = r;
-    }
-    const xl = svgEl('text', { class: 'tick', x: w / 2, y: h + 22, 'text-anchor': 'middle' }, g);
-    xl.textContent = 'round';
+    for (let r = 0; r <= xMax; r++) text(g, { class: 'tick', x: x(r), y: h + 12, 'text-anchor': 'middle' }, r);
+    text(g, { class: 'tick', x: w / 2, y: h + 22, 'text-anchor': 'middle' }, 'round');
     return { g, x, y, w, h };
   }
   function niceMax(v) {
@@ -340,23 +517,19 @@
     for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= v) return m * p;
     return 10 * p;
   }
-
   function drawTotalPlot() {
     const xMax = Math.max(6, state.round + 1);
-    const yMax = N * 1.06;  // the cap line at N is the top of the useful range
+    const yMax = N * 1.06;
     const f = plotFrame(el.plotTotal, xMax, yMax, [0, Math.round(N / 2), N]);
     svgEl('line', { class: 'cap', x1: 0, x2: f.w, y1: f.y(N), y2: f.y(N) }, f.g);
-    const cl = svgEl('text', { class: 'cap-label', x: f.w, y: f.y(N) - 4, 'text-anchor': 'end' }, f.g);
-    cl.textContent = `all ${N} keywords`;
+    text(f.g, { class: 'cap-label', x: f.w, y: f.y(N) - 4, 'text-anchor': 'end' }, `all ${N} keywords`);
     const d = state.history.map((h, i) => `${i ? 'L' : 'M'}${f.x(h.round)},${f.y(h.total)}`).join(' ');
     svgEl('path', { class: 'line', d }, f.g);
     for (const h of state.history) {
       const c = svgEl('circle', { class: 'dot', cx: f.x(h.round), cy: f.y(h.total), r: 4 }, f.g);
-      const t = svgEl('title', {}, c);
-      t.textContent = `Round ${h.round}: ${h.total} keywords found`;
+      title(c, `Round ${h.round}: ${h.total} keywords found`);
     }
   }
-
   function drawNewPlot() {
     const xMax = Math.max(6, state.round + 1);
     const yMax = niceMax(Math.max(...state.history.map(h => h.added), 10));
@@ -366,8 +539,7 @@
       const cls = h.round === 0 ? 'bar seed' : h.round === state.round ? 'bar' : 'bar past';
       const top = f.y(h.added), bottom = f.y(0);
       const r = svgEl('rect', { class: cls, x: f.x(h.round) - bw / 2, y: top, width: bw, height: Math.max(0, bottom - top), rx: 2 }, f.g);
-      const t = svgEl('title', {}, r);
-      t.textContent = h.round === 0 ? `${h.added} seed${h.added === 1 ? '' : 's'}` : `Round ${h.round}: ${h.added} new`;
+      title(r, h.round === 0 ? `${h.added} seed${h.added === 1 ? '' : 's'}` : `Round ${h.round}: ${h.added} new`);
     }
   }
 
@@ -392,10 +564,10 @@
     el.hint.classList.toggle('warn', Boolean(msg));
   }
   function addSeed(raw) {
-    const text = raw.trim();
-    if (!text) return;
-    const key = LOOKUP.get(text.toLowerCase());
-    if (!key) { hint(`“${text}” is not in this demo's keyword network.`); return; }
+    const t = raw.trim();
+    if (!t) return;
+    const key = LOOKUP.get(t.toLowerCase());
+    if (!key) { hint(`“${t}” is not in this demo's keyword network.`); return; }
     if (state.seeds.includes(key)) { hint(`“${key}” is already a seed.`); return; }
     state.seeds.push(key);
     hint('');
@@ -429,6 +601,8 @@
     el.reset.addEventListener('click', reset);
     el.speed.addEventListener('input', () => { el.speedValue.textContent = el.speed.value; if (state.playing) schedule(); });
     el.showHidden.addEventListener('change', () => el.svg.classList.toggle('hide-hidden', !el.showHidden.checked));
+    el.viewNetwork.addEventListener('click', () => setView('network'));
+    el.viewColumns.addEventListener('click', () => setView('columns'));
     el.export.addEventListener('click', exportCsv);
     el.svg.addEventListener('click', () => { if (state.pinned) { state.pinned = null; unfocus(); } });
     document.addEventListener('keydown', ev => {

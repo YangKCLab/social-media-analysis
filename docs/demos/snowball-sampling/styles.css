@@ -152,6 +152,12 @@ input[type="range"] { width: 100%; margin: 4px 0 8px; accent-color: var(--primar
 .status { font-size: 15px; }
 .status b { font-weight: 500; }
 .status.done { color: #8a3410; }
+.stage-tools { display: flex; align-items: center; gap: 18px; }
+.segmented { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.segmented button { border: 0; background: var(--surface); color: var(--ink-2); padding: 4px 12px; font-size: 12px; cursor: pointer; }
+.segmented button + button { border-left: 1px solid var(--line); }
+.segmented button:hover { background: var(--line-soft); }
+.segmented button.active { background: var(--primary); color: #fff; }
 .legend { list-style: none; padding: 0; display: flex; gap: 14px; font-size: 12px; color: var(--ink-2); }
 .legend li { display: flex; align-items: center; gap: 5px; }
 .swatch { width: 11px; height: 11px; border-radius: 50%; display: inline-block; border: 1px solid transparent; }
@@ -176,7 +182,16 @@ input[type="range"] { width: 100%; margin: 4px 0 8px; accent-color: var(--primar
   stroke: var(--surface); stroke-width: 1.5;
   transition: fill 0.4s, stroke 0.4s, r 0.3s;
 }
-.node text { font-size: 13px; fill: var(--ink); pointer-events: none; }
+.node text { font-size: 13px; fill: var(--ink); pointer-events: none; paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
+.node.nolabel text { display: none; }
+.node.nolabel.lit text { display: block; }
+svg[data-view="network"] .node.hidden text { display: none; }
+svg[data-view="network"] .node.hidden.lit text { display: block; }
+svg[data-view="network"] .col-head { paint-order: stroke; stroke: var(--surface); stroke-width: 4px; }
+.ring { fill: none; stroke: var(--line-soft); stroke-width: 1; }
+.ring.active { stroke: var(--line); }
+.co { fill: none; stroke: var(--edge); stroke-width: 1; stroke-opacity: 0.05; }
+.co.on { stroke-opacity: 0.22; }
 .node.seed circle { fill: var(--seed); r: 8; }
 .node.seed text { font-weight: 500; }
 .node.new circle { fill: var(--new); }
@@ -190,6 +205,8 @@ svg.hide-hidden .node.hidden, svg.hide-hidden .node.unreachable, svg.hide-hidden
 /* highlight state: dim everything, then lift the focus set */
 svg.focused .node { opacity: 0.25; }
 svg.focused .edge { stroke-opacity: 0.06; }
+svg.focused .co { stroke-opacity: 0.02; }
+svg.focused .co.lit { stroke: var(--ink); stroke-opacity: 0.7; stroke-width: 1.5; }
 svg.focused .node.lit { opacity: 1; }
 svg.focused .node.lit circle { stroke: var(--ink); }
 svg.focused .edge.lit { stroke: var(--ink); stroke-opacity: 0.9; stroke-width: 1.8; }

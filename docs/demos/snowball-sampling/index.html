@@ -75,12 +75,18 @@
     <section class="stage">
       <div class="stage-head">
         <p class="status" id="status"></p>
-        <ul class="legend" aria-label="Legend">
+        <div class="stage-tools">
+          <div class="segmented" role="group" aria-label="View">
+            <button type="button" id="viewNetwork" class="active">Network</button>
+            <button type="button" id="viewColumns">Columns</button>
+          </div>
+          <ul class="legend" aria-label="Legend">
           <li><span class="swatch seed"></span>Seed</li>
           <li><span class="swatch new"></span>New this round</li>
           <li><span class="swatch found"></span>Found earlier</li>
           <li><span class="swatch hidden"></span>Not found yet</li>
-        </ul>
+          </ul>
+        </div>
       </div>
       <div class="network" id="networkWrap">
         <svg id="network" role="img" aria-label="Keyword network arranged by the round in which each keyword is found"></svg>
