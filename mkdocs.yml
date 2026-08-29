@@ -80,7 +80,8 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Topics:
-    - Introduction: topics/introduction/index.md
+    - Introduction:
+      - topics/introduction/index.md
     - Data Collection:
       - topics/data-collection/index.md
       - "Bluesky: Search posts": topics/data-collection/bluesky_search_posts.ipynb
