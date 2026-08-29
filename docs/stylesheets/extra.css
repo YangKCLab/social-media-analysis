@@ -34,3 +34,22 @@
 [data-md-color-scheme="slate"] .notebook-header {
   background-color: #2d2d2d;
 }
+
+/* Year-added label on the papers list */
+.added-year {
+  display: inline-block;
+  margin-left: 0.4em;
+  padding: 0 0.45em;
+  border-radius: 0.6em;
+  font-size: 0.7em;
+  line-height: 1.6;
+  vertical-align: middle;
+  white-space: nowrap;
+  background-color: #e0e0e0;
+  color: #424242;
+}
+
+[data-md-color-scheme="slate"] .added-year {
+  background-color: #3a3a3a;
+  color: #cfcfcf;
+}
