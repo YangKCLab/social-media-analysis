@@ -65,10 +65,70 @@ In Google Colab there is no `.env` file, so set the value in a cell you delete b
 
 ## Run it continuously
 
-A collector for an ephemeral platform runs from `cron` for the length of the study.
-Keep the record of what has already been fetched on disk, so a restart does not refetch everything.
-Log every round, so a collector that stops is noticed.
-Overlap consecutive time windows by a minute or two and drop duplicates, so an item indexed late is not lost.
+A notebook is for finding out how an API behaves.
+A study needs a collector that runs for weeks on a machine that stays on, without anyone watching it.
+There are two shapes of collector, and one tool for each.
+
+### Periodic jobs: `cron`
+
+Most collection is periodic: every few minutes, ask the API what is new, store it, and exit.
+Polling the 4chan archive, searching Bluesky for the last five minutes of posts, and fetching new comments on a set of YouTube videos all have this shape.
+The scheduler on Linux and macOS is `cron`.
+It starts your script on a schedule and does nothing else.
+Each line in the crontab is a schedule followed by a command:
+
+```
+# minute hour day month weekday  command
+*/10 * * * *  cd /home/user/collector && /home/user/collector/.venv/bin/python collect.py >> collect.log 2>&1
+```
+
+This runs `collect.py` every 10 minutes and appends everything it prints to `collect.log`.
+Edit the table with `crontab -e` and list it with `crontab -l`.
+Rules that make a cron job survive:
+
+- **Each run starts from disk.** The script reads what it has already fetched from a file (the seen-set in the 4chan notebook), does one round, writes the file back, and exits. Nothing lives in memory between runs, so a crash loses at most one round.
+- **Overlap the windows.** Search for the last 15 minutes every 10 minutes and drop duplicates by ID. An item that the platform indexed late is otherwise lost.
+- **One run at a time.** If a round takes longer than the interval, the next run starts while the previous one is still writing. Wrap the command in `flock -n /tmp/collect.lock ...` so the second run exits instead.
+- **Use absolute paths and your own Python.** `cron` runs with almost no environment: no virtual environment, no `PATH`, and no `.env` loaded by your shell. Call the interpreter inside your `.venv` by its full path and load `.env` from inside the script.
+- **Log every round**, including rounds that fetched nothing, with a timestamp. A log that stops growing is how you notice that the collector stopped.
+
+### Streams: a supervisor
+
+Some sources push data instead of waiting to be asked.
+The Bluesky firehose is a WebSocket that sends every event on the network as it happens; you keep one connection open and filter on your side.
+A stream collector is one long-running process, not a job that exits, so `cron` is the wrong tool: it would start a second copy every interval.
+What a stream needs is a **supervisor**, a program that starts your process once, watches it, and restarts it when it dies.
+Connections drop, the machine reboots, and a bug crashes the process at 3 AM.
+The supervisor makes all three a short gap instead of the end of the collection.
+
+[Supervisor](http://supervisord.org/) is the common choice on a research VM (`pip install supervisor` or the system package).
+One block per program in its config:
+
+```ini
+[program:firehose]
+command=/home/user/collector/.venv/bin/python firehose.py
+directory=/home/user/collector
+autostart=true
+autorestart=true
+startsecs=10
+stdout_logfile=/home/user/collector/firehose.log
+stderr_logfile=/home/user/collector/firehose.err
+```
+
+`supervisorctl status` shows whether the process is up and for how long; `supervisorctl restart firehose` restarts it after you change the code.
+`systemd` on Linux does the same job with a unit file that sets `Restart=always`, if you would rather not install anything.
+Rules for the process itself:
+
+- **Reconnect inside the script too.** The supervisor handles crashes. A dropped connection that the client library reports as an error should be caught and reconnected after a short sleep, so the process does not restart from scratch every time the network blinks.
+- **Write as you go.** Append each event to the `.jsonl` file as it arrives, and rotate files by hour or day so no single file grows without limit. Anything held in memory is lost when the process dies.
+- **Record the gaps.** Log every connect and disconnect with a timestamp. A stream cannot backfill, so the log is the only record of what you missed. Jetstream accepts a `cursor` parameter to resume from a recent point; use it on reconnect.
+- **Watch the disk.** A firehose collector writes continuously. Print free space in the log line, or the collector dies quietly when the disk fills.
+
+### Either way
+
+Run the collector on a machine that stays on, such as a university VM or a small cloud instance, not a laptop.
+Check on it daily during the first week, and then on a schedule for the rest of the study: look at the log, the size of the output, and the timestamp of the last item.
+Both `cron` and Supervisor can email or log on failure, but the check that catches most problems is "did the file grow since yesterday".
 
 ## Choosing a platform
 
