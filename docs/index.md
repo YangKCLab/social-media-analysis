@@ -5,6 +5,7 @@ Welcome to the course materials for **Social Media Analysis**!
 ## Course description
 
 This introductory course provides an introduction to social media data analysis.
+The [Introduction](topics/introduction/index.md) page explains what the course is about, why social media data is useful and hard to work with, and how the topics fit together as a pipeline.
 Throughout the course, you'll learn:
 
 - **[Social media data collection](topics/data-collection/index.md)**: Work with APIs and other techniques to collect data from various social media platforms.
