@@ -22,7 +22,7 @@ cd social-media-analysis
 uv sync --group docs
 
 # Serve documentation locally
-uv run mkdocs serve
+uv run mkdocs serve --livereload   # the flag is required: without it, mkdocs 1.6.1 + click 8.2+ starts with no file watcher
 ```
 
 Visit http://127.0.0.1:8000 to view the site.

@@ -30,7 +30,7 @@ This repository contains course materials for the "social media analysis" class.
 uv sync --group docs
 
 # Start local development server
-uv run mkdocs serve
+uv run mkdocs serve --livereload
 
 # Build static site
 uv run mkdocs build
@@ -204,7 +204,7 @@ nav:
 uv run mkdocs build --strict
 
 # Serve locally to test
-uv run mkdocs serve
+uv run mkdocs serve --livereload
 
 # Visit http://127.0.0.1:8000
 ```
@@ -226,15 +226,18 @@ uv run mkdocs serve
 - Check link format matches: `github.com/USER/REPO/blob/BRANCH/PATH`
 - Ensure notebook is pushed to GitHub
 
+### Local serve does not reload on file changes
+- Pass `--livereload` explicitly. With mkdocs 1.6.1 and click 8.2 or newer, plain `uv run mkdocs serve` starts without a file watcher, so edits never rebuild. The fix is confirmed when the startup log prints `Watching paths for changes: 'docs', 'mkdocs.yml'`.
+
 ### Local serve shows wrong content
 - Clear browser cache
-- Restart mkdocs server: `Ctrl+C` then `uv run mkdocs serve`
+- Restart mkdocs server: `Ctrl+C` then `uv run mkdocs serve --livereload`
 - Check you're on the correct git branch
 
 ## Best Practices
 
 1. **Always commit uv.lock** - Ensures reproducible builds
-2. **Test locally before pushing** - Use `uv run mkdocs serve`
+2. **Test locally before pushing** - Use `uv run mkdocs serve --livereload`
 3. **Use --strict flag** - Catches errors early: `uv run mkdocs build --strict`
 4. **Keep tutorial outputs** - Helps students see expected results
 5. **Keep exercise outputs empty** - Encourages students to run code
