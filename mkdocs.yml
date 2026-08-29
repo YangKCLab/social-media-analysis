@@ -82,6 +82,18 @@ nav:
   - Topics:
     - Data Collection:
       - topics/data-collection/index.md
+      - "Bluesky: Search posts": topics/data-collection/bluesky_search_posts.ipynb
+      - "Bluesky: User profile": topics/data-collection/bluesky_get_user_profile.ipynb
+      - "Bluesky: Followers": topics/data-collection/bluesky_get_followers.ipynb
+      - "4chan: Boards": topics/data-collection/4chan_boards.ipynb
+      - "4chan: Catalog": topics/data-collection/4chan_catalog.ipynb
+      - "4chan: Thread": topics/data-collection/4chan_thread.ipynb
+      - "4chan: Archive": topics/data-collection/4chan_archive.ipynb
+      - "4chan: Collect a whole board": topics/data-collection/4chan_collect_board.ipynb
+      - "YouTube: Search videos": topics/data-collection/youtube_search_videos.ipynb
+      - "YouTube: Channel information": topics/data-collection/youtube_channel_information.ipynb
+      - "YouTube: Video information": topics/data-collection/youtube_video_information.ipynb
+      - "YouTube: Video comments": topics/data-collection/youtube_video_comments.ipynb
     - Data Format and Management:
       - topics/data-format-management/index.md
     - Measurements and Metrics:
