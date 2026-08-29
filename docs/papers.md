@@ -21,6 +21,7 @@ Each paper carries a label with the year it was added to this list, so returning
 To learn how to effectively collect and manage social media data, we can examine best practices from researchers in the field.
 Below are several exemplary studies:
 
+- [Global YouTube Trending Dataset (2022–2025): Three Years of Platform-Curated, Cross-National Trends in Digital Culture](https://ojs.aaai.org/index.php/ICWSM/article/view/42784) <span class="added-year">added 2026</span>
 - [CoVaxxy: A Collection of English-Language Twitter Posts About COVID-19 Vaccines](https://ojs.aaai.org/index.php/ICWSM/article/view/18122) (see the [dashboard](https://osome.iu.edu/tools/covaxxy)) <span class="added-year">added 2025</span>
 - [A Multi-Platform Collection of Social Media Posts about the 2022 U.S. Midterm Elections](https://ojs.aaai.org/index.php/ICWSM/article/view/22205) (see the [dashboard](https://osome.iu.edu/tools/midterm22/)) <span class="added-year">added 2025</span>
 - [Raiders of the Lost Kek: 3.5 Years of Augmented 4chan Posts from the Politically Incorrect Board](https://doi.org/10.1609/icwsm.v14i1.7354) <span class="added-year">added 2025</span>
@@ -31,6 +32,7 @@ Below are several exemplary studies:
 Algorithms are at the core of modern social media platforms, and understanding how they work and how they affect users is a crucial part of social media analysis.
 Here are a few example studies that focus on different platforms and leverage different methods to study these algorithms:
 
+- [Value misalignment in X's feed algorithm is a reflection of value tensions in engagement](https://doi.org/10.1073/pnas.2610388123) <span class="added-year">added 2026</span>
 - [How do social media feed algorithms affect attitudes and behavior in an election campaign?](https://drive.google.com/file/d/1u0-0CRduarufYKmLE2dvGFUM-iega2IU/view) <span class="added-year">added 2025</span>
 - [Algorithmic amplification of politics on Twitter](https://doi.org/10.1073/pnas.2025334119) <span class="added-year">added 2025</span>
 - [Neutral bots probe political bias on social media](https://doi.org/10.1038/s41467-021-25738-6) <span class="added-year">added 2025</span>
@@ -39,8 +41,9 @@ Here are a few example studies that focus on different platforms and leverage di
 
 ## Inauthentic Behaviors
 
-Inauthentic behaviors are a major concern for social media platforms, here are a few example studies that focus on different types of inauthentic behaviors and their potential impact on the users:
+Inauthentic behaviors are a major concern for social media platforms. Here are a few example studies that focus on different types of inauthentic behaviors and their potential impact on users:
 
+- [How malicious AI swarms can threaten democracy](https://doi.org/10.1126/science.adz1697) <span class="added-year">added 2026</span>
 - [Exposure to the Russian Internet Research Agency foreign influence campaign on Twitter in the 2016 US election and its relationship to attitudes and voting behavior](https://doi.org/10.1038/s41467-022-35576-9) <span class="added-year">added 2025</span>
 - [Bots increase exposure to negative and inflammatory content in online social systems](https://doi.org/10.1073/pnas.1803470115) <span class="added-year">added 2025</span>
 - [The Manufacture of Partisan Echo Chambers by Follow Train Abuse on Twitter](https://doi.org/10.1609/icwsm.v16i1.19354) <span class="added-year">added 2025</span>
@@ -61,6 +64,19 @@ Below are several studies relevant to these challenges:
 Generative AI is set to transform the online platform landscape.
 Here, we list a few studies that focus on the impact of generative AI on social media and social media analysis:
 
+- [Grok in the Wild: Characterizing the Roles and Uses of Large Language Models on Social Media](https://doi.org/10.48550/arXiv.2602.11286) <span class="added-year">added 2026</span>
+- [AI Fact-Checking in the Wild: A Field Evaluation of LLM-Written Community Notes on X](https://doi.org/10.48550/arXiv.2604.02592) <span class="added-year">added 2026</span>
+- [Knowing You Is Everything: LLM Agents Achieve Near-Perfect Profile-Consistent Reaction Prediction in Social Media Simulation](https://doi.org/10.48550/arXiv.2608.07498) <span class="added-year">added 2026</span>
+- [Examining the Prevalence and Dynamics of AI-Generated Media in Art Subreddits](https://doi.org/10.48550/arXiv.2410.07302) <span class="added-year">added 2026</span>
 - [Anatomy of an AI-powered malicious social botnet](https://doi.org/10.51685/jqd.2024.icwsm.7) <span class="added-year">added 2025</span>
 - [Characterizing AI-Generated Misinformation on Social Media](https://doi.org/10.48550/arXiv.2505.10266) <span class="added-year">added 2025</span>
 - [Simulating Social Media Using Large Language Models to Evaluate Alternative News Feed Algorithms](https://doi.org/10.48550/arXiv.2310.05984) <span class="added-year">added 2025</span>
+
+## Social Media for AI Agents
+
+With more autonomous agents gaining access to the internet, new social media platforms designed specifically for them have emerged.
+Here is a list of recent research papers examining these platforms:
+
+- ["Humans welcome to observe": A First Look at the Agent Social Network Moltbook](https://doi.org/10.48550/arXiv.2602.10127) <span class="added-year">added 2026</span>
+- [Agents in the Wild: Safety, Society, and the Illusion of Sociality on Moltbook](https://doi.org/10.48550/arXiv.2602.13284) <span class="added-year">added 2026</span>
+- [Characterizing LLM-driven Social Network: The Chirper.ai Case](https://doi.org/10.48550/arXiv.2504.10286) <span class="added-year">added 2026</span>
