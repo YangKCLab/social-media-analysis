@@ -39,6 +39,7 @@ Here is a list of the relevant materials for the course:
 Variants of the course may be offered with slightly different names and contents based on the needs.
 Here is a list of the variants that have been offered:
 
+- [CS 415/515 Social Media Data Science Pipelines](https://yangkclab.github.io/social-media-ds-course/fall2026) (Fall 2026 @ Binghamton University)
 - [CS 415/515 Social Media Data Science Pipelines](https://yangkclab.github.io/social-media-ds-course/fall2025) (Fall 2025 @ Binghamton University)
 
 ## Special thanks

@@ -17,6 +17,7 @@ Natural language processing:
 - [spaCy](https://spacy.io/) - Python library for natural language processing
 - [Gensim](https://radimrehurek.com/gensim) - Python library for topic modeling
 - [langdetect](https://github.com/Mimino666/langdetect) - Python library for language detection
+- [lingua](https://github.com/pemistahl/lingua) - Python library for language detection
 - [VADER Sentiment](https://github.com/cjhutto/vaderSentiment) - Python library for sentiment analysis
 - [vMFD](https://github.com/ZeningDuan/vMFD) - Python library for moral foundation analysis
 
