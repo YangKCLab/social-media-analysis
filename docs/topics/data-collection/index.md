@@ -1,6 +1,8 @@
 # Data Collection
 
-Collect social media data through platform APIs. Every collection job has the same shape: authenticate if the platform requires it, ask for a page of results, keep asking until there is nothing more, and store what came back.
+In this module, you will learn how to collect social media data through platform APIs.
+
+Most collection jobs have the same shape: authenticate if the platform requires it, ask for a page of results, keep asking until there is nothing more, and store what came back.
 
 ## Learning objectives
 
@@ -15,18 +17,19 @@ Collect social media data through platform APIs. Every collection job has the sa
 | Page | What it covers |
 |------|----------------|
 | [Sampling strategies](sampling-strategies.md) | Keyword-based, user-based, graph snowball, and whole-board collection; snowball sampling for growing a keyword list, with the interactive demo |
-| [Key concepts](key-concepts.md) | Pagination, rate limits, storing the raw response, credentials, and running a collector continuously |
-| [Research considerations](research-considerations.md) | Terms of service, offensive content, images, the people behind the posts, and ethics review |
+| [Key concepts](key-concepts.md) | What the data looks like, ways to get it, finding the API documentation, pagination, rate limits, storage, credentials, running a collector continuously, and choosing a platform |
+| [Research considerations](research-considerations.md) | Terms of service and what happens when they are ignored, consent and deletion, ethics review, offensive content, and media |
 
 ## Platform notebooks
 
-One notebook per platform, split into sections that build on each other. Each opens in Google Colab; the setup instructions are at the top of the notebook. Bluesky and YouTube need credentials, 4chan needs nothing.
+Here, we provide notebooks for three platforms: Bluesky, 4chan, and YouTube, to demonstrate how to interact with their API endpoints.
+Readers are encouraged to explore other platforms and their APIs.
 
 | Platform | Access | Sections | |
 |----------|--------|----------|---|
-| [Bluesky](bluesky.ipynb) | Free account and app password. Posts are searchable by keyword and time, so a collector can backfill | [Search posts](bluesky.ipynb#search-posts), [User profile](bluesky.ipynb#user-profile), [Followers](bluesky.ipynb#followers) | [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/bluesky.ipynb){ .colab-button } |
-| [4chan](4chan.ipynb) | No key. Anonymous, no search, threads expire within hours or days, so a collector must run continuously | [Boards](4chan.ipynb#boards), [Catalog](4chan.ipynb#catalog), [Thread](4chan.ipynb#thread), [Archive](4chan.ipynb#archive), [Collect a whole board](4chan.ipynb#collect-a-whole-board) | [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/4chan.ipynb){ .colab-button } |
-| [YouTube](youtube.ipynb) | Google API key. Every request costs quota units from a daily budget | [Search videos](youtube.ipynb#search-videos), [Channel information](youtube.ipynb#channel-information), [Video information](youtube.ipynb#video-information), [Video comments](youtube.ipynb#video-comments) | [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/youtube.ipynb){ .colab-button } |
+| [Bluesky](bluesky.ipynb) | Free account and app password. Posts are searchable by keyword and time, so a collector can backfill. | [Search posts](bluesky.ipynb#search-posts), [User profile](bluesky.ipynb#user-profile), [Followers](bluesky.ipynb#followers) | [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/bluesky.ipynb){ .colab-button } |
+| [4chan](4chan.ipynb) | No key. Anonymous, no search, threads get deleted within hours or days, so a collector must run continuously. | [Boards](4chan.ipynb#boards), [Catalog](4chan.ipynb#catalog), [Thread](4chan.ipynb#thread), [Archive](4chan.ipynb#archive), [Collect a whole board](4chan.ipynb#collect-a-whole-board) | [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/4chan.ipynb){ .colab-button } |
+| [YouTube](youtube.ipynb) | Google API key. Every request costs quota units from a daily budget. | [Search videos](youtube.ipynb#search-videos), [Channel information](youtube.ipynb#channel-information), [Video information](youtube.ipynb#video-information), [Video comments](youtube.ipynb#video-comments) | [Open in Colab](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/data-collection/youtube.ipynb){ .colab-button } |
 
 ## Related
 
