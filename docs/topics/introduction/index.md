@@ -1,6 +1,7 @@
 # Introduction
 
-This course is about building social media data science pipelines: systems that collect social media data continuously, store it in a form you can query, measure what happens on the platforms, test hypotheses about it, and present the results.
+This course is about building social media data science pipelines.
+These are systems that collect social media data continuously, store it in a form you can query, measure what happens on the platforms, test hypotheses about it, and present the results.
 Each of the four words in the title carries part of the course:
 
 - **Social media**: the platforms, their data models, and their rules

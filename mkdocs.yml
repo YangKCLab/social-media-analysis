@@ -84,6 +84,9 @@ nav:
       - topics/introduction/index.md
     - Data Collection:
       - topics/data-collection/index.md
+      - Sampling Strategies: topics/data-collection/sampling-strategies.md
+      - Key Concepts: topics/data-collection/key-concepts.md
+      - Research Considerations: topics/data-collection/research-considerations.md
       - Bluesky: topics/data-collection/bluesky.ipynb
       - 4chan: topics/data-collection/4chan.ipynb
       - YouTube: topics/data-collection/youtube.ipynb
