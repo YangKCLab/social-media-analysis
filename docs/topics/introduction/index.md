@@ -61,9 +61,10 @@ When the course is offered in person, students read the papers before class and 
 
 ## Course project
 
-The course project runs through the whole semester and follows the pipeline.
-Students work in small groups and build an end-to-end system in three stages, each building on the previous one: a data collection system that gathers social media data continuously, an exploratory analysis of the collected data, and a final stage that answers research questions with the data.
-Each stage starts with a short proposal, continues with the implementation, and ends with a report.
+The best way to learn the material is to build a pipeline of your own.
+The course project does exactly that, in three stages that build on each other: a data collection system that gathers social media data continuously, an exploratory analysis of the collected data, and a final stage that uses the data to answer research questions.
+Each stage starts with a short plan of what to do, continues with the implementation, and ends with a write-up of what was found.
+Students in the classroom version complete the project in small groups with feedback from the instructor; self-directed learners can follow the same three stages on their own, with a research question of their choice.
 See the [project assignment](../../project.md) page for the details and the considerations at each stage.
 
 ## Other useful resources
