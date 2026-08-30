@@ -99,8 +99,8 @@ social-media-analysis/
 
 ## Notebook Guidelines
 
-### Tutorial Notebooks (with outputs)
-**Purpose**: Demonstrate concepts with pre-computed results
+### Tutorial Notebooks
+**Purpose**: Demonstrate concepts; students run them in Colab or from a clone of the repo
 
 **Workflow**:
 1. Create notebook in appropriate `docs/topics/` subdirectory
@@ -109,8 +109,8 @@ social-media-analysis/
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/TOPIC/NOTEBOOK.ipynb)
    ```
 3. Write content with explanations and code
-4. Execute all cells to generate outputs
-5. Commit notebook WITH outputs visible
+4. Execute all cells to check that they run
+5. Run `make clean-notebooks` to strip the outputs, then commit
 6. Add to navigation in `mkdocs.yml`
 
 ### Exercise Notebooks (empty cells)
@@ -121,7 +121,7 @@ social-media-analysis/
 2. Add Colab badge at the top
 3. Write problem statements in markdown cells
 4. Create code cells with `# Your code here` comments
-5. DO NOT execute cells - leave outputs empty
+5. Run `make clean-notebooks` before committing so no outputs are stored
 6. Commit notebook WITHOUT outputs
 7. Add to navigation in `mkdocs.yml`
 
@@ -239,8 +239,7 @@ uv run mkdocs serve --livereload
 1. **Always commit uv.lock** - Ensures reproducible builds
 2. **Test locally before pushing** - Use `uv run mkdocs serve --livereload`
 3. **Use --strict flag** - Catches errors early: `uv run mkdocs build --strict`
-4. **Keep tutorial outputs** - Helps students see expected results
-5. **Keep exercise outputs empty** - Encourages students to run code
+4. **Commit notebooks without outputs** - `make clean-notebooks` before every commit; students run the code themselves
 6. **Add Colab links consistently** - Every notebook should be Colab-accessible
 7. **Update navigation** - Remember to add new pages to `mkdocs.yml`
 8. **Write clear markdown** - Use headings, lists, and code blocks effectively
