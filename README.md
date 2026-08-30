@@ -47,8 +47,7 @@ Visit http://127.0.0.1:8000 to view the site.
    ```markdown
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YangKCLab/social-media-analysis/blob/main/docs/topics/TOPIC/NOTEBOOK.ipynb)
    ```
-3. For tutorial notebooks: Execute and commit with outputs
-4. For exercise notebooks: Leave cells empty and commit without outputs
+3. Run `make clean-notebooks` before committing. Notebooks are committed without outputs; the site shows the code and students run it themselves
 5. Update `nav:` section in `mkdocs.yml`
 
 ### Deployment

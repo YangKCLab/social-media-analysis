@@ -37,7 +37,7 @@ theme:
 plugins:
   - search
   - mkdocs-jupyter:
-      execute: false                    # Don't run notebooks (outputs pre-committed)
+      execute: false                    # Don't run notebooks at build time; the site shows code only
       include_source: true              # Enable download links
       show_input: true                  # Show code cells
       theme: light                      # Notebook theme
