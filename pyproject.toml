@@ -23,3 +23,6 @@ docs = [
     "mkdocs-material>=9.7.0",
     "mkdocs-open-in-new-tab>=1.0.8",
 ]
+
+[tool.uv]
+default-groups = ["docs"]
