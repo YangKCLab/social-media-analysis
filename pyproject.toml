@@ -5,7 +5,13 @@ description = "Course materials for social media analysis"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
-dependencies = []
+dependencies = [
+    "atproto>=0.0.71",
+    "google-api-python-client>=2.199.0",
+    "jupyterlab>=4.6.3",
+    "python-dotenv>=1.2.3",
+    "requests>=2.32.5",
+]
 
 [project.optional-dependencies]
 docs = []

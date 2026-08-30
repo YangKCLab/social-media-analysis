@@ -4,6 +4,19 @@ Course materials for "social media analysis" class.
 
 🌐 **Live Site**: https://yangkclab.github.io/social-media-analysis/
 
+## Running the notebooks
+
+Every notebook has an "Open in Colab" button on the site. To run them on your own machine instead:
+
+```bash
+git clone https://github.com/YangKCLab/social-media-analysis.git
+cd social-media-analysis
+uv sync                 # installs the notebook dependencies (atproto, requests, google-api-python-client, ...)
+uv run jupyter lab      # then open docs/topics/<topic>/<notebook>.ipynb
+```
+
+Notebooks that need credentials (Bluesky, YouTube) read them from a `.env` file in the notebook's folder. Each notebook's setup cell lists the variable names. Never commit the `.env` file.
+
 ## Development
 
 ### Prerequisites
