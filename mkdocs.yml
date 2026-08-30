@@ -93,6 +93,11 @@ nav:
       - YouTube: topics/data-collection/youtube.ipynb
     - Data Format and Management:
       - topics/data-format-management/index.md
+      - Choosing a Format: topics/data-format-management/formats.md
+      - Command-Line Tools: topics/data-format-management/command-line.md
+      - Pitfalls: topics/data-format-management/pitfalls.md
+      - JSON: topics/data-format-management/json.ipynb
+      - Tabular Data: topics/data-format-management/tabular.ipynb
     - Measurements and Metrics:
       - topics/measurements/index.md
     - Hypothesis Testing and Statistical Analysis:
