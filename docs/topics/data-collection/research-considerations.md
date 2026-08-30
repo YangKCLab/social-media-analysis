@@ -11,10 +11,9 @@ Most platforms publish rules for API use. Read them before collecting, and prefe
 - Protect the user data you hold; delete what a user asks you to delete
 - Violations "may result in suspension of access"
 
-Researchers disagree about how much weight the terms deserve. The case for following them: researchers should behave ethically and keep their access. The case against: the terms are not laws, they can block research that serves the public, and researchers have a larger responsibility to the collective good than to the platforms. Whatever you decide, there can be repercussions. Two examples:
-
-- **X Corp. v. Center for Countering Digital Hate.** X sued CCDH in 2023 over research on hate speech on the platform, claiming that the automated collection of public data violated its terms of service and cost X advertising revenue. The district court dismissed the case on March 25, 2024, and X appealed. [Case page at the Knight First Amendment Institute](https://knightcolumbia.org/cases/x-corp-v-center-for-countering-digital-hate).
-- **Records requests to universities.** In February 2025 a legal advocacy group requested ten types of records from Indiana University over alleged participation in a "censorship-industrial complex", one of several such requests to universities that host misinformation research. [Report in the Indiana Daily Student](https://www.idsnews.com/article/2025/02/iu-conservative-christian-investigation-adf-censorship).
+Researchers disagree about how much weight the terms deserve.
+The case for following them: researchers should behave ethically and keep their access.
+The case against: the terms are not laws, they can block research that serves the public, and researchers have a larger responsibility to the collective good than to the platforms.
 
 ## Beyond the terms of service
 
