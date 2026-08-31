@@ -150,7 +150,7 @@ SELECT people.name, salary, companies.name, companies.location
 ```
 
 The plain (inner) join keeps only the rows that match on both sides.
-Outer joins (`LEFT`, `RIGHT`, `FULL`) also keep the rows without a match; they are rarely needed compared to inner joins.
+Outer joins (`LEFT`, `RIGHT`, `FULL`) also keep the rows without a match; they are less common compared to inner joins.
 
 ### Normalization
 
