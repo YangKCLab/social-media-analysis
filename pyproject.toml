@@ -8,10 +8,14 @@ license = {text = "MIT"}
 dependencies = [
     "atproto>=0.0.71",
     "google-api-python-client>=2.199.0",
+    "json-repair>=0.63.4",
     "jupyterlab>=4.6.3",
     "notebook>=7.6.2",
+    "pandas>=3.0.5",
+    "pyarrow>=25.0.1",
     "python-dotenv>=1.2.3",
     "requests>=2.32.5",
+    "ujson>=5.13.0",
 ]
 
 [project.optional-dependencies]
