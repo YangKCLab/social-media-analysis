@@ -13,10 +13,18 @@ Two of them hold nested records and two of them hold tables.
 ## JSON
 
 JSON (JavaScript Object Notation) is the text format that every social media API returns.
-It has six kinds of value: strings, numbers, booleans (`true`, `false`), `null`, arrays (`[...]`), and objects (`{"key": value}`).
+It has six kinds of value:
+
+- strings,
+- numbers,
+- booleans (`true`, `false`),
+- `null`,
+- arrays (`[...]`),
+- and objects (`{"key": value}`).
+
 Arrays and objects nest, which is why one JSON value can describe a post with its author, its embedded images, and the post it replies to.
 
-The syntax is stricter than Python's.
+The syntax is stricter than Python's dictionary.
 Strings and keys use double quotes only.
 `true`, `false`, and `null` are lowercase.
 There are no trailing commas and no comments.
@@ -44,11 +52,12 @@ Every other line is one row, with a comma between values.
 
 A value that contains a comma, a double quote, or a line break is wrapped in double quotes, and a double quote inside such a value is written twice: `"Bob ""Bobby"" Smith"`.
 Social media text contains all three characters, so a CSV of posts is full of quoted values.
-Never split a CSV line on commas yourself; the `csv` module and pandas apply the quoting rules correctly.
+Never split a CSV line on commas yourself; the `csv` module and `pandas` apply the quoting rules correctly.
 
 CSV has no types.
 Every value is text, and the reader guesses what it is.
-The guess is wrong for identifiers with leading zeros and for large integers.
+The guesses are often wrong.
+A common mistake is the type of an identifier with leading zeros or a large integer, which could cause serious errors for downstream analysis.
 Tell the reader the type of those columns (see [Pitfalls](pitfalls.md#data-types)).
 
 The separator does not have to be a comma.
@@ -59,17 +68,17 @@ The [Tabular data notebook](tabular.ipynb) reads all of them.
 
 [Apache Parquet](https://parquet.apache.org/) is a binary table format.
 Each column carries its type, so a string column of ZIP codes comes back as strings without any argument to the reader.
-Data is stored by column and compressed, so a reader loads the two columns a question needs without touching the other fifty.
-pandas reads and writes it through the `pyarrow` package: `to_parquet` and `read_parquet`.
+Data is stored by column and compressed, so a reader can load the columns of interest without reading the rest.
+`pandas` reads and writes it through the `pyarrow` or `fastparquet` packages: `to_parquet` and `read_parquet`.
 
 Parquet is for tables that are read many times, by analysis code.
 It is not for humans, and it is not for a collector to append to.
 
 ## Compression
 
-JSON and CSV are text, and text compresses well: the field names repeat on every line.
+JSON and CSV are text, and text compresses very well: the field names repeat on every line.
 A JSONL file of posts shrinks by a factor of 5 to 10 under `gzip`.
-Python opens compressed files directly (`gzip.open` for JSON, and pandas handles a `.gz` extension on its own), and every command-line tool has a compressed variant (`zcat`, `zless`).
+Python opens compressed files directly (`gzip.open` for JSON, and `pandas` handles a `.gz` extension on its own), and every command-line tool has a compressed variant (`zcat`, `zless`).
 
 Compress a file once it is complete.
 The file a collector is still appending to stays uncompressed.
@@ -85,7 +94,7 @@ Statistics, plots, joins, and machine learning all start from one row per observ
 
 A table converts to JSON without loss: one object per row, column names as keys.
 The other direction is the hard one, because a table cell holds one value and a JSON field can hold an object or a list.
-Three steps, all shown in the [Tabular data notebook](tabular.ipynb#json-to-tabular):
+We demonstrate a three-step process in the [Tabular data notebook](tabular.ipynb#json-to-tabular).
 
 1. **Flatten nested objects** into dotted column names: `author.handle`, `record.text`.
    `pandas.json_normalize` does this.

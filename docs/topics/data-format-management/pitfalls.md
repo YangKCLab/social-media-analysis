@@ -48,7 +48,7 @@ Keep the ISO 8601 string the API sent (`2025-08-26T04:36:32.229Z`), and parse it
 
 ## Broken JSON
 
-A file that is almost JSON is not JSON, and the parser stops at the first error.
+Sometimes you will deal with broken JSON and the parser will stop at the first error.
 Broken JSON comes from a few places:
 
 - A collector that crashed while writing, leaving half a record at the end of the file.
@@ -57,25 +57,24 @@ Broken JSON comes from a few places:
 - A Python `print(obj)` saved to a file. The Python representation of a dict uses single quotes and is not JSON.
 
 The error message names the line and column.
-For a truncated JSONL file, drop the last line.
-For text from a model, [`json_repair`](https://github.com/mangiucugna/json_repair) guesses the intended structure; check the result, because it is a guess.
-For a file edited by hand, fix the file.
+For a truncated JSONL file, you can simply drop the last line.
+
+You can also try [`json_repair`](https://github.com/mangiucugna/json_repair), which guesses the intended structure; check the result, because it is a guess.
 
 ## Validate at the boundaries
 
 Valid JSON is not the same as correct data.
 A record can parse and still be missing a field, carry a string where a number belongs, or hold a single value where a list was expected.
 
-Check data where it enters the pipeline: from an API, from a user, from a language model.
+It's recommended to validate data at the boundaries of the pipeline, where it enters from an API, from a user, or from a language model.
 [Pydantic](https://docs.pydantic.dev/) does this from a class definition, and its error message names the field and the problem.
 The [JSON notebook](json.ipynb#validate-with-pydantic) has the pattern.
 
 ## Missing fields
 
 API responses omit fields that do not apply.
-A 4chan post without text has no `com` key.
-A Bluesky post without an attachment has no `embed` key.
-`obj["embed"]` raises `KeyError` on such a record; `obj.get("embed")` returns `None`.
+For example, a 4chan post without text has no `com` key, and a Bluesky post without an attachment has no `embed` key.
+`obj["embed"]` raises `KeyError` on such a record, so we recommend using `obj.get("embed")` instead, which returns `None`.
 
 When many records with different fields are flattened into one table, the result has every field that appeared in any record, with empty cells where a record did not have it.
 That is expected.
@@ -83,8 +82,9 @@ Choose the columns you need and drop the rest.
 
 ## Memory
 
-`json.load` on a 20 gigabyte file needs more than 20 gigabytes of memory, and then fails.
-`pd.read_csv` on a file larger than memory fails the same way.
+`json.load` on a 20 gigabyte file needs more than 20 gigabytes of memory, and then fails due to memory exhaustion.
+`pd.read_csv` on a file larger than memory would fail the same way.
+Here are some suggestions to avoid this:
 
 - Store long lists of records as JSONL and read them line by line.
 - Use `chunksize` in `read_csv` to process a large CSV one piece at a time.
@@ -94,8 +94,8 @@ Choose the columns you need and drop the rest.
 ## Spreadsheets
 
 Excel and Google Sheets open CSV files, which makes them useful for a first look at a small table.
-They are not a way to store or edit data.
+They are not recommended for storing or editing data.
 
 Excel converts a value that looks like a date into a date, strips leading zeros, rounds long integers, and writes the file back with the system encoding.
 A CSV that went through Excel and back is a different file.
-Look, but do not save.
+Be careful with these files.
