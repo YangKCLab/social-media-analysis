@@ -84,6 +84,58 @@ Which constraints to enforce is a design decision, not an automatism.
 Engagement counts are a snapshot of the moment of collection.
 If the change over time matters, store one row per observation with a `collected_at` timestamp instead of overwriting.
 
+## Worked example: YouTube videos shared on Bluesky
+
+A study of which YouTube videos circulate on Bluesky needs both platforms in one database.
+The collector stores Bluesky posts.
+A script then extracts the YouTube links from the post text and fetches each video from the YouTube API.
+
+The recipe still applies: four kinds of records, four tables, and the references become foreign keys.
+The `posts` table gains one column, `video_id`, which is the bridge between the two platforms.
+The YouTube tables are created first, because a foreign key's target table must exist before the key can point at it:
+
+```sql
+CREATE TABLE channels (
+    id     TEXT PRIMARY KEY,
+    title  TEXT
+);
+
+CREATE TABLE videos (
+    id            TEXT PRIMARY KEY,
+    channel_id    TEXT REFERENCES channels(id),
+    title         TEXT,
+    published_at  TIMESTAMP
+);
+
+CREATE TABLE profiles (
+    did     TEXT PRIMARY KEY,
+    handle  TEXT
+);
+
+CREATE TABLE posts (
+    uri         TEXT PRIMARY KEY,
+    author_did  TEXT REFERENCES profiles(did),
+    text        TEXT,
+    created_at  TIMESTAMP,
+    video_id    TEXT REFERENCES videos(id)
+);
+```
+
+`video_id` is NULL when the post links no video.
+This design keeps only the first video link per post.
+A post with several links would need a separate table that maps posts to videos, one row per pair.
+
+The payoff is that questions spanning both platforms become single queries.
+Which videos does one handle share?
+
+```sql
+SELECT videos.title
+  FROM posts
+  JOIN profiles ON posts.author_did = profiles.did
+  JOIN videos   ON posts.video_id   = videos.id
+  WHERE profiles.handle = 'example.bsky.social';
+```
+
 ## Databases behind dashboards
 
 A database that a collector keeps filling is what sits under a live dashboard.
