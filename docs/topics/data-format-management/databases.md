@@ -1,8 +1,8 @@
 # Databases
 
 Files carry a collection a long way.
-JSONL holds the raw records, Parquet holds the analysis tables, and the [format pages](formats.md) cover both.
-This page is about what files cannot do, and about the software that does it: the database management system.
+For example, JSONL holds the raw records, Parquet holds the analysis tables, and the [format pages](formats.md) cover both.
+But files have many limitations that a database can handle.
 
 ## When files stop being enough
 
@@ -46,8 +46,7 @@ A data model is the collection of concepts a database uses to describe data: the
 | Document | A JSON document | MongoDB |
 | Graph | A node or an edge | Neo4j |
 
-The last three are together called NoSQL databases; see [Modeling social media data](social-media-databases.md#nosql-databases).
-Vector databases store embeddings (high-dimensional numerical vectors) and search them by similarity; every major relational database now has a vector extension, so they are a feature more than a separate category.
+The last three are together called NoSQL databases; see [NoSQL databases](#nosql-databases) below.
 
 ## The relational model
 
@@ -246,6 +245,48 @@ with psycopg.connect("dbname=test user=postgres") as conn:
 Always pass values through placeholders (`%s`), never by pasting them into the SQL string.
 Post text contains quotes, and a pasted string is both a bug and an injection risk.
 
+## NoSQL databases
+
+Relational databases have two structural limits.
+They scale vertically — a bigger server, more RAM — which gets expensive and eventually hits hardware limits, and their strong constraints make it hard to split the data across machines.
+And they are not flexible: a schema that changes frequently, or data that is not tabular at all, fights the model.
+
+NoSQL ("not a relational DBMS", despite the name) databases give up the strict schema and the joins in exchange for horizontal scaling — add machines to a cluster to share the load — and flexible record shapes.
+
+### Document databases: MongoDB
+
+A document database skips normalization and stores each record as is.
+Some data is duplicated, but one read operation answers a query, and the document carries its own structure.
+[MongoDB](https://www.mongodb.com/) is the best-known example: each record is a JSON document, and queries reach into fields with dot notation such as `"contact.phone.number"`.
+
+The drawbacks mirror the benefits.
+The flexibility becomes a liability when different writers use inconsistent field names, so the integrity checks a relational schema did for you become your job, repeated in every application.
+Storage as BSON (binary JSON) adds metadata to every document, and the redundancy of denormalized data is inevitable.
+Query capabilities are weaker than SQL's.
+
+### Key-value stores: Redis
+
+[Redis](https://redis.io/) (REmote DIctionary Server) is an in-memory key-value store: a giant hashtable that lives in memory, extremely fast and lightweight.
+Typical uses are caching frequent queries, managing user sessions, and rate limiting.
+It usually runs alongside another database rather than replacing it.
+
+### Graph databases: Neo4j
+
+[Neo4j](https://neo4j.com/) stores nodes, edges, and their properties natively, which makes relationship queries fast, and it ships graph operations such as shortest paths.
+Queries use a declarative language called Cypher:
+
+```
+MATCH p = SHORTEST 1 (wos:Station)-[:LINK]-+(bmv:Station)
+WHERE wos.name = "Worcester Shrub Hill" AND bmv.name = "Bromsgrove"
+RETURN length(p) AS result
+```
+
+## Final thoughts
+
+Most of the time, use PostgreSQL.
+It is free, reliable, and rich in features, and it also covers the neighboring use cases: JSONB for document-shaped data and pgvector for embeddings.
+Consider a NoSQL database only when PostgreSQL cannot fulfill the need, which for course-scale projects is very rare.
+
 ## Next
 
-[Modeling social media data](social-media-databases.md) applies all of this: table designs for 4chan, YouTube, and Bluesky, and when a NoSQL database is the better fit.
+[Modeling social media data](social-media-databases.md) applies all of this: table designs for 4chan, YouTube, and Bluesky.

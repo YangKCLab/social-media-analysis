@@ -1,7 +1,7 @@
 # Modeling social media data
 
 The [Databases](databases.md) page covers the relational model in the abstract.
-This page applies it to the three platforms whose data the [collection notebooks](../data-collection/index.md) produce, then looks at the NoSQL alternatives.
+This page applies it to the three platforms whose data the [collection notebooks](../data-collection/index.md) produce.
 
 The recipe is the same for every platform:
 
@@ -144,44 +144,8 @@ Two examples from the Observatory on Social Media:
 - [Midterm 2022 election dashboard](https://osome.iu.edu/tools/midterm22)
 - [CoVaxxy vaccine-discussion dashboard](https://osome.iu.edu/tools/covaxxy)
 
-## NoSQL databases
-
-Relational databases have two structural limits.
-They scale vertically — a bigger server, more RAM — which gets expensive and eventually hits hardware limits, and their strong constraints make it hard to split the data across machines.
-And they are not flexible: a schema that changes frequently, or data that is not tabular at all, fights the model.
-
-NoSQL ("not a relational DBMS", despite the name) databases give up the strict schema and the joins in exchange for horizontal scaling — add machines to a cluster to share the load — and flexible record shapes.
-
-### Document databases: MongoDB
-
-A document database skips normalization and stores each record as is.
-Some data is duplicated, but one read operation answers a query, and the document carries its own structure.
-[MongoDB](https://www.mongodb.com/) is the best-known example: each record is a JSON document, and queries reach into fields with dot notation such as `"contact.phone.number"`.
-
-The drawbacks mirror the benefits.
-The flexibility becomes a liability when different writers use inconsistent field names, so the integrity checks a relational schema did for you become your job, repeated in every application.
-Storage as BSON (binary JSON) adds metadata to every document, and the redundancy of denormalized data is inevitable.
-Query capabilities are weaker than SQL's.
-
-### Key-value stores: Redis
-
-[Redis](https://redis.io/) (REmote DIctionary Server) is an in-memory key-value store: a giant hashtable that lives in memory, extremely fast and lightweight.
-Typical uses are caching frequent queries, managing user sessions, and rate limiting.
-It usually runs alongside another database rather than replacing it.
-
-### Graph databases: Neo4j
-
-[Neo4j](https://neo4j.com/) stores nodes, edges, and their properties natively, which makes relationship queries fast, and it ships graph operations such as shortest paths.
-Queries use a declarative language called Cypher:
-
-```
-MATCH p = SHORTEST 1 (wos:Station)-[:LINK]-+(bmv:Station)
-WHERE wos.name = "Worcester Shrub Hill" AND bmv.name = "Bromsgrove"
-RETURN length(p) AS result
-```
-
 ## Final thoughts
 
-Most of the time, use PostgreSQL.
-It is free, reliable, and rich in features, and it also covers the neighboring use cases: JSONB for document-shaped data and pgvector for embeddings.
-Consider a NoSQL database only when PostgreSQL cannot fulfill the need, which for course-scale projects is very rare.
+The same recipe works for every platform: one table per kind of record, the API's IDs as primary keys, references as foreign keys, and the raw JSON kept alongside.
+Which constraints to enforce is a design decision.
+Start from the questions you want to ask, and check that each one is a query against your tables.

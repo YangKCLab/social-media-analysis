@@ -24,8 +24,8 @@ Most of the work between collecting data and analyzing it is moving records betw
 | [Choosing a format](formats.md) | JSON, JSONL, CSV, and Parquet: what each is for and how they compare; JSON versus tables; compression; a storage layout for a collector |
 | [Command-line tools](command-line.md) | Look at a file before writing code: `head`, `wc`, `jq`, `bat`, `gzip`, and the questions to ask of a new file |
 | [Pitfalls](pitfalls.md) | Encoding, quoting, data types, broken JSON, validation, memory, and spreadsheets |
-| [Databases](databases.md) | Why files stop being enough; the relational model, SQL, indexes, transactions; PostgreSQL and psycopg |
-| [Modeling social media data](social-media-databases.md) | Table designs for 4chan, YouTube, and Bluesky; NoSQL databases and when to use them |
+| [Databases](databases.md) | Why files stop being enough; the relational model, SQL, indexes, transactions; PostgreSQL and psycopg; NoSQL databases and when to use them |
+| [Modeling social media data](social-media-databases.md) | Table designs for 4chan, YouTube, and Bluesky, and a cross-platform worked example |
 
 ## Notebooks
 
