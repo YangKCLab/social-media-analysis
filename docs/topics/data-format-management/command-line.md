@@ -1,7 +1,7 @@
 # Command-line tools
 
-Look at a data file before writing code for it.
-Five questions, each answered in seconds from a terminal:
+It's a good habit to look at a data file before writing code for it.
+Here are five common questions about a data file, each can be answered in seconds from a terminal.
 
 1. How big is it?
 2. How many records does it hold?
@@ -142,4 +142,19 @@ Bob Smith      34   San Francisco  Data Scientist     95000
 ```
 
 `column` does not understand quoting, so a quoted value with a comma inside it lands in the wrong column.
+
+`bat` from the JSON section works on CSV files too.
+It adds line numbers and pages a long file instead of flooding the terminal.
+Its `-A` flag prints every invisible character, which settles what the separator actually is: a file that looks comma-separated may be tab-separated.
+A space prints as `·`, a tab as `├──┤`, and a carriage return from a file written on Windows as `␍`.
+
+```
+$ bat -A data/sample.csv
+name,age,city,occupation,salary␊
+Alice·Johnson,28,New·York,Software·Engineer,85000␊
+Bob·Smith,34,San·Francisco,Data·Scientist,95000␊
+```
+
+Every line here ends with a plain line feed (`␊`) and the separators are real commas, so the file is what it claims to be.
+
 For anything beyond a first look, load the file with pandas and print `df.head()` and `df.dtypes`.
