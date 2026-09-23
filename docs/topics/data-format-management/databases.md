@@ -74,14 +74,59 @@ The database can generate keys (`SERIAL`), but be explicit about which column is
 For social media data, the platform already assigned one: the post ID.
 
 **Foreign keys.**
-A foreign key states that an attribute in one table maps to a tuple in another.
-If `companies.employee` is a foreign key to `people.id`, the database refuses an employee value that matches no person.
+A foreign key states that an attribute in one table refers to a tuple in another.
+In the tables below, `people.company_id` is a foreign key to `companies.id`, so the database refuses a `company_id` that matches no company.
+The foreign key goes on the "many" side of the relationship: a company has many employees, and each person works at one company.
 This is how tables connect.
 
+`people`
+
+| id | name | … | company_id |
+|---|---|---|---|
+| 10001 | Alice Johnson | … | 11 |
+| 10002 | Bob Smith | … | 12 |
+| 10003 | Carol Lee | … | 11 |
+
+`companies`
+
+| id | name | location |
+|---|---|---|
+| 11 | Acme | New York |
+| 12 | Globex | San Francisco |
+| 13 | Initech | Boston |
+
 **Constraints.**
-User-defined conditions that must hold for every row: `NOT NULL`, `CHECK (age >= 18)`, uniqueness.
-The database prevents any modification that would violate them.
+Constraints are conditions that must hold for every row.
+The database rejects any insert or update that would break one.
 This is the integrity checking that flat files never do.
+The schema below uses the five common kinds:
+
+```sql
+CREATE TABLE companies (
+    id        SERIAL PRIMARY KEY,
+    name      VARCHAR(100) NOT NULL UNIQUE,
+    location  VARCHAR(100)
+);
+
+CREATE TABLE people (
+    id          SERIAL PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL,
+    age         INT CHECK (age >= 18),
+    occupation  VARCHAR(120),
+    salary      DECIMAL(12,2) CHECK (salary >= 0),
+    company_id  INT REFERENCES companies(id)
+);
+```
+
+| Constraint | What it rejects |
+|---|---|
+| `PRIMARY KEY` | A duplicate or NULL `id` |
+| `UNIQUE` | A second company with the same name |
+| `NOT NULL` | A person without a name |
+| `CHECK` | An age below 18 |
+| `REFERENCES` | A `company_id` that matches no company |
+
+`REFERENCES` is how SQL declares a foreign key.
 
 ## SQL
 
@@ -112,6 +157,12 @@ ON CONFLICT (id) DO UPDATE
 SET like_count = EXCLUDED.like_count;
 ```
 
+The first time the collector sees a post, there is no conflict, and PostgreSQL inserts the row.
+The next time, the `id` already exists, so PostgreSQL updates the row instead.
+A plain `INSERT` would fail with a duplicate-key error.
+`EXCLUDED` is the row you tried to insert.
+Only the columns listed in `SET` change; `text` is not listed, so it keeps its old value.
+
 ### Queries and aggregations
 
 ```sql
@@ -140,40 +191,191 @@ SELECT product, SUM(quantity)
   GROUP BY product;
 ```
 
+### Sorting, naming, and reading a query
+
+```sql
+SELECT product, SUM(quantity) AS units
+  FROM purchase
+  WHERE price > 1
+  GROUP BY product
+  ORDER BY units DESC
+  LIMIT 10;
+```
+
+| product | units |
+|---|---|
+| ice cream | 40 |
+| apple | 30 |
+
+- `AS` names an output column.
+- `ORDER BY ... DESC` sorts largest first. `ASC`, smallest first, is the default.
+- `LIMIT 10` keeps the first 10 rows.
+
+The clauses are written in one order but run in another:
+
+1. `FROM` and `JOIN` choose the rows.
+2. `WHERE` drops rows.
+3. `GROUP BY` forms groups.
+4. `SELECT` computes the output columns, including the aggregates.
+5. `ORDER BY` and `LIMIT` sort and cut the result.
+
+To say what a query returns, read it in this order.
+The query above returns, for purchases above $1 per unit, the total units per product, largest first, at most 10 products.
+The order also explains a common error: `WHERE` runs before `SELECT`, so `WHERE` cannot use the alias `units`, but `ORDER BY` can.
+
 ### Joins
 
 A join answers a question that needs two tables, matching rows through the foreign key:
 
 ```sql
 SELECT people.name, salary, companies.name, companies.location
-  FROM people JOIN companies ON people.id = companies.employee;
+  FROM people JOIN companies ON people.company_id = companies.id;
 ```
 
 The plain (inner) join keeps only the rows that match on both sides.
-Outer joins (`LEFT`, `RIGHT`, `FULL`) also keep the rows without a match; they are less common compared to inner joins.
+With the `people` and `companies` tables above, Initech has no employees, so it disappears:
+
+```sql
+SELECT companies.name, people.name
+  FROM companies JOIN people
+    ON people.company_id = companies.id;
+```
+
+| companies.name | people.name |
+|---|---|
+| Acme | Alice Johnson |
+| Acme | Carol Lee |
+| Globex | Bob Smith |
+
+A `LEFT JOIN` keeps every row of the left table, even without a match.
+The columns from the right table are NULL for those rows:
+
+```sql
+SELECT companies.name, people.name
+  FROM companies LEFT JOIN people
+    ON people.company_id = companies.id;
+```
+
+| companies.name | people.name |
+|---|---|
+| Acme | Alice Johnson |
+| Acme | Carol Lee |
+| Globex | Bob Smith |
+| Initech | NULL |
+
+`RIGHT JOIN` keeps every row of the right table, and `FULL JOIN` keeps the rows of both.
+`LEFT JOIN` is the outer join you will use most.
+
+**Counting zero.**
+Questions of the form "for each X, how many Y" usually need a `LEFT JOIN` from X.
+Otherwise the Xs with no Y are missing from the answer instead of showing 0:
+
+```sql
+SELECT companies.name, COUNT(people.id) AS n_employees
+  FROM companies LEFT JOIN people
+    ON people.company_id = companies.id
+  GROUP BY companies.id, companies.name;
+```
+
+| name | n_employees |
+|---|---|
+| Acme | 2 |
+| Globex | 1 |
+| Initech | 0 |
+
+Count a column from the right table, not `*`.
+`COUNT(people.id)` skips the NULL in Initech's row and returns 0.
+`COUNT(*)` counts rows, and Initech still has one row, so it would return 1.
 
 ### Normalization
 
 Joins exist because well-designed databases split their data.
 Consider one wide table of orders, straight from the raw data:
 
-| order_id | name | department | product | supplier | supplier contact |
+| order_id | employee | department | product | supplier | supplier_contact |
 |---|---|---|---|---|---|
-| 10001 | Alice | Sale | Laptop | HP | xxxxxx |
-| 10002 | Bob | R&D | Keyboard | Dell | yyyyy |
+| 10001 | Alice | Sales | Laptop | HP | 555-0101 |
+| 10002 | Alice | Sales | Mouse | HP | 555-0101 |
+| 10003 | Bob | R&D | Keyboard | Dell | 555-0202 |
+| 10004 | Alice | Sales | Keyboard | Dell | 555-0202 |
 
-The same employee, product, and supplier repeat across rows, and every repeated copy is a chance for the copies to disagree.
-What happens when Alice switches departments, or a supplier changes its contact?
+The same facts repeat: Alice's department appears three times, and each supplier's contact appears twice.
+This is **redundancy**, and every repeated copy is a chance for the copies to disagree.
+Redundancy causes three kinds of errors, called anomalies:
 
-**Normalization** splits the raw data into related tables so each fact is stored once:
+- **Update anomaly.** Alice moves to R&D. All three of her rows must change. If one is missed, the table says she is in two departments.
+- **Insert anomaly.** A new supplier with no orders yet has no row to go in.
+- **Delete anomaly.** Deleting order 10003, Bob's only order, also deletes the only record of Bob's department.
 
-- `employees(employee_id, name, department)`
-- `suppliers(supplier_id, name, contact)`
-- `products(product_id, name, supplier_id)`
-- `orders(order_id, product_id, employee_id)`
+**Normalization** splits the raw data into related tables so each fact is stored once.
+A recipe:
 
-When Alice switches departments, one row changes.
+1. Find the entities, the things that have their own facts: employees, suppliers, products, and orders.
+2. Make one table per entity, and give each table a primary key.
+3. Put each fact in the table of the entity it describes. `department` describes an employee; `contact` describes a supplier.
+4. Link the tables with foreign keys, on the "many" side. A supplier has many products, so `products.supplier_id` refers to `suppliers`.
+5. Check that every column of the wide table now lives in exactly one table.
+
+The result:
+
+| Table | Primary key | Foreign keys | Other columns |
+|---|---|---|---|
+| `employees` | `employee_id` | | `name`, `department` |
+| `suppliers` | `supplier_id` | | `name`, `contact` |
+| `products` | `product_id` | `supplier_id` → `suppliers` | `name` |
+| `orders` | `order_id` | `employee_id` → `employees`, `product_id` → `products` | |
+
+When Alice moves to R&D, one row in `employees` changes.
+`orders` also links employees and products: one employee orders many products, and one product is ordered by many employees.
+A many-to-many relationship like this always gets its own table, with a foreign key to each side.
+
+**A list gets its own table.**
+The same rule applies to a list inside one record, such as the hashtags of a post.
+Repeated columns look simple but break quickly:
+
+| uri | text | tag1 | tag2 | tag3 |
+|---|---|---|---|---|
+| p1 | … | election | vote | NULL |
+| p2 | … | nba | NULL | NULL |
+
+- A post with a fourth hashtag does not fit without changing the schema.
+- Posts with fewer hashtags carry NULLs.
+- "Which posts use #vote?" must check every tag column: `WHERE tag1 = 'vote' OR tag2 = 'vote' OR tag3 = 'vote'`.
+
+Instead, keep `posts(uri, text)` and add a child table `post_tags` with one row per hashtag.
+Its primary key is `(uri, tag)`, and `uri` is a foreign key to `posts`:
+
+| uri | tag |
+|---|---|
+| p1 | election |
+| p1 | vote |
+| p2 | nba |
+
+A post can now have any number of hashtags.
+`WHERE tag = 'vote'` finds the posts, and `GROUP BY uri` counts each post's hashtags.
+
+**Joins and GROUP BY together.**
 Joins reassemble the wide table when a question needs it.
+Orders do not store the supplier, so "how many orders did each supplier get?" follows the foreign keys one hop at a time:
+
+```sql
+SELECT suppliers.name, COUNT(*) AS n_orders
+  FROM orders
+  JOIN products
+    ON orders.product_id = products.product_id
+  JOIN suppliers
+    ON products.supplier_id = suppliers.supplier_id
+  GROUP BY suppliers.supplier_id, suppliers.name;
+```
+
+The same query in words:
+
+1. Start from `orders`: one row per order.
+2. Match each order to its product on `product_id`.
+3. Match each product to its supplier on `supplier_id`.
+4. Group the rows by supplier, and count the rows in each group.
+
+Group by the ID, not only the name, because two suppliers can share a name.
 
 ## Indexes
 
@@ -200,7 +402,29 @@ WHERE occupation = 'Data Scientist' AND age < 30;
 WHERE occupation = 'Data Scientist' ORDER BY age;
 ```
 
+To choose an index, start from a frequent query and read its `WHERE` clause.
+Suppose a dashboard shows one account's posts from the past 7 days, refreshes every minute, and the collector keeps inserting posts:
+
+```sql
+SELECT uri, text, created_at
+  FROM posts
+  WHERE author_did = 'did:plc:abc123'
+    AND created_at >= now() - interval '7 days'
+  ORDER BY created_at DESC;
+```
+
+The `WHERE` clause has an equality on `author_did` and a range on `created_at`.
+Put the equality column first and the range column second:
+
+```sql
+CREATE INDEX posts_author_time ON posts(author_did, created_at);
+```
+
+The same index also returns the rows already sorted for the `ORDER BY`.
+Without it, the database scans every post, every minute.
+
 Do not index everything: every insert updates every index, so too many indexes slow the database down.
+A collector table takes inserts all the time, so an index that no query uses only slows the collector down.
 Index the columns your frequent queries filter on — IDs and timestamps are the common cases — and profile before adding more.
 "Premature optimization is the root of all evil."
 
@@ -217,7 +441,7 @@ A post and its author's profile row should either both land or neither, even if 
 Use PostgreSQL.
 
 - Free, reliable, and installed from every Linux distribution's package manager.
-- JSONB columns store a JSON document inside a table and query into it, which suits API data well.
+- JSONB columns store a JSON document inside a table and query into it, which suits API data well; see [Querying JSON with JSONB](#querying-json-with-jsonb).
 - The pgvector extension adds vector search.
 
 From Python, two common routes:
@@ -244,6 +468,72 @@ with psycopg.connect("dbname=test user=postgres") as conn:
 
 Always pass values through placeholders (`%s`), never by pasting them into the SQL string.
 Post text contains quotes, and a pasted string is both a bug and an injection risk.
+
+### Querying JSON with JSONB
+
+A JSONB column stores a whole JSON document in one cell.
+PostgreSQL parses the document when it is stored, so queries can reach inside it.
+(The older `JSON` type stores the text as it is; use `JSONB`.)
+A common pattern is to keep each raw API record in a JSONB column:
+
+```sql
+CREATE TABLE posts (
+    uri  TEXT PRIMARY KEY,
+    raw  JSONB NOT NULL    -- the whole API record
+);
+```
+
+One row of `raw` looks like this:
+
+```json
+{"author": {"handle": "alice.bsky.social"},
+ "record": {"text": "Hello world", "langs": ["en"]},
+ "likeCount": 12}
+```
+
+This query returns the handle and like count of every English post, most liked first:
+
+```sql
+SELECT raw -> 'author' ->> 'handle'  AS handle,
+       (raw ->> 'likeCount')::int    AS likes
+  FROM posts
+  WHERE raw @> '{"record": {"langs": ["en"]}}'
+  ORDER BY likes DESC;
+```
+
+| handle | likes |
+|---|---|
+| carol.bsky.social | 40 |
+| alice.bsky.social | 12 |
+
+- `->` returns JSON and `->>` returns text. Chain them to reach a nested field: `raw -> 'author' ->> 'handle'`.
+- `::int` turns the text into an integer. Without it, `ORDER BY` compares strings, and `'100'` sorts before `'12'`.
+- `@>` means "contains": it is true when the document contains the given JSON fragment.
+
+**GIN indexes.**
+A B+ tree indexes a column's whole value, so it cannot look inside a document.
+A GIN (generalized inverted index) index works like the index at the back of a book.
+A book index maps each word to the pages that contain it; a GIN index maps each key and value inside the documents to the rows that contain it.
+
+```sql
+CREATE INDEX posts_raw ON posts USING GIN (raw);
+```
+
+This index speeds up `@>` and the key-exists operators `?`, `?|`, and `?&`, whichever fields the query names.
+It does not help `ORDER BY` or a range filter on an extracted value.
+For those, index the expression with an ordinary B+ tree:
+
+```sql
+CREATE INDEX posts_likes ON posts (((raw ->> 'likeCount')::int));
+```
+
+A GIN index is large and slows inserts, because each document adds many entries.
+The advice from [Indexes](#indexes) still applies: create it only for queries you run often.
+
+JSONB does not replace the relational model.
+Keep the raw record in JSONB, and copy the fields you query often into typed columns.
+The typed columns get constraints and small indexes.
+The JSONB column keeps the fields you did not expect to need.
 
 ## NoSQL databases
 
