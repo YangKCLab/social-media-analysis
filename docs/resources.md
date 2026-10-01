@@ -27,7 +27,6 @@ Topic modeling:
 
 Content moderation:
 
-- [Perspective API](https://www.perspectiveapi.com/) - API for content moderation
 - [Moderate Hate Speech](https://moderatehatespeech.com) - API for hate speech detection
 - [OpenAI Moderation API](https://platform.openai.com/docs/guides/moderation) - API for content moderation
 
