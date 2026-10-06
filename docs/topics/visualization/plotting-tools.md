@@ -33,6 +33,7 @@ For an example, see Figure 5 of [Yang et al. (2021)](https://arxiv.org/abs/2012.
 
 Extensions add more figure types to Matplotlib.
 For example, [python-ternary](https://github.com/marcharper/python-ternary) draws a ternary plot, which shows three shares that add up to 100%.
+For an example, see Figure 3 of [Yang and Menczer (2024)](https://doi.org/10.51685/jqd.2024.icwsm.7), which shows the shares of three tweet types for each account.
 
 ## Seaborn
 
