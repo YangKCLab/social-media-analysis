@@ -257,6 +257,7 @@ Its authors (Yang et al., 2025) validate the score against existing labels, firs
 - The labels come from five existing lists that label news outlets as local or national. The merged list has 12,905 domains, and the authors remove the 40 domains that the lists label differently. 4,853 of the labeled news domains have a localness score.
 - Without a cutoff, the AUC score of the localness score against these labels is 0.983.
 - The authors compute the F1 score for each cutoff. A cutoff of 0.243 gives the highest F1 score, 0.978.
+- The authors choose the cutoff and compute its F1 score on the same 4,853 domains, so 0.978 is the best value that any cutoff reaches on these domains. Only one number is chosen, on several thousand domains, so the F1 score on new domains is expected to be close to it. The AUC score does not depend on a cutoff.
 
 The labels are lists of U.S. news domains, so the cutoff is validated for such domains only.
 For other domains, the authors suggest that users label a set of their own domains first and choose the cutoff from these labels.
