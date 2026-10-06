@@ -66,6 +66,7 @@ extra_css:
 # Data files that the stats notebooks download on a local run stay out of the built site
 exclude_docs: |
   topics/stats/data/
+  topics/network/data/
 
 extra:
   analytics:
@@ -118,6 +119,9 @@ nav:
       - topics/visualization/index.md
     - Network Analysis:
       - topics/network/index.md
+      - NetworkX Basics (Notebook): topics/network/networkx-basics.ipynb
+      - Centrality and Communities (Notebook): topics/network/centrality-and-communities.ipynb
+      - Posts to Networks (Notebook): topics/network/posts-to-networks.ipynb
   - Materials:
     - Demos:
       - demos/index.md
