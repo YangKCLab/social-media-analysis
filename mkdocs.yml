@@ -108,8 +108,11 @@ nav:
       - topics/measurements/index.md
     - Hypothesis Testing and Statistical Analysis:
       - topics/stats/index.md
+      - Descriptive Statistics and Distributions: topics/stats/descriptive-statistics.md
       - Distributions (Notebook): topics/stats/distributions.ipynb
+      - Hypothesis Testing: topics/stats/hypothesis-testing.md
       - Significance Tests (Notebook): topics/stats/significance-tests.ipynb
+      - Correlation: topics/stats/correlation.md
       - Correlation Analysis (Notebook): topics/stats/correlation-analysis.ipynb
     - Visualization:
       - topics/visualization/index.md
