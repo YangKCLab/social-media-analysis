@@ -74,6 +74,7 @@ extra_javascript:
 exclude_docs: |
   topics/measurements/data/
   topics/stats/data/
+  topics/visualization/output/
 
 extra:
   analytics:
@@ -134,6 +135,10 @@ nav:
       - Correlation Analysis (Notebook): topics/stats/correlation-analysis.ipynb
     - Visualization:
       - topics/visualization/index.md
+      - Pair Plots and PCA (Notebook): topics/visualization/pair-plots-and-pca.ipynb
+      - A Figure for a Report (Notebook): topics/visualization/report-figure.ipynb
+      - Color Maps (Notebook): topics/visualization/color-maps.ipynb
+      - Seaborn and Plotly (Notebook): topics/visualization/seaborn-and-plotly.ipynb
     - Network Analysis:
       - topics/network/index.md
   - Materials:
