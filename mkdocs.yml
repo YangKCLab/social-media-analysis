@@ -118,6 +118,11 @@ nav:
       - Word Counts (Notebook): topics/measurements/word-counts.ipynb
       - Word Embedding: topics/measurements/word-embedding.md
       - Word Vectors (Notebook): topics/measurements/word-vectors.ipynb
+      - Dictionary-Based Analysis: topics/measurements/dictionaries.md
+      - Classifiers and Toxicity: topics/measurements/classifiers.md
+      - Scoring Text (Notebook): topics/measurements/scoring-text.ipynb
+      - Topic Modeling: topics/measurements/topic-modeling.md
+      - Topic Models (Notebook): topics/measurements/topic-models.ipynb
     - Hypothesis Testing and Statistical Analysis:
       - topics/stats/index.md
     - Visualization:

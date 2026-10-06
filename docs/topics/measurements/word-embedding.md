@@ -232,4 +232,4 @@ The notebook does not train an embedding.
 - Hamilton, Leskovec, and Jurafsky (2016), [Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change](https://arxiv.org/abs/1605.09096)
 - [Gensim](https://radimrehurek.com/gensim/) and the [list of vectors that it can download](https://github.com/piskvorky/gensim-data)
 
-Next: Dictionary-based analysis scores a post with a list of words that each have a score.
+Next: [Dictionary-based analysis](dictionaries.md) scores a post with a list of words that each have a score.
