@@ -267,7 +267,7 @@ Read the rows near the cutoff before you use it on your own data.
 - The cutoff of 0 gives a domain with a score of -0.01 the same label as a domain with a score of -0.5. In the example, 19 of the 121 news domains have a score between -0.1 and 0.1. The authors of DomainDemo also note that the score is relative, so 0 does not have to mean a politically neutral audience. Two options are a third category for the scores near 0, and an analysis that uses the score itself.
 
 A category from a cutoff is a measurement, and it can be wrong.
-Before you rely on it, label a sample of your own domains by hand and compare your labels with the categories.
+Before you rely on it, [label a sample of your own domains by hand](validation.md) and compare your labels with the categories.
 
 ## Links
 
@@ -279,4 +279,4 @@ Before you rely on it, label a sample of your own domains by hand and compare yo
 - Yang et al. (2025), [DomainDemo: a dataset of domain-sharing activities among different demographic groups on Twitter](https://doi.org/10.1038/s41597-025-05604-6): the paper, with the validation of the localness score
 - [DomainDemo repository](https://github.com/LazerLab/DomainDemo): the six metric files, and the [explorer](https://domaindemoexplorer.streamlit.app/)
 
-Next: Validating a measurement covers how to check a classifier, a score, or a cutoff against labels that you assign by hand.
+Next: [Validating a measurement](validation.md) covers how to check a classifier, a score, or a cutoff against labels that you assign by hand.

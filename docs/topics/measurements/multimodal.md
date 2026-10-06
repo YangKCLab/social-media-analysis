@@ -117,7 +117,7 @@ Three points follow for your own use of such a model.
 
 - The result depends on the prompt. Write the labels and their definitions into the prompt, use the same prompt for every image, and report it.
 - Many vision language models are hosted services. With a hosted service, your images leave your machine, so check first that the rules for your data allow this.
-- The answer is the output of a model. It needs a check against labels that you assign by hand.
+- The answer is the output of a model. It needs a [check against labels that you assign by hand](validation.md).
 
 Many vision language models are large language models that also accept images, and you call them through the same API.
 The tutorial site [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/) covers the steps for text: the API key, the first call, structured output, and batch processing.
@@ -175,7 +175,7 @@ Say in your report which parts of the videos you analyzed and which parts you di
 
 A description, a transcript, a label, and a similarity are all outputs of a model.
 A model can make errors, and it makes them more often on content that differs from its training data.
-The check is the same as for any classifier.
+The check is [the same as for any classifier](validation.md).
 
 - Read a sample. Open a random sample of the images next to their descriptions or labels. Listen to a random sample of the clips while you read their transcripts.
 - Label a sample by hand. Assign your own labels to the sample without looking at the output of the model, and then count how often the two agree.
