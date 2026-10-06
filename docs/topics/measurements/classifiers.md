@@ -166,7 +166,7 @@ In the notebook, VADER and the Hugging Face classifier give the same label to 30
 The largest group of disagreements is the 81 tweets that VADER calls positive and the classifier calls neutral.
 This comparison does not say which tool is right.
 
-Every classifier needs a check against hand labels before you rely on it.
+Every classifier needs a [check against hand labels](validation.md) before you rely on it.
 Label a sample of your own posts by hand, and compare your labels with the labels of the tool.
 To choose a cutoff, compare your labels with the labels that each cutoff gives.
 A lower cutoff finds more of the toxic posts and also labels more harmless posts as toxic.
@@ -267,7 +267,7 @@ A request for a text returns the same fields.
 - No score is called toxicity. The closest categories are `harassment` and `hate`. A study that uses this API must say which category it used as its measure.
 
 Both hosted scorers are classifiers, like Detoxify.
-Each one measures the definition of its own provider, and each one needs the same check against hand labels.
+Each one measures the definition of its own provider, and each one needs the same [check against hand labels](validation.md).
 
 ## Links
 

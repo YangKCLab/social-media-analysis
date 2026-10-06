@@ -242,7 +242,7 @@ It does not measure what the author means.
 - A post with no word of the list gets 0, which means "no evidence".
 - A dictionary that was built from one kind of text lacks the words of another kind. The eMFD was built from news articles, so it lacks many words of social media posts.
 
-Before you rely on a dictionary, score a sample of your own posts, label the same posts by hand, and compare the two.
+Before you rely on a dictionary, score a sample of your own posts, [label the same posts by hand, and compare the two](validation.md).
 
 ## Links
 

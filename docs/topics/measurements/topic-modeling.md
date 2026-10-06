@@ -201,7 +201,8 @@ The numbers in this section are approximate.
 The seed makes a rerun on the same machine give the same topics.
 On another machine or with other package versions, the topics and their order differ a little.
 
-In the notebook, BERTopic finds 27 topics.
+In the notebook, BERTopic finds between 27 and 30 topics.
+The number depends on the machine and on the package versions.
 About 35% of the 6,090 tweets fit no cluster, and BERTopic gives these tweets no topic.
 `topic_model.get_topic_info()` returns one row for each topic, `get_topic` returns the top words of one topic, and `get_representative_docs` returns a few documents that are typical for it.
 
@@ -242,7 +243,7 @@ The notebook computes this number in the section [Compare the two results](topic
 | Cost | Runs in seconds | A model download and more time |
 | A document gets | A mixture of topics | One topic, or none |
 | Number of topics | You choose it | It follows from the clusters and the settings |
-| Topics in the example | 20 | 27 |
+| Topics in the example | 20 | 27 to 30 |
 | Tweets with a topic | 100% | About 65% |
 | Of these, tweets with the most common label of their topic | 45.5% | About 83% |
 
@@ -279,4 +280,4 @@ The notebook does not run it.
 - Grootendorst (2022), [BERTopic: Neural topic modeling with a class-based TF-IDF procedure](https://arxiv.org/abs/2203.05794)
 - Pham et al. (2024), [TopicGPT: A Prompt-based Topic Modeling Framework](https://arxiv.org/abs/2311.01449)
 
-Next: the [overview of this section](index.md) compares the text methods side by side.
+Next: [Multimodal content](multimodal.md) covers the methods for images, audio, and video.
