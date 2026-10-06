@@ -20,6 +20,7 @@ dependencies = [
     "requests>=2.32.5",
     "scikit-learn>=1.9.1",
     "ujson>=5.13.0",
+    "vadersentiment>=3.3.2",
 ]
 
 [project.optional-dependencies]
@@ -30,6 +31,10 @@ docs = [
     "mkdocs-jupyter>=0.25.1",
     "mkdocs-material>=9.7.0",
     "mkdocs-open-in-new-tab>=1.0.8",
+]
+ml = [
+    "bertopic>=0.17.4",
+    "detoxify>=0.5.2",
 ]
 
 [tool.uv]
