@@ -213,10 +213,9 @@ An embedding can therefore be trained on hashtags in the same way as on words: t
 Pre-trained vectors do not contain hashtags, so this embedding has to be trained on your own posts.
 The [`Word2Vec`](https://radimrehurek.com/gensim/models/word2vec.html) class of Gensim trains one.
 
-[Chen et al. (2021)](https://doi.org/10.1038/s41467-021-25738-6) use this method to measure the political leaning of hashtags.
-They train word2vec on the hashtags of tweets about the 2018 U.S. midterm elections and get vectors for 54,533 hashtags.
-The two anchors are `#voteblue` and `#votered`.
-The position of a hashtag on the axis between the two anchors, scaled to the range from -1 to 1, is its score: a negative score means a liberal leaning, and a positive score means a conservative leaning.
+One use of a hashtag embedding is to measure the leaning of hashtags.
+Choose two anchor hashtags that stand for the two ends of a scale, for example one hashtag that each side of a debate uses.
+The position of another hashtag on the axis between the two anchors is its score.
 The score of a post is the average of the scores of its hashtags.
 
 This is the method of the section above, with hashtags in place of words, and the same two cautions apply.
@@ -231,7 +230,6 @@ The notebook does not train an embedding.
 - Kozlowski, Taddy, and Evans (2019), [The Geometry of Culture: Analyzing Meaning through Word Embeddings](https://arxiv.org/abs/1803.09288)
 - Garg et al. (2018), [Word Embeddings Quantify 100 Years of Gender and Ethnic Stereotypes](https://arxiv.org/abs/1711.08412)
 - Hamilton, Leskovec, and Jurafsky (2016), [Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change](https://arxiv.org/abs/1605.09096)
-- Chen, Pacheco, Yang, and Menczer (2021), [Neutral bots probe political bias on social media](https://doi.org/10.1038/s41467-021-25738-6)
 - [Gensim](https://radimrehurek.com/gensim/) and the [list of vectors that it can download](https://github.com/piskvorky/gensim-data)
 
 Next: Dictionary-based analysis scores a post with a list of words that each have a score.
