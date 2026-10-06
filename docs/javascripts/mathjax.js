@@ -1,17 +1,23 @@
 // MathJax configuration from the Material for MkDocs documentation
 // (https://squidfunk.github.io/mkdocs-material/reference/math/).
-// The arithmatex extension wraps every formula in an element with the class
-// "arithmatex", and MathJax renders only those elements.
+// On a prose page, the arithmatex extension wraps every formula in an element
+// with the class "arithmatex" and writes it between \( \) or \[ \].
+// On a notebook page, a markdown cell is an element with the class
+// "jp-RenderedMarkdown", and its formulas stay between $ $ or $$ $$.
+// MathJax renders only the elements with one of these two classes:
+// ignoreHtmlClass turns MathJax off for the header and the body of the Material
+// theme, and processHtmlClass turns it on again inside the two kinds of elements.
+// In a markdown cell of a notebook, write a dollar sign that is not a formula as \$.
 window.MathJax = {
   tex: {
-    inlineMath: [["\\(", "\\)"]],
-    displayMath: [["\\[", "\\]"]],
+    inlineMath: [["\\(", "\\)"], ["$", "$"]],
+    displayMath: [["\\[", "\\]"], ["$$", "$$"]],
     processEscapes: true,
     processEnvironments: true
   },
   options: {
-    ignoreHtmlClass: ".*|",
-    processHtmlClass: "arithmatex"
+    ignoreHtmlClass: "md-header|md-container",
+    processHtmlClass: "arithmatex|jp-RenderedMarkdown"
   }
 };
 

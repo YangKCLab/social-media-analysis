@@ -65,7 +65,8 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
 
-# Math in prose pages: arithmatex marks the formulas, MathJax renders them
+# Math: arithmatex marks the formulas of a prose page, and MathJax renders them.
+# MathJax also renders the formulas in the markdown cells of a notebook page (see javascripts/mathjax.js).
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
