@@ -41,7 +41,7 @@ plugins:
       include_source: true              # Enable download links
       show_input: true                  # Show code cells
       theme: light                      # Notebook theme
-      ignore_h1_titles: false          # Use notebook titles
+      ignore_h1_titles: true            # Use the nav: label as the title of a notebook page, not its first heading
   - open-in-new-tab:
       add_icon: true
 
@@ -74,6 +74,7 @@ extra_javascript:
 exclude_docs: |
   topics/measurements/data/
   topics/stats/data/
+  topics/visualization/output/
   topics/network/data/
 
 extra:
@@ -101,14 +102,14 @@ nav:
       - Key Concepts: topics/data-collection/key-concepts.md
       - Run It Continuously: topics/data-collection/run-it-continuously.md
       - Research Considerations: topics/data-collection/research-considerations.md
-      - Bluesky: topics/data-collection/bluesky.ipynb
-      - 4chan: topics/data-collection/4chan.ipynb
-      - YouTube: topics/data-collection/youtube.ipynb
+      - Bluesky API (Notebook): topics/data-collection/bluesky.ipynb
+      - 4chan API (Notebook): topics/data-collection/4chan.ipynb
+      - YouTube Data API (Notebook): topics/data-collection/youtube.ipynb
     - Data Format and Management:
       - topics/data-format-management/index.md
       - Choosing a Format: topics/data-format-management/formats.md
-      - JSON: topics/data-format-management/json.ipynb
-      - Tabular Data: topics/data-format-management/tabular.ipynb
+      - JSON (Notebook): topics/data-format-management/json.ipynb
+      - Tabular Data (Notebook): topics/data-format-management/tabular.ipynb
       - Command-Line Tools: topics/data-format-management/command-line.md
       - Pitfalls: topics/data-format-management/pitfalls.md
       - Databases: topics/data-format-management/databases.md
@@ -135,6 +136,14 @@ nav:
       - Correlation Analysis (Notebook): topics/stats/correlation-analysis.ipynb
     - Visualization:
       - topics/visualization/index.md
+      - Figure Types: topics/visualization/figure-types.md
+      - Pair Plots and PCA (Notebook): topics/visualization/pair-plots-and-pca.ipynb
+      - Figure Design Principles: topics/visualization/principles.md
+      - A Figure for a Report (Notebook): topics/visualization/report-figure.ipynb
+      - Color: topics/visualization/color.md
+      - Color Maps (Notebook): topics/visualization/color-maps.ipynb
+      - Plotting Tools: topics/visualization/plotting-tools.md
+      - Seaborn and Plotly (Notebook): topics/visualization/seaborn-and-plotly.ipynb
     - Network Analysis:
       - topics/network/index.md
       - Network Basics: topics/network/network-basics.md
