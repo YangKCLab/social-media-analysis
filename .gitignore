@@ -214,3 +214,6 @@ docs/topics/stats/data/
 
 # Files that the visualization notebooks save on a run
 docs/topics/visualization/output/
+
+# Data files that the network notebooks download or write on first run
+docs/topics/network/data/
