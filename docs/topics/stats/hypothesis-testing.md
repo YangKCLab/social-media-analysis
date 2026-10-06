@@ -146,19 +146,19 @@ The heights of group A come from a normal distribution with a mean of 170 cm, an
 The standard deviation is 10 cm in both groups.
 
 ```python
-rng = np.random.default_rng(415)
+rng = np.random.default_rng(2026)
 group_a = rng.normal(loc=170, scale=10, size=200)    # heights in cm
 group_b = rng.normal(loc=175, scale=10, size=200)
 
-print(f"Mean of group A: {group_a.mean():.2f}")    # Mean of group A: 172.14
-print(f"Mean of group B: {group_b.mean():.2f}")    # Mean of group B: 174.89
+print(f"Mean of group A: {group_a.mean():.2f}")    # Mean of group A: 170.74
+print(f"Mean of group B: {group_b.mean():.2f}")    # Mean of group B: 175.18
 ```
 
 ```python
-scipy.stats.ttest_ind(group_a, group_b)    # statistic=-2.743, pvalue=0.0064, df=398.0
+scipy.stats.ttest_ind(group_a, group_b)    # statistic=-4.253, pvalue=2.6e-05, df=398.0
 ```
 
-The test statistic is −2.743 and the p-value is 0.0064, with 398 degrees of freedom.
+The test statistic is −4.253 and the p-value is 2.6e-05, with 398 degrees of freedom.
 If the two groups had the same mean, a difference this large would be rare.
 p < 0.05, so you reject the null hypothesis: the mean heights of the two groups are significantly different.
 
@@ -183,7 +183,7 @@ The Mann–Whitney U test and the KS test are non-parametric.
 The next two lines run both tests on the two groups of heights from the t-test.
 
 ```python
-scipy.stats.mannwhitneyu(group_a, group_b)    # statistic=16752.0, pvalue=0.0050
+scipy.stats.mannwhitneyu(group_a, group_b)    # statistic=15252.0, pvalue=4.0e-05
 ```
 
 ```python
