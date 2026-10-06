@@ -137,8 +137,13 @@ nav:
       - topics/visualization/index.md
     - Network Analysis:
       - topics/network/index.md
+      - Network Basics: topics/network/network-basics.md
+      - Paths and Degree Distributions: topics/network/paths-and-degrees.md
       - NetworkX Basics (Notebook): topics/network/networkx-basics.ipynb
+      - Centrality: topics/network/centrality.md
+      - Communities: topics/network/communities.md
       - Centrality and Communities (Notebook): topics/network/centrality-and-communities.ipynb
+      - Networks from Posts: topics/network/networks-from-posts.md
       - Posts to Networks (Notebook): topics/network/posts-to-networks.ipynb
   - Materials:
     - Demos:
