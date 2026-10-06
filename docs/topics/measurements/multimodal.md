@@ -196,4 +196,4 @@ Report the model, its version, the prompt, and the result of this check together
 - [Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2): the model card of `parakeet-tdt-0.6b-v2`
 - [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/): a tutorial on calling large language models from code
 
-Next: Processing URLs covers how to extract the links in posts, expand shortened links, and find their domains.
+Next: [Processing URLs](urls.md) covers how to extract the links in posts, expand shortened links, and find their domains.
