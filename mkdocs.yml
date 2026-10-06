@@ -124,6 +124,7 @@ nav:
       - Scoring Text (Notebook): topics/measurements/scoring-text.ipynb
       - Topic Modeling: topics/measurements/topic-modeling.md
       - Topic Models (Notebook): topics/measurements/topic-models.ipynb
+      - Multimodal Content: topics/measurements/multimodal.md
     - Hypothesis Testing and Statistical Analysis:
       - topics/stats/index.md
       - Descriptive Statistics and Distributions: topics/stats/descriptive-statistics.md

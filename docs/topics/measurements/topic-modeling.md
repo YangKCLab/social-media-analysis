@@ -279,4 +279,4 @@ The notebook does not run it.
 - Grootendorst (2022), [BERTopic: Neural topic modeling with a class-based TF-IDF procedure](https://arxiv.org/abs/2203.05794)
 - Pham et al. (2024), [TopicGPT: A Prompt-based Topic Modeling Framework](https://arxiv.org/abs/2311.01449)
 
-Next: the [overview of this section](index.md) compares the text methods side by side.
+Next: [Multimodal content](multimodal.md) covers the methods for images, audio, and video.
