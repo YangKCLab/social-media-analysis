@@ -243,6 +243,7 @@ domain_table = (
 
 The table shows the eight domains with the most links, and no full links, because the path of a link can contain the name of an account.
 The notebook replaces the `subreddit` value of every post on a user profile with the text `user profile`, so all these posts count as one community.
+It also replaces the account names in 128 links with the word `account`.
 
 | Domain | Links | Distinct links | Subreddits |
 |--------|:-----:|:--------------:|:----------:|
