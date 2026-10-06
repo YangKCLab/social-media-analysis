@@ -259,7 +259,7 @@ With your own data, you have no labels, and reading the top words and the docume
 
 ## TopicGPT
 
-TopicGPT uses a large language model (LLM) in two steps.
+TopicGPT uses a [large language model](index.md#large-language-models) (LLM) in two steps.
 First, the LLM reads a sample of the documents and writes a list of topics.
 Then the LLM assigns a topic from the list to each document.
 Each topic has a name and a description in plain language, so nobody has to guess a theme from a list of top words.

@@ -17,7 +17,7 @@ It handles many sentences that a [dictionary](dictionaries.md) gets wrong, becau
 A classifier returns only the labels that it was trained on.
 It measures the label that the annotators of its training data would most likely give to the text.
 It knows nothing that its training data does not contain, such as slang from later years.
-When no trained model exists for your concept, there are two options: train a model on your own labeled posts, or give the labels and their definitions to a large language model.
+When no trained model exists for your concept, there are two options: train a model on your own labeled posts, or give the labels and their definitions to a [large language model](index.md#large-language-models).
 
 A classifier also costs more than a dictionary.
 Each of the two models that this page downloads is about 500 MB.
