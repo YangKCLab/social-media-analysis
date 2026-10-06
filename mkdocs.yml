@@ -49,6 +49,8 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.snippets
   - pymdownx.superfences
   - pymdownx.details
@@ -62,6 +64,15 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+
+# Math in prose pages: arithmatex marks the formulas, MathJax renders them
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+# Data files that the measurement notebooks download on a local run stay out of the built site
+exclude_docs: |
+  topics/measurements/data/
 
 extra:
   analytics:
@@ -102,6 +113,11 @@ nav:
       - Modeling Social Media Data: topics/data-format-management/social-media-databases.md
     - Measurements and Metrics:
       - topics/measurements/index.md
+      - Bag of Words and TF-IDF: topics/measurements/bag-of-words.md
+      - Comparing Corpora: topics/measurements/comparing-corpora.md
+      - Word Counts (Notebook): topics/measurements/word-counts.ipynb
+      - Word Embedding: topics/measurements/word-embedding.md
+      - Word Vectors (Notebook): topics/measurements/word-vectors.ipynb
     - Hypothesis Testing and Statistical Analysis:
       - topics/stats/index.md
     - Visualization:
