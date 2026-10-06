@@ -70,9 +70,10 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
-# Data files that the measurement notebooks download on a local run stay out of the built site
+# Data files that the measurement and stats notebooks download on a local run stay out of the built site
 exclude_docs: |
   topics/measurements/data/
+  topics/stats/data/
 
 extra:
   analytics:
@@ -125,6 +126,12 @@ nav:
       - Topic Models (Notebook): topics/measurements/topic-models.ipynb
     - Hypothesis Testing and Statistical Analysis:
       - topics/stats/index.md
+      - Descriptive Statistics and Distributions: topics/stats/descriptive-statistics.md
+      - Distributions (Notebook): topics/stats/distributions.ipynb
+      - Hypothesis Testing: topics/stats/hypothesis-testing.md
+      - Significance Tests (Notebook): topics/stats/significance-tests.ipynb
+      - Correlation: topics/stats/correlation.md
+      - Correlation Analysis (Notebook): topics/stats/correlation-analysis.ipynb
     - Visualization:
       - topics/visualization/index.md
     - Network Analysis:
