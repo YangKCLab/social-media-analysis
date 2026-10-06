@@ -41,7 +41,7 @@ plugins:
       include_source: true              # Enable download links
       show_input: true                  # Show code cells
       theme: light                      # Notebook theme
-      ignore_h1_titles: false          # Use notebook titles
+      ignore_h1_titles: true            # Use the nav: label as the title of a notebook page, not its first heading
   - open-in-new-tab:
       add_icon: true
 
