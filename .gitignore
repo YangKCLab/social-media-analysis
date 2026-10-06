@@ -206,6 +206,9 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# Data files that the measurement notebooks download on first run
+docs/topics/measurements/data/
+
 # Data files that the stats notebooks download on first run
 docs/topics/stats/data/
 
