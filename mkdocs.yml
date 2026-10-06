@@ -70,10 +70,11 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
-# Data files that the measurement and stats notebooks download on a local run stay out of the built site
+# Data files that the measurement, stats, and network notebooks download on a local run stay out of the built site
 exclude_docs: |
   topics/measurements/data/
   topics/stats/data/
+  topics/network/data/
 
 extra:
   analytics:
@@ -136,6 +137,14 @@ nav:
       - topics/visualization/index.md
     - Network Analysis:
       - topics/network/index.md
+      - Network Basics: topics/network/network-basics.md
+      - Paths and Degree Distributions: topics/network/paths-and-degrees.md
+      - NetworkX Basics (Notebook): topics/network/networkx-basics.ipynb
+      - Centrality: topics/network/centrality.md
+      - Communities: topics/network/communities.md
+      - Centrality and Communities (Notebook): topics/network/centrality-and-communities.ipynb
+      - Networks from Posts: topics/network/networks-from-posts.md
+      - Posts to Networks (Notebook): topics/network/posts-to-networks.ipynb
   - Materials:
     - Demos:
       - demos/index.md

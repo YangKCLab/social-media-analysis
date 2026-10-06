@@ -211,3 +211,6 @@ docs/topics/measurements/data/
 
 # Data files that the stats notebooks download on first run
 docs/topics/stats/data/
+
+# Data files that the network notebooks download or write on first run
+docs/topics/network/data/
