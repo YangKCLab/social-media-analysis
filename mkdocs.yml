@@ -135,9 +135,13 @@ nav:
       - Correlation Analysis (Notebook): topics/stats/correlation-analysis.ipynb
     - Visualization:
       - topics/visualization/index.md
+      - Figure Types: topics/visualization/figure-types.md
       - Pair Plots and PCA (Notebook): topics/visualization/pair-plots-and-pca.ipynb
+      - Figure Design Principles: topics/visualization/principles.md
       - A Figure for a Report (Notebook): topics/visualization/report-figure.ipynb
+      - Color: topics/visualization/color.md
       - Color Maps (Notebook): topics/visualization/color-maps.ipynb
+      - Plotting Tools: topics/visualization/plotting-tools.md
       - Seaborn and Plotly (Notebook): topics/visualization/seaborn-and-plotly.ipynb
     - Network Analysis:
       - topics/network/index.md
