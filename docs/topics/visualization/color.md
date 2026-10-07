@@ -162,7 +162,7 @@ The type of a color map says how many colors it has.
 The next code draws one example of each.
 It uses `gradient` from the code above.
 Scicolor has no cyclic color map, so the code takes `twilight` from Matplotlib.
-The categorical color map `batlowS` has 100 colors, and the code shows the first ten.
+The categorical color map `Johnson` has five colors.
 
 ```python
 examples = {
@@ -172,7 +172,7 @@ examples = {
     "cyclic: twilight": matplotlib.colormaps["twilight"],
     "continuous: batlow": scicolor.get_cmap("batlow"),
     "discrete: batlow10": scicolor.get_cmap("batlow10"),
-    "categorical: batlowS": matplotlib.colors.ListedColormap(scicolor.get_cmap("batlowS").colors[:10]),
+    "categorical: Johnson": scicolor.get_cmap("Johnson"),
 }
 
 fig, axes = plt.subplots(len(examples), 1, figsize=(8, 3.6), layout="constrained")
@@ -184,7 +184,7 @@ for ax, (label, cmap) in zip(axes, examples.items()):
 plt.show()
 ```
 
-![Seven color strips, each with a label. Sequential, batlow: from dark blue to light pink. Diverging, vik: from dark blue through white to dark red. Multi-sequential, oleron: shades of blue on the left half, and green to light brown on the right half, with a break in the middle. Cyclic, twilight: light at both ends and dark purple in the middle. Continuous, batlow: a smooth strip. Discrete, batlow10: ten blocks of color in the order of batlow. Categorical, batlowS: ten blocks of color in a mixed order.](figures/color-map-classes.png){ width="680" }
+![Seven color strips, each with a label. Sequential, batlow: from dark blue to light pink. Diverging, vik: from dark blue through white to dark red. Multi-sequential, oleron: shades of blue on the left half, and green to light brown on the right half, with a break in the middle. Cyclic, twilight: light at both ends and dark purple in the middle. Continuous, batlow: a smooth strip. Discrete, batlow10: ten blocks of color in the order of batlow. Categorical, Johnson: five blocks of color, which are dark red, orange, yellow, teal, and dark blue.](figures/color-map-classes.png){ width="680" }
 
 The first four strips show the four classes, and the last three strips show the three types.
 
@@ -192,13 +192,13 @@ The first four strips show the four classes, and the last three strips show the 
 - `oleron` has a break in the middle: shades of blue on one side, and green and brown on the other side.
 - `twilight` starts and ends with the same light color.
 - `batlow10` has ten colors of `batlow` in the same order.
-- The colors of `batlowS` come from `batlow` too, in an order that puts very different colors next to each other.
+- `Johnson` has five colors that differ strongly from each other: dark red, orange, yellow, teal, and dark blue.
 
 ## Which class fits your data
 
 | Your data | Class or type | Example |
 |-----------|---------------|---------|
-| Groups with no order, such as platforms | Categorical | `batlowS` |
+| Groups with no order, such as platforms | Categorical | `Johnson` |
 | Values from low to high, such as a count or a score | Sequential | `batlow` |
 | Values in two directions from a central value, such as political leaning from left to right | Diverging | `vik` |
 | Values on a circle, such as the hour of the day | Cyclic | `twilight` of Matplotlib |
