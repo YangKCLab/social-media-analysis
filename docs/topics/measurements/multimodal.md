@@ -141,11 +141,15 @@ When your question is about a feature that the text does not keep, this method d
 ## Audio
 
 The main method for audio is transcription: a speech recognition model turns the speech into text.
-Whisper and Parakeet are two open models for this task.
-You download a model and run it on your own machine, so you need no key and the audio stays on your machine.
+Whisper, Parakeet, and Cohere Transcribe are three open models for this task.
+You download a model and run it on your own machine, so you need no API key and the audio stays on your machine.
 
 - [Whisper](https://github.com/openai/whisper) from OpenAI is a general-purpose speech recognition model. Its documentation says that it recognizes speech in many languages and that its accuracy varies widely by language. The code and the models have the MIT license. Whisper has several model sizes. The three smallest ones, `tiny`, `base`, and `small`, are downloads of about 75 MB to 480 MB and run on a CPU. Whisper needs the command-line tool `ffmpeg` to read audio files.
-- [Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2) from NVIDIA is a model for English transcription. Its model card says that the output has punctuation, capital letters, and a time for each word. The model card states the license CC BY 4.0 and says that the model is optimized for NVIDIA GPUs. The model is a download of about 2.5 GB.
+- [Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2) from NVIDIA is a model for English transcription. Its model card says that the output has punctuation, capital letters, and a time for each word. The model card states the license CC BY 4.0 and says that the model is optimized for NVIDIA GPUs. The model is a download of about 2.5 GB. A newer version, [`parakeet-tdt-0.6b-v3`](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3), covers 25 European languages and detects the language of the audio.
+- [Cohere Transcribe](https://huggingface.co/CohereLabs/cohere-transcribe-03-2026) from Cohere is a model for transcription in 14 languages, among them English, Spanish, Chinese, Japanese, Korean, and Arabic. Its model card says that the output has punctuation and capital letters. The model card states the license Apache 2.0, and the model runs through the `transformers` library. The model is a download of about 4.1 GB. It has three limits:
+    - The download needs a Hugging Face account, and you must agree to share your contact information.
+    - The output has no timestamps, and the model does not detect the language of the audio.
+    - The model card says that the model also transcribes sounds that are not speech, such as noise. It suggests that you first run a voice activity detection model, which finds the parts of the audio that have speech.
 
 A transcript does not contain everything in an audio clip.
 The emotion in a voice, the music, and the genre of a recording are not in the words.
@@ -193,7 +197,8 @@ Report the model, its version, the prompt, and the result of this check together
 - [CLIP](https://github.com/openai/CLIP): the code and the models from OpenAI
 - [`clip-ViT-B-32`](https://huggingface.co/sentence-transformers/clip-ViT-B-32) and the [image search examples](https://sbert.net/examples/sentence_transformer/applications/image-search/README.html) of Sentence Transformers: image search, image clustering, duplicate images, and zero-shot classification
 - [Whisper](https://github.com/openai/whisper): the code and the table of model sizes
-- [Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2): the model card of `parakeet-tdt-0.6b-v2`
+- [Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2): the model card of `parakeet-tdt-0.6b-v2`, and the [model card of `parakeet-tdt-0.6b-v3`](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3)
+- [Cohere Transcribe](https://huggingface.co/CohereLabs/cohere-transcribe-03-2026): the model card of `cohere-transcribe-03-2026`
 - [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/): a tutorial on calling large language models from code
 
 Next: [Processing URLs](urls.md) covers how to extract the links in posts, expand shortened links, and find their domains.
