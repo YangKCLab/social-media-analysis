@@ -173,7 +173,12 @@ The third row is the hard part.
 The meaning of a video depends on the order of its scenes and on how one event leads to the next.
 Separate frames lose this information.
 Video is an important form of content, and its analysis is still difficult.
-Say in your report which parts of the videos you analyzed and which parts you did not.
+
+Some large language models also accept a video as input.
+[Gemini](https://ai.google.dev/gemini-api/docs/video-understanding) from Google is one example. Its documentation says that the model can describe a video and answer questions about its content.
+You use such a model like a [vision language model](#vision-language-models): you give it a video and a text prompt, and it returns text.
+By default, Gemini reads one frame for every second of the video, together with the audio.
+The three points on vision language models apply here too: the result depends on the prompt, a hosted service receives your videos, and the answer needs a check.
 
 ## Check the output before you trust it
 
@@ -199,6 +204,7 @@ Report the model, its version, the prompt, and the result of this check together
 - [Whisper](https://github.com/openai/whisper): the code and the table of model sizes
 - [Parakeet](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v2): the model card of `parakeet-tdt-0.6b-v2`, and the [model card of `parakeet-tdt-0.6b-v3`](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3)
 - [Cohere Transcribe](https://huggingface.co/CohereLabs/cohere-transcribe-03-2026): the model card of `cohere-transcribe-03-2026`
+- [Video understanding](https://ai.google.dev/gemini-api/docs/video-understanding) in the documentation of the Gemini API: how the model reads a video, and the limits on the length
 - [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/): a tutorial on calling large language models from code
 
 Next: [Processing URLs](urls.md) covers how to extract the links in posts, expand shortened links, and find their domains.
