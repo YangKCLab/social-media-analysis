@@ -226,20 +226,22 @@ Some readers have a color-vision deficiency, and some reports are printed in bla
 Take the colors of a figure from a color-blind friendly color map, and check each color against the background of the figure.
 The page [Color](color.md) covers how to choose and check a color map.
 
-Step 4 takes the colors from `Johnson`.
+Step 4 takes the colors from `Archambault`.
 It is a categorical color map of the Scicolor package: a list of colors for groups that have no order.
-The next code shows its five colors as hex codes.
+The next code shows its seven colors as hex codes.
 
 ```python
-cmap = scicolor.get_cmap("Johnson")
-[to_hex(cmap(i)) for i in range(5)]    # ['#a00e00', '#d04e00', '#f6c200', '#0086a8', '#132b69']
+cmap = scicolor.get_cmap("Archambault")
+[to_hex(cmap(i)) for i in range(7)]
+# ['#88a0dc', '#381a61', '#7c4b73', '#ed968c', '#ab3329', '#e78429', '#f9d14a']
 ```
 
-The five colors are a dark red, an orange, a yellow, a teal, and a dark blue.
-A thin line in yellow is hard to see on a white background, so the figure does not use the third color.
+The seven colors are a light blue, a dark purple, a muted purple, a pink, a red, an orange, and a yellow.
+A thin line in yellow is hard to see on a white background, so the figure does not use the last color.
+The figure uses the dark purple, the red, and the orange: one dark color, one medium color, and one light color.
 
 ```python
-colors = {"platform_a": cmap(3), "platform_b": cmap(4), "platform_c": cmap(1)}
+colors = {"platform_a": cmap(4), "platform_b": cmap(1), "platform_c": cmap(5)}
 
 fig, ax = plt.subplots(figsize=(4, 3), layout="constrained")
 for column, label in labels.items():
@@ -251,11 +253,11 @@ fig.legend(frameon=False, loc="outside upper center", ncols=3, columnspacing=1)
 plt.show()
 ```
 
-![The figure after step 4, with a width of 400 pixels. The line of platform A is teal, the line of platform B is dark blue, and the line of platform C is orange. The line of platform B rises from about 110 to about 240 posts per day and crosses the line of platform C, which stays near 180.](figures/report-figure-step-4.png){ width="400" }
+![The figure after step 4, with a width of 400 pixels. The line of platform A is red, the line of platform B is dark purple, and the line of platform C is orange. The line of platform B rises from about 110 to about 240 posts per day and crosses the line of platform C, which stays near 180.](figures/report-figure-step-4.png){ width="400" }
 
 Platform B has the darkest color, because the message is about platform B.
-The lines of platform B and platform C cross, and they have the two colors that differ the most: the dark blue and the orange.
-The dark blue is also much darker than the orange, so the two lines stay different in a black and white print.
+The lines of platform B and platform C cross, so they have the darkest and the lightest of the three colors: the dark purple and the orange.
+The three colors differ in lightness, so the three lines stay different in a black and white print.
 
 ## Use vector or high-resolution files
 
@@ -309,8 +311,8 @@ posts = pd.DataFrame({
 }).round().astype(int)
 
 labels = {"platform_a": "Platform A", "platform_b": "Platform B", "platform_c": "Platform C"}
-cmap = scicolor.get_cmap("Johnson")
-colors = {"platform_a": cmap(3), "platform_b": cmap(4), "platform_c": cmap(1)}
+cmap = scicolor.get_cmap("Archambault")
+colors = {"platform_a": cmap(4), "platform_b": cmap(1), "platform_c": cmap(5)}
 
 plt.rcParams["font.size"] = 10
 fig, ax = plt.subplots(figsize=(4, 3), layout="constrained")
@@ -334,7 +336,7 @@ The two `savefig` lines are in the code that draws the figure, before `plt.show(
 - [Figure for a Report notebook](report-figure.ipynb): all the code on this page
 - The Matplotlib documentation of [`savefig`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html)
 - The Matplotlib guides on [the runtime settings (`rcParams`)](https://matplotlib.org/stable/users/explain/customizing.html), on [the legend](https://matplotlib.org/stable/users/explain/axes/legend_guide.html), and on [the constrained layout](https://matplotlib.org/stable/users/explain/axes/constrainedlayout_guide.html)
-- [Scicolor](https://pypi.org/project/scicolor/): the package with the color map `Johnson`
+- [Scicolor](https://pypi.org/project/scicolor/): the package with the color map `Archambault`
 - Rougier, Droettboom, and Bourne (2014), [Ten Simple Rules for Better Figures](https://doi.org/10.1371/journal.pcbi.1003833)
 
 Next: [Color](color.md) covers how to choose and check a color map.
