@@ -32,7 +32,7 @@ All notebooks in this course can be opened in Google Colab for interactive execu
 Here is a list of the relevant materials for the course:
 
 - Please refer to [Research Papers](papers.md) for the list of research papers.
-- Please refer to [Project Assignment](project.md) for the instructions on the project assignments.
+- Please refer to [Build Your Own Pipeline](project.md) for a guide to building a social media data pipeline of your own.
 - Please refer to [Resources](resources.md) for the list of useful resources.
 
 ## Course offering

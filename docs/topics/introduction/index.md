@@ -41,6 +41,15 @@ Source: [Pew Research Center, Social Media Fact Sheet](https://www.pewresearch.o
 - The data is larger than a survey can reach
 - Many platforms provide their data to the public through an API
 
+## Why social media data are hard to use
+
+- **Platforms are scattered**: each platform has its own data, rules, and API, so a study of several platforms takes more work
+- **Exposure is not recorded**: the data show what people post, but not what they see
+- **The scale is large**: the data can be too large for one script or one computer to handle
+- **Access is shrinking**: fewer platforms share their data than before, but good options remain
+- **There are no demographics**: platforms rarely provide the age, gender, or location of their users
+- **The data are noisy**: fake accounts, spam, and automated posts are mixed with real behavior
+
 ## The pipeline
 
 The course follows the stages of a pipeline, one topic each.
@@ -58,18 +67,19 @@ The course follows the stages of a pipeline, one topic each.
 
 Research on social media moves fast, and the best way to keep up is to read the papers.
 The [research papers](../../papers.md) page lists readings by topic: datasets and collection, algorithms, inauthentic behaviors, ethics and data access, generative AI and social media, and social media for AI agents.
-When the course is offered in person, students read the papers before class and discuss them during class.
+Read the papers on a topic when you study that topic, and note which data and methods each paper uses.
 
-## Course project
+## Build your own pipeline
 
 The best way to learn the material is to build a pipeline of your own.
-The course project does exactly that, in three stages that build on each other: a data collection system that gathers social media data continuously, an exploratory analysis of the collected data, and a final stage that uses the data to answer research questions.
-Each stage starts with a short plan of what to do, continues with the implementation, and ends with a write-up of what was found.
-Students in the classroom version complete the project in small groups with feedback from the instructor; self-directed learners can follow the same three stages on their own, with a research question of their choice.
-See the [project assignment](../../project.md) page for the details and the considerations at each stage.
+The [Build Your Own Pipeline](../../project.md) guide describes the stages in order.
+You start with research questions, then collect data from two or more platforms and keep the collector running.
+Next, you explore the data, run a classifier, and check the classifier against your own labels.
+Finally, you answer your research questions and share the results in an interactive dashboard.
+Each stage lists the questions to consider and links to the topic pages that teach the methods.
 
 ## Other useful resources
 
 - The [demos](../../demos/index.md) page holds interactive demos used in lectures
-- The [project assignment](../../project.md) page describes the course project, which builds a pipeline in stages across the semester
+- The [Build Your Own Pipeline](../../project.md) guide describes how to build a pipeline of your own, stage by stage
 - The [resources](../../resources.md) page lists libraries and tools for each stage

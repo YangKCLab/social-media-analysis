@@ -39,4 +39,4 @@ The notebooks use small sample files that they download on first run, so they wo
 ## Related
 
 - [Data collection](../data-collection/index.md), whose notebooks produce the JSON that this module stores and converts
-- [Project assignment](../../project.md), whose first stage stores what a collector produces
+- [Build Your Own Pipeline](../../project.md), a guide to a full pipeline, including how to store what a collector produces

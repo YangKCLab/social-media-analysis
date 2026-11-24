@@ -36,4 +36,4 @@ Readers are encouraged to explore other platforms and their APIs.
 
 - [Snowball sampling demo](../../demos/snowball-sampling/index.html), an interactive page that grows a keyword list one round at a time
 - [Research papers](../../papers.md), including the datasets built with the methods on this page
-- [Project assignment](../../project.md), whose first stage is a continuous data collection system
+- [Build Your Own Pipeline](../../project.md), a guide whose first stage is a continuous data collection system
