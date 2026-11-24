@@ -71,6 +71,32 @@ See [Connected components](networks-from-posts.md#connected-components) for how 
 
 [Section 2.8 of the *Network Science* book](https://networksciencebook.com/chapter/2#paths) has drawings of paths and shortest paths in a small network.
 
+## Why paths and distances matter
+
+Many applications use the distances in a network.
+
+- **Friend recommendation.** Facebook and LinkedIn suggest "people you may know". Most suggestions are at distance 2 from you: they are the friends of your friends. LinkedIn labels each person as a 1st, 2nd, or 3rd degree connection, which is the distance from you.
+- **Navigation.** A map app finds the shortest path in a road network. The edges are weighted by travel time, so the shortest path is the fastest route, not the route with the fewest road segments.
+
+In a weighted network, the length of a path is the sum of the weights of its edges.
+Pass the name of the weight attribute to `nx.shortest_path` to use it.
+
+```python
+roads = nx.Graph()
+roads.add_edge("A", "B", minutes=10)
+roads.add_edge("B", "D", minutes=10)
+roads.add_edge("A", "C", minutes=5)
+roads.add_edge("C", "E", minutes=5)
+roads.add_edge("E", "D", minutes=5)
+
+nx.shortest_path(roads, "A", "D")    # ['A', 'B', 'D']
+nx.shortest_path(roads, "A", "D", weight="minutes")    # ['A', 'C', 'E', 'D']
+nx.shortest_path_length(roads, "A", "D", weight="minutes")    # 15
+```
+
+Without weights, the route through `B` is shortest, because it has two edges.
+With travel times, the route through `C` and `E` is shortest: it takes 15 minutes, and the route through `B` takes 20 minutes.
+
 ## Small worlds
 
 A network is a small world when the distances are short compared with the size of the network.
@@ -211,6 +237,14 @@ print(f"{below} of {karate_g.number_of_nodes()}")    # 29 of 34
 ```
 
 29 of the 34 members have fewer friends than their friends have on average.
+
+### The generalized friendship paradox
+
+The paradox also holds for other characteristics than the number of friends.
+It holds when the characteristic is correlated with the number of friends.
+
+- **Happiness.** In a network of 39,110 Twitter users, most users were less happy than their friends on average. Popular users were happier. See [Bollen et al. (2017)](https://doi.org/10.1140/epjds/s13688-017-0100-1).
+- **Popularity and activity.** On Twitter, the accounts that you follow and the accounts that follow you tend to have more followers than you. They also tend to post more than you. See [Hodas, Kooti, and Lerman (2013)](https://doi.org/10.1609/icwsm.v7i1.14440).
 
 ## Where the friendship paradox is used
 

@@ -24,7 +24,7 @@ The last page builds four networks from a table of posts.
 | Page | What it covers |
 |------|----------------|
 | [Network basics](network-basics.md) | Nodes and edges; directed, undirected, and weighted networks; creating a network with NetworkX; degree and degree distribution; edge list and adjacency matrix; loading a network from a file; bipartite networks |
-| [Paths and degree distributions](paths-and-degrees.md) | Paths and distances; small worlds; hubs, scale-free networks, and a histogram with log bins; preferential attachment; the friendship paradox and one use of it |
+| [Paths and degree distributions](paths-and-degrees.md) | Paths and distances; why they matter, and weighted shortest paths; small worlds; hubs, scale-free networks, and a histogram with log bins; preferential attachment; the friendship paradox, its generalized form, and one use of it |
 | [Centrality](centrality.md) | Five centrality measures; PageRank; the measures on a character network; how the ranking depends on the measure and on the time period |
 | [Communities](communities.md) | What a community is; modularity and the Louvain method; the communities of the karate club network and of a character network, with a drawing of each |
 | [Networks from posts](networks-from-posts.md) | A user-hashtag network, its projection, a hashtag co-occurrence network, and a reply network from ten posts; connected components; saving a network for Gephi; three further topics |
