@@ -151,6 +151,21 @@ You download a model and run it on your own machine, so you need no API key and 
     - The output has no timestamps, and the model does not detect the language of the audio.
     - The model card says that the model also transcribes sounds that are not speech, such as noise. It suggests that you first run a voice activity detection model, which finds the parts of the audio that have speech.
 
+The table compares the three models.
+
+| | Whisper | Parakeet | Cohere Transcribe |
+|---|---|---|---|
+| From | OpenAI | NVIDIA | Cohere |
+| Release year | 2022 | 2025 | 2026 |
+| Size | 6 sizes, 39M to 1,550M parameters | 600M parameters | 2B parameters |
+| Languages | About 100 | English (v2), or 25 European languages (v3) | 14 |
+| Timestamps | Yes, for each segment, and for each word as an option | Yes, for each word | No |
+| License | MIT | CC BY 4.0 | Apache 2.0 |
+| Hardware | The small sizes run on a CPU | Works best with an NVIDIA GPU | Works best with a GPU |
+
+The accuracy of each model depends on the language, the accent, and the noise in the audio.
+Listen to a sample of the clips, and compare them with the transcripts.
+
 A transcript does not contain everything in an audio clip.
 The emotion in a voice, the music, and the genre of a recording are not in the words.
 Measuring them needs other models, which this page does not cover.
