@@ -56,6 +56,34 @@ Past the limit you get an error, usually HTTP `429` (Bluesky) or `403 quotaExcee
 Sleep and retry; do not retry in a tight loop.
 Sleep between requests even when you are under the limit.
 
+## What the rate limit buys you
+
+Do this calculation before you write code.
+Multiply the requests per day by the items per request.
+Then compare the result with the amount of data that your question needs.
+
+| Platform | Limit | Requests per day | Items per request | Upper bound per day |
+|---|---|---|---|---|
+| Bluesky | 3,000 per 5 minutes | 864,000 | 100 posts per search page | 86 million posts |
+| 4chan | 1 per second | 86,400 | 1 thread with all its replies | 86,400 threads |
+| YouTube | 100 searches | 100 | 50 video IDs per search page | 5,000 videos from search |
+| YouTube | 10,000 units | 10,000 | 50 videos, or 100 comments | 500,000 videos, or 1 million comments |
+
+The upper bound assumes a full page on every request and a collector that never sleeps.
+Real numbers are lower.
+
+Each platform has a different limit that matters in practice:
+
+- **YouTube: search.** Search gives at most 5,000 video IDs a day. Get the IDs another way, such as from a channel's uploads or from playlists, and the budget for other reads is large.
+- **4chan: none of the API limits.** A busy board archives a few thousand threads a day. One IP address can follow several boards at one request per second.
+- **Bluesky: not the rate limit.** The number of posts that match your keywords is the limit, and then your disk space.
+
+## Storage
+
+Plan the storage before you plan the loop.
+A Bluesky post record is a few kilobytes, so a million posts take a few gigabytes.
+One request per second for a month is 2.6 million requests.
+
 ## Credentials
 
 Keep API keys and passwords in a `.env` file that `.gitignore` excludes.

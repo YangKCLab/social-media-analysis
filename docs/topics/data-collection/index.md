@@ -17,9 +17,9 @@ Most collection jobs have the same shape: authenticate if the platform requires 
 | Page | What it covers |
 |------|----------------|
 | [Sampling strategies](sampling-strategies.md) | Keyword-based, user-based, graph snowball, and whole-board collection; snowball sampling for growing a keyword list, with the interactive demo |
-| [Key concepts](key-concepts.md) | What the data looks like, ways to get it, finding the API documentation, pagination, rate limits, storage, credentials, and choosing a platform |
+| [Key concepts](key-concepts.md) | What the data looks like, ways to get it, finding the API documentation, pagination, rate limits and what they buy you, storage, credentials, and choosing a platform |
 | [Run it continuously](run-it-continuously.md) | Periodic jobs with `cron`, stream collectors under a supervisor, and how to check on a collector that runs for weeks |
-| [Research considerations](research-considerations.md) | Terms of service and what happens when they are ignored, consent and deletion, ethics review, offensive content, and media |
+| [Research considerations](research-considerations.md) | Terms of service, consent and deletion, ethics review, offensive content, and media |
 
 ## Platform notebooks
 
