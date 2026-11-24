@@ -96,9 +96,15 @@ scipy.stats.binomtest(600, n=1000, p=0.5).pvalue    # 2.7e-10
 - The first line tests 60 heads in 100 tosses against a coin with a 50% chance of heads. The p-value is 0.0569, the same as the result of the simulation.
 - The second line tests 600 heads in 1,000 tosses. The share of heads is the same, 60%, and the sample is 10 times as large. The p-value is 2.7e-10, which is 2.7 × 10^-10 and almost 0.
 
+With 1,000 tosses, you reject the null hypothesis: the coin is biased.
+With more tosses, a fair coin stays closer to 50% heads, so 60% heads is very rare.
 The amount of data matters as much as the size of the difference.
 
 ## A test can miss a real difference
+
+The sections above ask one question: is this coin fair?
+This section asks a different question: if the coin is biased, how often does the test detect the bias?
+This share of detections is called the **power** of the test.
 
 Now suppose the coin is biased and gives heads 60% of the time.
 Simulate 100,000 runs of 100 tosses with this coin.
