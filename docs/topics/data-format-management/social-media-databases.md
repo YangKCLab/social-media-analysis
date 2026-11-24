@@ -53,7 +53,7 @@ Four record kinds, four tables, connected by the IDs the API already provides:
 
 ## Bluesky
 
-In the [Bluesky lexicons](https://github.com/bluesky-social/atproto/tree/main/lexicons/app/bsky):
+In the [Bluesky lexicons](https://github.com/bluesky-social/bsky/tree/main/lexicons/app/bsky):
 
 - **Post**: the unit, identified by its `uri` (and content hash `cid`), carrying the text in `record` and the engagement counts.
 - **Replies are also posts.** A reply's `reply` object points at two other posts: `parent` and `root`.
@@ -79,7 +79,7 @@ CREATE TABLE posts (
 ```
 
 `parent_uri` is deliberately not declared as a foreign key: a collection often contains a reply without its parent, and a strict constraint would reject the reply.
-Which constraints to enforce is a design decision, not an automatism.
+Which constraints to enforce is a design decision.
 
 Engagement counts are a snapshot of the moment of collection.
 If the change over time matters, store one row per observation with a `collected_at` timestamp instead of overwriting.
