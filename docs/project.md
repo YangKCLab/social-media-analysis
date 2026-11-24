@@ -219,13 +219,7 @@ Keep them in every project.
 - **A check script**: Write a script, such as `check.sh`, that verifies the pipeline runs.
     For example, it can check that new posts arrived from each platform in the last hour, that the classifier labeled the posts of the previous day, and that the required files exist.
     Run it before you share or present results.
-    A passing check shows that the pipeline runs, not that the results are correct.
-- **A credits file**: In a file such as `CREDITS.md`, list the data sources, the libraries and tools, and any code that you reused, with links.
-    If you work with other people, also say who did what.
-- **A note on AI use**: In a file such as `AI_USE.md`, record each AI tool that you used, what you asked it, how you used the output, and how you checked the output.
-
-!!! warning "You are responsible for every output of an AI tool"
-    AI tools can write collection, analysis, and plotting code, and they can label posts.
+- **A note on AI use**: AI tools can write collection, analysis, and plotting code, and they can label posts.
     They also make mistakes, and the mistakes often look correct.
     Check every output that an AI tool gives you before you use it.
     Run the code and compare its numbers with the data.
