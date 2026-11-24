@@ -43,7 +43,7 @@ docs = [
 ]
 ml = [
     "bertopic>=0.17.4",
-    "detoxify>=0.5.2",
+    "detoxify>=0.5.3",
 ]
 
 [tool.uv]

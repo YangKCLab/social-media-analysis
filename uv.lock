@@ -658,16 +658,16 @@ wheels = [
 
 [[package]]
 name = "detoxify"
-version = "0.5.2"
+version = "0.5.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "sentencepiece" },
     { name = "torch" },
     { name = "transformers" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ab/1f/3b0a6cba11a0e9e2530d6021bb2f723b2c5b6653244e6eda47df80356acc/detoxify-0.5.2.tar.gz", hash = "sha256:c119d0b47545bb076190ff583faad9aa3bb0a90ac01c7c4144758606d21da5b1", size = 13813, upload-time = "2024-02-01T14:51:23.61Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e4/7e/92a0d9ce1a145cebe006a3be8c0bf2810d06272fe396ae99a80ca6b3c4ee/detoxify-0.5.4.tar.gz", hash = "sha256:1fa8a18e8ee1bfbaea059f28426a7e17141009bf80c8bdfc7ad7c6fc33fd01f4", size = 14663, upload-time = "2026-10-14T12:09:22.845Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1f/5c/94f765f08fe52473bc945284b7912032c099d0737cb8ad9235deb3b40d35/detoxify-0.5.2-py3-none-any.whl", hash = "sha256:e6135a2d85ad17bfb19d8cf53756a1b499e6d9c03cb1976ddefdc013bf29d32a", size = 12103, upload-time = "2024-02-01T14:51:21.791Z" },
+    { url = "https://files.pythonhosted.org/packages/31/89/c28dab97c2bdf0202c22be78abf36d2beb56c55027f08672e9ea1c7278f2/detoxify-0.5.4-py3-none-any.whl", hash = "sha256:608d6f3c3aee47ca452f484e61c19307d4c58fb0ea4bd26abd2d26fcc6bf56a4", size = 12730, upload-time = "2026-10-14T12:09:21.713Z" },
 ]
 
 [[package]]
@@ -3573,7 +3573,7 @@ docs = [
 ]
 ml = [
     { name = "bertopic", specifier = ">=0.17.4" },
-    { name = "detoxify", specifier = ">=0.5.2" },
+    { name = "detoxify", specifier = ">=0.5.3" },
 ]
 
 [[package]]
