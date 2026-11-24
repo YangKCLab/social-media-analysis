@@ -159,8 +159,8 @@ scipy.stats.ttest_ind(group_a, group_b)    # statistic=-4.253, pvalue=2.6e-05, d
 ```
 
 The test statistic is −4.253 and the p-value is 2.6e-05, with 398 degrees of freedom.
-If the two groups had the same mean, a difference this large would be rare.
-p < 0.05, so you reject the null hypothesis: the mean heights of the two groups are significantly different.
+If the two groups had the same mean, a difference this large would be very rare.
+p < 0.001, so you reject the null hypothesis: the mean heights of the two groups are significantly different.
 
 ## Choosing a test
 
