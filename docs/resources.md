@@ -92,6 +92,8 @@ Content moderation:
 Large language models:
 
 - [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/) - A tutorial on calling large language models from code
+- [OpenRouter](https://openrouter.ai/models) - A service that gives access to models from many providers through one API, with a list of the models and their prices
+- [tiktoken](https://github.com/openai/tiktoken) - A Python library from OpenAI that splits a text into the tokens of OpenAI models, so you can count the tokens before you send the text
 
 ## Multimodal Content
 
