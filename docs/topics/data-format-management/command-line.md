@@ -120,6 +120,9 @@ $ jq . data/sample_broken.json
 jq: parse error: Invalid numeric literal at line 2, column 17
 ```
 
+The exact message depends on the version of `jq`.
+For example, `jq` 1.8 prints `Invalid string literal; expected ", but got ' at line 2, column 17`.
+
 Python's standard library does the same without `jq`:
 
 ```
