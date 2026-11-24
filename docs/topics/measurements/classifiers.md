@@ -278,4 +278,4 @@ Each one measures the definition of its own provider, and each one needs the sam
 - [ModerateHatespeech](https://moderatehatespeech.com) and its [API documentation](https://moderatehatespeech.com/docs/)
 - [OpenAI Moderation API](https://developers.openai.com/api/docs/guides/moderation): the guide, with the list of categories
 
-Next: [Topic modeling](topic-modeling.md) finds the themes of a collection of posts without labels.
+Next: [Labeling text with an LLM](llm-labeling.md) shows how to write your own labels into a prompt and check what a large language model returns.

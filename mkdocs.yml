@@ -125,6 +125,7 @@ nav:
       - Dictionary-Based Analysis: topics/measurements/dictionaries.md
       - Classifiers and Toxicity: topics/measurements/classifiers.md
       - Scoring Text (Notebook): topics/measurements/scoring-text.ipynb
+      - Labeling Text with an LLM: topics/measurements/llm-labeling.md
       - Topic Modeling: topics/measurements/topic-modeling.md
       - Topic Models (Notebook): topics/measurements/topic-models.ipynb
       - Multimodal Content: topics/measurements/multimodal.md

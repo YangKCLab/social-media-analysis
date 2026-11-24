@@ -114,7 +114,7 @@ These topics help at this stage:
 Many research questions need a label for each post, such as whether it is toxic or which topic it covers.
 A classifier produces these labels for many posts.
 It can be a toxicity scorer, or a large language model that performs a classification task that you define.
-See [Classifiers and Toxicity](topics/measurements/classifiers.md) for the tools.
+See [Classifiers and Toxicity](topics/measurements/classifiers.md) for the tools, and [Labeling Text with an LLM](topics/measurements/llm-labeling.md) for a classifier built from a prompt.
 
 Follow these rules when you run a classifier:
 

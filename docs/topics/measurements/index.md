@@ -7,7 +7,7 @@ You will also learn how to validate a measurement against labels that you assign
 An analysis needs numbers.
 A measurement turns a post, or a group of posts, into numbers that you can count and compare.
 Most of the pages are about text.
-The text methods go from simple to complex: word counts, dictionaries, word vectors, and trained models.
+The text methods go from simple to complex: word counts, dictionaries, word vectors, trained models, and large language models.
 One page covers images, audio, and video, and two pages cover the URLs in posts and the websites that they lead to.
 Each of these pages says what a method measures, when to use it, and what its limits are.
 The last page shows how to check any of these measurements against hand labels before you rely on it.
@@ -18,6 +18,7 @@ The last page shows how to check any of these measurements against hand labels b
 - Find the words that separate two groups of posts with the log-odds ratio
 - Use pre-trained word vectors to find related words, compare posts by meaning, and place words on a scale
 - Score posts with a dictionary and with a pre-trained classifier, and state what each tool measures
+- Label posts with a large language model: write a codebook into the prompt, tune the prompt, compare models, and estimate the cost
 - Find the topics of a collection of posts with LDA and BERTopic
 - Describe the options for images, audio, and video, and when to turn them into text first
 - Extract, expand, and clean the URLs in posts, and describe their domains with public domain lists
@@ -32,6 +33,7 @@ The last page shows how to check any of these measurements against hand labels b
 | [Word embedding](word-embedding.md) | Words as vectors; pre-trained GloVe vectors with Gensim; related words, calculations on vectors, the similarity of two texts, and words on a scale; hashtag embeddings |
 | [Dictionary-based analysis](dictionaries.md) | Sentiment with VADER, and where VADER fails; moral foundations with the eMFD; vec-tionaries; what a dictionary measures |
 | [Classifiers and toxicity](classifiers.md) | A pre-trained sentiment classifier from Hugging Face; toxicity scoring with Detoxify; the cutoff that turns a score into a label; hosted scorers that need a key |
+| [Labeling text with an LLM](llm-labeling.md) | Prompts and answers; a codebook in the prompt; the loop that tunes a prompt; the comparison of models; decision models and cascades; API providers and OpenRouter; the cost estimate with tiktoken; what to store with every label |
 | [Topic modeling](topic-modeling.md) | LDA with Gensim and BERTopic on the same tweets; how to read the topics; a comparison of the two results; TopicGPT |
 | [Multimodal content](multimodal.md) | The formats and features of visual content; four approaches to images; image embedding, and models that place text and images in one space; vision language models; turning the content into text first; transcription of audio; video. An overview with links and no code |
 | [Processing URLs](urls.md) | The four steps that prepare the links in posts: extracting URLs from text, expanding shortened links, removing query parameters, and extracting the domain; counting domains; URL-level analysis |
@@ -42,10 +44,11 @@ The last page shows how to check any of these measurements against hand labels b
 
 The five notebooks run in Colab without setup.
 Four of them need one or two packages that Colab does not have, and their first code cell installs these packages there.
-They hold all the code of the six text pages and of the two URL pages.
+They hold all the code of six of the text pages and of the two URL pages.
 Three notebooks serve two pages each: Word counts serves the first two pages, Scoring text serves the dictionary page and the classifier page, and URL processing serves the page on URLs and the page on domains.
 The multimodal page has no code.
 The validation page has short code blocks and no notebook: the code runs on one small table that is written by hand on the page.
+The page on labeling text with an LLM has no notebook either: its two code blocks build a prompt and count tokens, and the code that calls a model is in the tutorial that it links.
 
 The four text notebooks download TweetTopic from Hugging Face on first run.
 TweetTopic is a public research dataset of 6,090 English tweets with topic labels, and the file is 0.9 MB.
@@ -71,7 +74,7 @@ Its cells run only when you set an API key, and the other sections need no key.
 ## Choosing a text method
 
 The table compares five approaches to text.
-The first four have a page in this module.
+Each of them has a page in this module.
 
 | Approach | What it looks at | What you need | Main limit |
 |----------|------------------|---------------|------------|
@@ -79,7 +82,7 @@ The first four have a page in this module.
 | [Dictionary](dictionaries.md) | Word counts and word scores | A dictionary for your concept | [Misses sarcasm and shifts in meaning](dictionaries.md#what-a-dictionary-measures) |
 | [Word embedding](word-embedding.md) | One vector per word | A pre-trained embedding | One vector per word, no word order |
 | [Deep learning classifier](classifiers.md) | The whole text, in order | A trained model, or labeled data | Only the labels it was trained on |
-| [Large language model (LLM)](#large-language-models) | The text and your instructions | A prompt, and a budget | Cost, speed, and models that change |
+| [Large language model (LLM)](llm-labeling.md) | The text and your instructions | A prompt, and a budget | Cost, speed, and models that change |
 
 Each approach understands more of the text than the one above it, and it costs more to run.
 
@@ -96,8 +99,8 @@ The section [From scores to labels](classifiers.md#from-scores-to-labels) shows 
 
 A large language model (LLM) can also label text.
 You write the labels and their definitions in a prompt, and the model returns a label for each post.
-This module does not cover that method.
-The tutorial [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/) covers it: API keys, the first call, structured output, parallel requests, batch processing, other providers, and decision models.
+The page [Labeling text with an LLM](llm-labeling.md) covers the method: the codebook, the prompt and its tuning, the choice of a model, and the cost.
+The tutorial [LLM for Computational Social Science](https://yang3kc.github.io/llm_for_css/) covers the code: API keys, the first call, structured output, and parallel requests.
 Check the labels of an LLM against hand labels in the same way as the labels of any other classifier; see [Validating a measurement](validation.md).
 
 ## Related
