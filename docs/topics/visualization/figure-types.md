@@ -25,7 +25,7 @@ from sklearn.preprocessing import StandardScaler
 | A change over time | Line plot | [Figure design principles](principles.md), whose worked example is a line plot |
 | A comparison between groups | Bar plot, box plots side by side | For the box plot, see [Box plot and violin plot](../stats/descriptive-statistics.md#box-plot-and-violin-plot). For the bar plot, see the Matplotlib documentation of [`bar`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.bar.html) |
 | Many numbers for each data point | Pair plot, dimension reduction | [Pair plot](#pair-plot) and [Dimension reduction with PCA](#dimension-reduction-with-pca) on this page |
-| Values by place | Map | [Further topics](#further-topics) on this page |
+| Values by place | Map, cartogram | [Maps and cartograms](#maps-and-cartograms) on this page |
 | Connections between accounts | Network plot | [Network analysis](../network/index.md) |
 
 The [Python Graph Gallery](https://python-graph-gallery.com/) lists many more figure types, each with its code.
@@ -157,6 +157,36 @@ One scatter plot now shows the main pattern of the 16 panels of the pair plot.
 PCA is also useful for data with many more columns.
 An example is the embeddings of posts, which have hundreds of columns.
 
+## Maps and cartograms
+
+A normal map shows the area of each region.
+The area of a region often does not match the number that you want to show.
+A region with a large area and few people gets much attention on a map.
+A city with many people and a small area gets little attention.
+
+The map below shows the result of the 2016 US presidential election by state.
+Each state has the color of the candidate who won its electors: red for Trump and blue for Clinton.
+Trump received 304 electoral votes, and Clinton received 227.
+The red area looks much larger than the blue area, because many red states are large and have few people.
+
+![A map of the United States from Wikipedia. Each state is red or blue and shows its number of electors. Red covers most of the area of the map, including the large states in the center and the west. Blue covers the west coast, the northeast, and a few other states, such as Illinois, Colorado, and New Mexico.](figures/election-2016-map.png){ width="640" }
+
+Map: [ElectoralCollege2016.svg](https://commons.wikimedia.org/wiki/File:ElectoralCollege2016.svg) by the Wikimedia user Gage, from the Wikipedia article [2016 United States presidential election](https://en.wikipedia.org/wiki/2016_United_States_presidential_election).
+The image is a cropped screenshot of the map.
+The license is [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
+A cartogram is an alternative to a normal map.
+A cartogram changes the area of each region so that the area is proportional to a number.
+In the cartogram below, the area of each state is proportional to its number of electors.
+The large states with few electors become small, and the states with many people become large.
+The red area and the blue area now compare in the same way as the numbers of electors.
+The white circles show the positions of the state capitals.
+
+![A cartogram of the 2016 US presidential election. The states keep their colors and their neighbors, but their areas change. The red states in the center and the west become thin. California, New York, Illinois, and the states of the northeast become large, so the blue area becomes closer in size to the red area.](figures/election-2016-cartogram.png){ width="640" }
+
+Cartogram: panel A of Figure 3 in Gastner, Seguy, and More (2018), [Fast flow-based algorithm for creating density-equalizing map projections](https://www.pnas.org/doi/full/10.1073/pnas.1712674115), *PNAS* 115(10).
+The license is [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
 ## Further topics
 
 This page does not cover the three topics below.
@@ -164,7 +194,7 @@ Each one has a link to start from.
 
 - **t-SNE.** t-SNE places data points that are similar close to each other in two dimensions, but the sizes of the groups and the distances between the groups in the plot often mean nothing, and the plot changes with the setting `perplexity`; see [How to Use t-SNE Effectively](https://distill.pub/2016/misread-tsne/).
 - **UMAP.** UMAP is a faster method of the same kind and a common choice for text embeddings: for example, BERTopic reduces the embedding of each post with UMAP before it groups the posts into topics; see [the UMAP documentation](https://umap-learn.readthedocs.io/en/latest/).
-- **Maps.** A map gives a large area more attention than a small area, also when few people live in the large area, so compare the values with the number of people before you read a pattern from a map; for the code, see [the map examples of Plotly](https://plotly.com/python/maps/).
+- **Maps.** A map gives a large area more attention than a small area, also when few people live in the large area, so compare the values with the number of people before you read a pattern from a map; see [Maps and cartograms](#maps-and-cartograms) above, and for the code, see [the map examples of Plotly](https://plotly.com/python/maps/).
 
 ## Links
 
