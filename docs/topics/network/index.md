@@ -60,10 +60,15 @@ Every page and notebook in this module uses NetworkX.
 Use graph-tool or igraph when NetworkX is too slow for your network.
 The [performance page of graph-tool](https://graph-tool.skewed.de/performance.html) compares the three packages on a directed network with about 40,000 nodes and 300,000 edges: betweenness takes under 2 minutes with graph-tool on 16 threads and about 6.7 hours with NetworkX.
 
-## Book
+## Books
 
 The book [*Network Science*](https://networksciencebook.com/) by Albert-László Barabási is free to read online.
+It is more theoretical and mathematical.
 The pages of this module link to the chapters and sections of the book that cover their topics.
+
+The book *A First Course in Network Science* by Filippo Menczer, Santo Fortunato, and Clayton A. Davis is more hands-on and application-oriented.
+The book is not free.
+Its [companion website](https://cambridgeuniversitypress.github.io/FirstCourseNetworkScience/) has free Python tutorials and datasets.
 
 ## Related
 
