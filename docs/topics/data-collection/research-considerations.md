@@ -4,7 +4,7 @@ Read this page before you start a collection. The platform's rules, the content 
 
 ## Terms of service
 
-Most platforms publish rules for API use. Read them before collecting, and prefer the official API to scraping. What the rules usually say, using [Bluesky's developer guidelines](https://docs.bsky.app/docs/support/developer-guidelines) as the example:
+Most platforms publish rules for API use. Read them before collecting, and prefer the official API to scraping. What the rules usually say, using [Bluesky's developer guidelines](https://bsky.network/docs/support/developer-guidelines/) as the example:
 
 - No spam: no automated or bulk interactions such as follows, likes, or replies. Reading is fine; interacting from a script is not
 - No automated account creation
