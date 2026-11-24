@@ -15,6 +15,7 @@ Each page answers one question about a figure, and one page changes a default pl
 - Choose a color map by the class of your data, and check it in gray scale
 - Find color-blind friendly color maps with Scicolor
 - Make figures with Matplotlib and seaborn, an interactive figure with Plotly, and a small dashboard with Streamlit
+- Use an AI coding agent with figure skills to write plotting code, and check the figures that it makes
 
 ## Pages
 
@@ -24,6 +25,7 @@ Each page answers one question about a figure, and one page changes a default pl
 | [Figure design principles](principles.md) | Five principles: think about your message, label the figure, keep it simple, make the fonts readable, and use vector or high-resolution files; a worked example that changes a default plot into a figure for a report in five steps |
 | [Color](color.md) | What a scientific color map is; how to check a color map in gray scale; the classes and types of color maps, and which class fits which data; how to find a color map with Scicolor; the contrast between text and background |
 | [Plotting tools](plotting-tools.md) | Matplotlib and when to use it; two seaborn examples, a joint plot and an annotated heatmap; an interactive Plotly figure that you can try on the page; a Streamlit script for a small dashboard |
+| [Plotting with AI coding agents](ai-coding-agents.md) | What an AI coding agent does without guidance; what a skill is; the two YangLabKit skills for figures and how to install them; the same six figures with and without the skills; what you still check yourself |
 
 ## Notebooks
 

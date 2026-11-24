@@ -150,6 +150,7 @@ nav:
       - Color Maps (Notebook): topics/visualization/color-maps.ipynb
       - Plotting Tools: topics/visualization/plotting-tools.md
       - Seaborn and Plotly (Notebook): topics/visualization/seaborn-and-plotly.ipynb
+      - Plotting with AI Coding Agents: topics/visualization/ai-coding-agents.md
     - Network Analysis:
       - topics/network/index.md
       - Network Basics: topics/network/network-basics.md
