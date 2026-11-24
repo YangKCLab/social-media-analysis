@@ -8,7 +8,7 @@ The topic pages give the context for each resource, and the [research papers](pa
 Platform APIs:
 
 - [Bluesky HTTP API](https://endpoints.bsky.app/#bluesky-app/description/introduction) - Reference of the Bluesky API
-- [Bluesky developer guidelines](https://docs.bsky.app/docs/support/developer-guidelines) - The rules of Bluesky for API use
+- [Bluesky developer guidelines](https://bsky.network/docs/support/developer-guidelines/) - The rules of Bluesky for API use
 - [4chan API](https://github.com/4chan/4chan-API) - Documentation of the 4chan API
 - [YouTube Data API v3](https://developers.google.com/youtube/v3/docs) - Documentation of the YouTube Data API
 
@@ -87,7 +87,7 @@ Topic modeling:
 Content moderation:
 
 - [Moderate Hate Speech](https://moderatehatespeech.com) - API for hate speech detection
-- [OpenAI Moderation API](https://platform.openai.com/docs/guides/moderation) - API for content moderation
+- [OpenAI Moderation API](https://developers.openai.com/api/docs/guides/moderation) - API for content moderation
 
 Large language models:
 
@@ -194,7 +194,7 @@ Color palettes and accessibility:
 
 Network science basics:
 
-- [A First Course in Network Science](https://www.amazon.com/First-Course-Network-Science/dp/1108471137/) - A hands-on introduction to network science and network analysis
+- [A First Course in Network Science](https://cambridgeuniversitypress.github.io/FirstCourseNetworkScience/) - A hands-on introduction to network science and network analysis
 - [Network Science Book](https://networksciencebook.com/) - Free online textbook on network science
 - [Periodic table of network centrality](http://schochastics.net/sna/periodic.html) - More than one hundred centrality measures, each with a link to its paper
 

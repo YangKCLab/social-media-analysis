@@ -8,8 +8,7 @@ The best way to keep up with the latest research is to read the research papers.
 Here, we maintain a list of research papers that are relevant to the core topics of this course.
 
 The papers are organized by topic.
-When this course is offered in person, students are required to read all papers and complete quizzes on them during class.
-For self-directed learners, we highly recommend reading all the papers as well.
+We highly recommend reading all the papers.
 
 For papers that are published and publicly available, we provide the links to the papers.
 For those behind a paywall, we try to provide the links to the preprints or the authors' websites.
@@ -48,6 +47,7 @@ Inauthentic behaviors are a major concern for social media platforms. Here are a
 - [Bots increase exposure to negative and inflammatory content in online social systems](https://doi.org/10.1073/pnas.1803470115) <span class="added-year">added 2025</span>
 - [The Manufacture of Partisan Echo Chambers by Follow Train Abuse on Twitter](https://doi.org/10.1609/icwsm.v16i1.19354) <span class="added-year">added 2025</span>
 - [Coordinated Inauthentic Behavior on TikTok: Challenges and Opportunities for Detection in a Video-First Ecosystem](https://doi.org/10.48550/arXiv.2505.10867) <span class="added-year">added 2025</span>
+- [Uncovering Coordinated Networks on Social Media: Methods and Case Studies](https://doi.org/10.1609/icwsm.v15i1.18075) <span class="added-year">added 2026</span>
 
 ## Ethics and Data Access
 
@@ -56,7 +56,7 @@ At the same time, access to social media data has become increasingly restricted
 Below are several studies relevant to these challenges:
 
 - [Experimental evidence of massive-scale emotional contagion through social networks](https://doi.org/10.1073/pnas.1320040111) (see the [discussion](https://www.wired.com/2014/06/everything-you-need-to-know-about-facebooks-manipulative-experiment) on this controversial study) <span class="added-year">added 2025</span>
-- [Post-Post-API Age: Studying Digital Platforms in Scant Data Access Times](https://doi.org/10.48550/arXiv.2505.09877) <span class="added-year">added 2025</span>
+- [Post-Post-API Age: Studying Digital Platforms in Scant Data Access Times](https://doi.org/10.1145/3816985) <span class="added-year">added 2025</span>
 - [Web Scraping for Research: Legal, Ethical, Institutional, and Scientific Considerations](https://doi.org/10.48550/arXiv.2410.23432) <span class="added-year">added 2025</span>
 
 ## Generative AI and Social Media
@@ -79,4 +79,4 @@ Here is a list of recent research papers examining these platforms:
 
 - ["Humans welcome to observe": A First Look at the Agent Social Network Moltbook](https://doi.org/10.48550/arXiv.2602.10127) <span class="added-year">added 2026</span>
 - [Agents in the Wild: Safety, Society, and the Illusion of Sociality on Moltbook](https://doi.org/10.48550/arXiv.2602.13284) <span class="added-year">added 2026</span>
-- [Characterizing LLM-driven Social Network: The Chirper.ai Case](https://doi.org/10.48550/arXiv.2504.10286) <span class="added-year">added 2026</span>
+- [Characterizing an LLM-driven Social Network: The Case of Chirper.ai](https://doi.org/10.1145/3816910) <span class="added-year">added 2026</span>

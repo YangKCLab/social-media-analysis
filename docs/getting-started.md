@@ -21,11 +21,23 @@ cd social-media-analysis
 ```
 
 We use the package manager [uv](https://docs.astral.sh/uv/) to manage the dependencies.
+The notebooks need Python 3.12 or newer.
 Once you have `uv` installed, you can install the dependencies by running:
 
 ```bash
 uv sync
 ```
+
+The notebooks on topic models and toxicity scores also need BERTopic and Detoxify, which are large.
+Install them with:
+
+```bash
+uv sync --group ml
+```
+
+The Bluesky and YouTube notebooks need credentials.
+They read them from a `.env` file in the notebook's folder, and each notebook's setup cell lists the variable names.
+Never commit the `.env` file.
 
 To run the notebooks locally, you can use the following command:
 ```bash
@@ -42,7 +54,7 @@ You can do so following the instructions below:
 1. Click "Open in Colab" on any notebook page
 2. Sign in with your Google account
 3. Run cells directly in your browser
-4. Your changes are saved to your Google Drive
+4. To keep your changes, use File > Save a copy in Drive. Colab does not save a notebook opened from GitHub
 
 ## Feedback and Questions
 
