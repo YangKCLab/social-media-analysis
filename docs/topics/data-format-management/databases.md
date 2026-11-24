@@ -48,6 +48,28 @@ A data model is the collection of concepts a database uses to describe data: the
 
 The last three are together called NoSQL databases; see [NoSQL databases](#nosql-databases) below.
 
+### Vector databases
+
+A vector database stores embeddings and searches them by similarity.
+An embedding is a list of numbers that represents a text, an image, or an audio clip; see [Word embedding](../measurements/word-embedding.md).
+Two items with similar meanings have embeddings that point in similar directions.
+The cosine similarity measures this: it is the cosine of the angle between two vectors.
+A search returns the stored embeddings with the highest cosine similarity to the embedding of the query.
+
+Vector databases became popular together with large language models.
+They do the retrieval step of retrieval-augmented generation (RAG).
+In RAG, a system finds the documents that are most similar to a question.
+It then gives these documents to the language model together with the question.
+
+A vector database is not very different from a relational database.
+Many relational databases now have vector extensions.
+For PostgreSQL, the [pgvector](https://github.com/pgvector/pgvector) extension adds a vector column type and similarity search.
+
+For an example, see [The Super Effectiveness of Pokémon Embeddings Using Only Raw JSON and Images](https://minimaxir.com/2024/06/pokemon-embeddings/) by Max Woolf.
+He writes the data of each Pokémon as a text string and turns each string into an embedding.
+He then finds the Pokémon that are most similar to Pikachu by cosine similarity.
+A vector database runs the same kind of search on many more vectors.
+
 ## The relational model
 
 A relational database stores data in **relations**, which everyone calls tables.
@@ -133,6 +155,41 @@ CREATE TABLE people (
 SQL (pronounced "sequel") is the standard language for relational data, first introduced in the 1970s.
 It has many dialects and extensions; the principles below work everywhere.
 
+### Types
+
+Every column has a type, and the database rejects a value that does not fit the type.
+The table lists the common types.
+The details follow PostgreSQL.
+
+| Type | What it stores |
+|---|---|
+| `INT` | An integer from -2,147,483,648 to 2,147,483,647 |
+| `FLOAT` | An approximate number. In PostgreSQL, `FLOAT` means double precision, with at least 15 significant digits |
+| `DECIMAL(p,s)` | An exact number with `p` digits in total and `s` digits after the decimal point |
+| `CHAR(n)` | A string of exactly `n` characters. PostgreSQL adds spaces to a shorter string |
+| `VARCHAR(n)` | A string of at most `n` characters. PostgreSQL rejects a longer string with an error |
+| `TEXT` | A string of any length |
+| `BOOLEAN` | `TRUE` or `FALSE` |
+| `DATE`, `TIME`, `TIMESTAMP` | A date, a time of day, and a date with a time of day |
+
+- `DECIMAL(12,2)` stores a value up to 9,999,999,999.99 exactly, so it suits money. `FLOAT` can round a value.
+- Some platforms use numeric IDs that are larger than the `INT` range. Use `BIGINT` for these IDs, or `TEXT` for IDs that are strings.
+- In PostgreSQL, `TEXT` and `VARCHAR(n)` have the same speed, and `CHAR(n)` is rarely useful. Use `VARCHAR(n)` only when the limit `n` is a rule of the data.
+- `TIMESTAMP` has no time zone. `TIMESTAMPTZ` (timestamp with time zone) stores an exact moment, and PostgreSQL converts it to UTC. Use `TIMESTAMPTZ` for the time of a post.
+
+Two statements change a table itself, not its rows:
+
+```sql
+ALTER TABLE people ADD COLUMN email VARCHAR(255);
+
+DROP TABLE people;
+```
+
+`ALTER TABLE ... ADD` adds a column to an existing table.
+The existing rows get NULL in the new column, unless the statement gives a `DEFAULT` value.
+`DROP TABLE` deletes the table and all its rows.
+PostgreSQL refuses to drop a table when a foreign key in another table refers to it.
+
 ### Changing data
 
 ```sql
@@ -182,7 +239,21 @@ SELECT occupation, AVG(salary)
   GROUP BY occupation;
 ```
 
-`WHERE` filters rows before the groups form, so the two clauses combine naturally:
+`WHERE` filters rows before the groups form, so the two clauses combine naturally.
+The next example uses the table `purchase`.
+Each row is one product at one price per unit, with the number of units sold at that price.
+
+`purchase`
+
+| product | price | quantity |
+|---|---|---|
+| ice cream | 3 | 20 |
+| ice cream | 1.5 | 20 |
+| apple | 0.5 | 50 |
+| apple | 1.2 | 10 |
+| apple | 2 | 20 |
+
+This query answers a question: how many units of each product sold for more than $1 per unit?
 
 ```sql
 SELECT product, SUM(quantity)
@@ -190,6 +261,14 @@ SELECT product, SUM(quantity)
   WHERE price > 1
   GROUP BY product;
 ```
+
+| product | sum |
+|---|---|
+| ice cream | 40 |
+| apple | 30 |
+
+`WHERE` drops the apples at $0.50 before the groups form.
+The ice cream group then adds 20 and 20, and the apple group adds 10 and 20.
 
 ### Sorting, naming, and reading a query
 
@@ -442,11 +521,11 @@ Use PostgreSQL.
 
 - Free, reliable, and installed from every Linux distribution's package manager.
 - JSONB columns store a JSON document inside a table and query into it, which suits API data well; see [Querying JSON with JSONB](#querying-json-with-jsonb).
-- The pgvector extension adds vector search.
+- The pgvector extension adds vector search; see [Vector databases](#vector-databases).
 
 From Python, two common routes:
 
-- [SQLAlchemy](https://www.sqlalchemy.org/) is an ORM (object relational mapping) tool: it maps Python classes to tables so you never write SQL. Probably overkill for course projects.
+- [SQLAlchemy](https://www.sqlalchemy.org/) is an ORM (object relational mapping) tool: it maps Python classes to tables so you never write SQL. It is more than a small project needs.
 - [Psycopg 3](https://www.psycopg.org/) is a PostgreSQL adapter: you write the SQL, it runs it. Simple, transparent, and easy to control.
 
 ```python
@@ -574,7 +653,7 @@ RETURN length(p) AS result
 ## Final thoughts
 
 Most of the time, use PostgreSQL.
-It is free, reliable, and rich in features, and it also covers the neighboring use cases: JSONB for document-shaped data and pgvector for embeddings.
+It is free, reliable, and rich in features, and it also covers the neighboring use cases: JSONB for document-shaped data and [pgvector](#vector-databases) for embeddings.
 Consider a NoSQL database only when PostgreSQL cannot fulfill the need, which for course-scale projects is very rare.
 
 ## Next
