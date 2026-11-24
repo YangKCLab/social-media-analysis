@@ -220,7 +220,7 @@ One use is contact tracing during an epidemic.
 - Backward tracing finds the person who infected the patient.
 
 Backward tracing follows an edge of the contact network.
-A person at the end of an edge has more contacts than a random person, for the same reason as in the friendship paradox.
+A person at the end of an edge tends to have more contacts than a random person, for the same reason as in the friendship paradox.
 So backward tracing reaches the people with many contacts, who may have infected many others.
 See [Kojaku et al. (2021)](https://www.nature.com/articles/s41567-021-01187-2).
 

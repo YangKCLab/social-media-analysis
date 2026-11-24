@@ -67,7 +67,7 @@ It is more theoretical and mathematical.
 The pages of this module link to the chapters and sections of the book that cover their topics.
 
 The book [*A First Course in Network Science*](https://cambridgeuniversitypress.github.io/FirstCourseNetworkScience/) by Filippo Menczer, Santo Fortunato, and Clayton A. Davis is more hands-on and application-oriented.
-The you can order the book on Amazon or from the publisher.
+You can order the book on Amazon or from the publisher.
 Its website has free Python tutorials and datasets.
 
 ## Related
